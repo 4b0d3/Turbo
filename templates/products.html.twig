@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block main %}
+
+    {% for article in articles %}
+        <div>
+            <h2>{{ article.title }}</h2>
+            <a href="{{ article.href }}">View more</a>
+        </div>
+    {% endfor %}
+
+{% endblock %}

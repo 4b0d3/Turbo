@@ -1,0 +1,27 @@
+{
+    "name": "turbo/projet",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kevin Kusmider",
+            "email": "kevin.kusmider@hotmail.fr"
+        },
+        {
+            "name": "Abdullah Hamed"
+        },
+        {
+            "name": "Roman Souphanplixa"
+        }
+    ],
+    "require-dev": {
+        "symfony/var-dumper": "^5.4"
+    },
+    "require": {
+        "altorouter/altorouter": "^2.0",
+        "twig/twig": "^3.3"
+    }
+}
