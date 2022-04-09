@@ -1,0 +1,96 @@
+/* The sidenav */
+* {
+    font-family: 'Rokkitt', serif;
+}
+
+body {
+    background-color: #F4F4F4;
+}
+
+.sidenav {
+    height: 100%;
+    width: 170px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+    padding-top: 20px;
+    
+  }
+  
+  .icon {
+    padding: 0px 8px 8px 0px;
+    text-decoration: none;
+    font-size: 50px;
+    font-weight: 800;
+    color: #FD7014;
+    display: block;
+    transition: 0.3s;
+    text-align: center;
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 0px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+    transition: 0.3s;
+    text-align: center;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: rgb(55, 55, 55);
+  }
+
+  .pere {
+    padding-left: 200px;
+    height: 100%;
+   
+  }
+
+
+  .search {
+    background-color: #FFFFFF;
+    padding: 15px;
+    width: 70%;
+    
+  }
+
+  .search input{
+    margin-left: 10px;
+    width: 100%;
+    float:left;
+    border-radius: 8px;
+    background-color: #E2E2E2;
+    padding: 8px;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  
+  .search button{
+    width: 30%;
+    background-color: #E2E2E2;
+    border: none;
+    color: black;
+    border-radius: 8px;
+    padding: 5px 50px;
+    margin-left: 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: 800;
+    cursor: pointer
+  }
+
+  .recherche{
+    width: 60%;
+  }
+
+  
+
+ 

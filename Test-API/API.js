@@ -1,5 +1,5 @@
 let weather = {
-    "apiKey" : "bf4aa9509addde9aed6170d99c22ed91",
+    "apiKey" : "bf4aa9509addde9aed6170d99c22ed91",   //propriété
     fetchWeather: function (city) {
         fetch(
         "https://api.openweathermap.org/data/2.5/weather?q="
@@ -7,12 +7,12 @@ let weather = {
         + "&lang=fr"
         + "&units=metric"
         + "&appid="
-        + this.apiKey   //"this" pour appeler l'objet apiKey
+        + this.apiKey   //"this" pour appeler la propriété apiKey
         )
         .then((response) => response.json())
         .then((data) => this.displayWeather(data));
     },
-    //La fonction qui permet de recuperer les données de la ville recherché ainsi que de remplacer les valeurs dans le html
+    //La methode qui permet de recuperer les données de la ville recherché ainsi que de remplacer les valeurs dans le html
     displayWeather: function(data) {
         const { name } = data;  
         const { icon, description } = data.weather[0];  
