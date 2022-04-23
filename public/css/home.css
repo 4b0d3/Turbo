@@ -1,0 +1,24 @@
+/*********************
+        HERO
+**********************/
+#hero {
+    min-height: 80vh;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+#hero > div:first-child, #hero > div:nth-child(2) {
+    width: 50%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+#hero > div:first-child > h1 {
+    width: 80%;
+    align-self: flex-end;
+    align-self: flex-end;
+    font-size: 8rem;
+}

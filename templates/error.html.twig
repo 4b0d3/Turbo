@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}errors.css">
+{% endblock stylesheets %}
+
+{% block title %}
+    Error {{ code }} | Turbo
+{% endblock title %}
+
+{% block header %}
+    <p>testtdslmjkmsdljkfmlkklmjlm</p>
+{% endblock header %}
+
+{% block content %}
+
+    <main>
+        <section id="errorContainer">
+            <h1>Error {{ code }} </h1>
+            <p>{{ status }}</p>
+            <p>{{ message }}</p>
+        </section>
+    </main>
+
+{% endblock content %}

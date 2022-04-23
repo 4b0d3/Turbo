@@ -11,10 +11,12 @@
             "email": "kevin.kusmider@hotmail.fr"
         },
         {
-            "name": "Abdullah Hamed"
+            "name": "Abdullah Hamed",
+            "email" : "abdullahhamednew@gmail.com"
         },
         {
-            "name": "Roman Souphanplixa"
+            "name": "Roman Souphanplixa",
+            "email" : "r.souphan@gmail.com"
         }
     ],
     "require-dev": {

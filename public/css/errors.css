@@ -1,0 +1,19 @@
+/*********************
+        ERROR
+**********************/
+#errorContainer {
+    height: 70vh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#errorContainer > h1 {
+    margin: 16px 0;
+    font-size: 4em;
+}
+
+#errorContainer > p {
+    margin: 4px 0;
+}
