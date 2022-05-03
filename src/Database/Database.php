@@ -11,17 +11,26 @@ class Database {
         $this->pdo = DatabaseConnection::getPDO();
     }
 
-    public function queryOne(string $query, array $attrs = []) {
+    public function query(string $query, array $attrs = [])
+    {
         $req = $this->pdo->prepare($query);
-        $req->execute($attrs);
-        $res = $req->fetch();
+        $res = $req->execute($attrs);
         return $res;
     }
 
-    public function queryAll(string $query, array $attrs = []) {
+    public function queryOne(string $query, array $attrs = [])
+    {
         $req = $this->pdo->prepare($query);
         $req->execute($attrs);
-        $res = $req->fetchAll();
+        $res = $req->fetch(\PDO::FETCH_ASSOC);
+        return $res;
+    }
+
+    public function queryAll(string $query, array $attrs = []) 
+    {
+        $req = $this->pdo->prepare($query);
+        $req->execute($attrs);
+        $res = $req->fetchAll(\PDO::FETCH_ASSOC);
         return $res;
     }
 }

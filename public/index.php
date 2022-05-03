@@ -4,23 +4,27 @@ include("../vendor/autoload.php");
 
 use App\Router\Router;
 
-define('STYLESHEETS', ".." . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "css" . DIRECTORY_SEPARATOR);
-define('JAVASCRIPTS', __DIR__ . DIRECTORY_SEPARATOR . "js" . DIRECTORY_SEPARATOR);
-define('UPLOADS', ".." . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR);
-define('VIEWS', dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR);
+
+define('HOST', "http://TODO/Projet/public/");
+define('STYLESHEETS', HOST . "css/");
+define('JAVASCRIPTS', HOST . "javascript/");
+define('UPLOADS', HOST . "uploads/");
+define('VIEWS', dirname(__DIR__) . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR);
 
 
 $router = new Router();
-$route = isset($_REQUEST["route"]) ? "/" . $_REQUEST["route"] : "/";
+$route = isset($_REQUEST["route"]) ? "/" . $_REQUEST["route"] : "/fr/";
 
+session_start();
+$_SESSION["id"] = 1;
 
 $router
-    ->get("/", "Home@index")
-    ->get("/Shop", "Shop@index")
-    ->get("/login", "Login@index")
-    ->get("/test", "Render@index", "home.html.twig")
+    ->get("/admin/scooters", "Admin\\Scooters@get", "AdminScooter")
+    ->get("/[a:lang]/", "Home@get", "Home")
+    ->get("/[a:lang]/login", "Login@get", "Login")
+    ->post("/[a:lang]/login", "Login@post")
+    ->get("/[a:lang]/register", "Register@get", "Register")
+    ->post("/[a:lang]/register", "Register@post")
+    ->get("/[a:lang]/shop", "Shop@get", "Shop")
+    ->get("/test", "Test@get")
     ->run($route);
-
-
-
-
