@@ -39,7 +39,7 @@ class BaseController {
         $data["HERE"] = isset($_REQUEST["route"]) ? $data["HOST"] . $_REQUEST["route"] : HOST;
         $data["STYLESHEETS"] = defined("STYLESHEETS") ? STYLESHEETS : "../public/css";
         $data["UPLOADS"] = defined("UPLOADS") ? UPLOADS : "../public/uploads";
-        $data["user"]["role"] = $this->user->get("role");
+        $data["user"] = ["role" => $this->user->get("role")];
         dump($data);
         $this->twig->display($template, $data);
     }
