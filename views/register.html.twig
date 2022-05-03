@@ -1,0 +1,43 @@
+{% extends "templates/base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}register.css">
+{% endblock stylesheets %}
+
+{% block body %}
+    <main>
+        <form action="{{ HERE }}" method="post">
+            <div class="input-box">
+                <label for="email">Email :</label>
+                <input type="mail" name="email" id="email" value="{{ form.email ?? '' }}">
+                {% if error.email is defined %}<p class="inputError">{{ error.email }}</p>{% endif %}
+            </div>
+            <div class="input-box">
+                <label for="confirmEmail">Confirm email :</label>
+                <input type="mail" name="confirmEmail">
+                {% if error.confirmEmail is defined %}<p class="inputError">{{ error.confirmEmail }}</p>{% endif %}
+            </div>
+            <div class="input-box">
+                <label for="password">Password :</label>
+                <input type="password" name="password" id="password">
+                {% if error.password is defined %}<p class="inputError">{{ error.password }}</p>{% endif %}
+            </div>
+            <div class="input-box">
+                <label for="confirmPassword">Confirm password :</label>
+                <input type="password" name="confirmPassword" id="confirmPassword">
+                {% if error.confirmPassword is defined %}<p class="inputError">{{ error.confirmPassword }}</p>{% endif %}
+            </div>
+            <div class="input-box">
+                <label for="firstName">First Name :</label>
+                <input type="text" name="firstName" id="firstName" value="{{ form.firstName ?? '' }}">
+                {% if error.firstName is defined %}<p class="inputError">{{ error.firstName }}</p>{% endif %}
+            </div>
+            <div class="input-box">
+                <label for="name">Name :</label>
+                <input type="mail" name="name" id="name" value="{{ form.name ?? ''}}" >
+                {% if error.name is defined %}<p class="inputError">{{ error.name }}</p>{% endif %}
+            </div>
+            <input type="submit">
+        </form>
+    </main>
+{% endblock body %}

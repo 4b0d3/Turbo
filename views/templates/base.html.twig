@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="{{ lang }}">
+<html lang="{{ lang ?: "fr" }}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ title ?: "Turbo"}}{% endblock %}</title>
-    {% block stylesheets %}{% endblock %} 
     <link rel="stylesheet" href="{{ STYLESHEETS }}global.css">
+    {% block stylesheets %}{% endblock %} 
     {% block javascripts %}{% endblock %} 
 </head>
 <body>
-
     {% block body %}
-
-        {% embed "Includes/header.html.twig" %}{% endembed %}
+        {% embed "includes/header.html.twig" %}{% endembed %}
 
         {% block content %}{% endblock content %}    
     
-        {% embed "Includes/footer.html.twig" %}{% endembed %}
+        {% if header.admin is not defined %}
+            {% embed "includes/footer.html.twig" %}{% endembed %}
+        {% endif %}
 
     {% endblock body %}   
 

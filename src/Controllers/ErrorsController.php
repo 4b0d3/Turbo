@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 class ErrorsController extends BaseController {
-    public function index() {
+    public function get() {
         $data = $this->getData($this->match["error"] ?? 500);
         $this->display("error.html.twig", $data);
     }
