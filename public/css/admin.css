@@ -1,0 +1,39 @@
+body {
+    padding: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    background-color: #F5F5F9;
+    position: relative;
+}
+
+#mainAdminHeader {
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100Vh;
+    width: 150px;
+    background-color: white;
+}
+
+main {
+    min-height: 100vh;
+    padding: 15px;
+    flex-grow: 1;
+}
+
+#content {
+    width: 95%;
+    padding: 15px;
+    background-color: white;
+    border: 1px solid rgb(235, 235, 235);
+}
+
+#content th, #content td {
+    padding: 5px;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+#content > thead th {
+    background-color: #DFE0E4;
+}

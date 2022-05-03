@@ -1,0 +1,23 @@
+{% block header %}
+
+    {% if (user.role == "admin") and (header.admin is defined) %} {# ADMIN HEADER #}
+        <header id="mainAdminHeader">
+            <nav>
+                <ul>
+                    <li><a href="{{ BASEURL }}admin/scooters">Scooters</a></li>
+                    <li><a href="{{ BASEURL }}admin/users">Users</a></li>
+                    <li><a href="{{ BASEURL }}admin/settings">Settings</a></li>
+                </ul>
+            </nav>
+        </header>
+    {% else %} {# USER HEADER #}
+        <header id="mainHeader">
+            <h1><a href="{{ BASEURL }}">Turbo</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ BASEURL }}/login">Login ></a></li>
+                </ul>
+            </nav>
+        </header>
+    {% endif %}
+{% endblock header %}

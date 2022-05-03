@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use App\Database\Database;
-use Symfony\Component\VarDumper\Cloner\Data;
 
 class Scooters {
-    public static function get(int $id, Database $db = null) :array
+    public static function get(int $id) :array
     {
-        $db = $db == null ? new Database() : $db ;
+        $db = new Database();
         $q = "SELECT * FROM scooters WHERE id = ?";
 
         $res = [];
@@ -19,9 +18,9 @@ class Scooters {
         return $res;
     }
 
-    public static function getAll(Database $db = null, int $start = null, int $total = null) :array
+    public static function getAll(int $start = null, int $total = null) :array
     {
-        $db = $db == null ? new Database() : $db ;
+        $db = new Database();
         $q = "SELECT * FROM scooters";
 
         $res = [];

@@ -1,0 +1,37 @@
+{% extends "templates/base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}admin.css">
+{% endblock stylesheets %}
+
+
+{% block content %}
+    <main>
+        <h1>Scooters</h1>
+        <table id="content">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Géolocalisation</th>
+                    <th>Charge</th>
+                    <th>Qr Code</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for scooter in scooters %}
+                    <tr>
+                        <td>{{ scooter.id }}</td>
+                        <td>{{ scooter.geolocalisation }}</td>
+                        <td>{{ scooter.battery }}</td>
+                        <td>{{ scooter.qrcode ?: "none" }}</td>
+                        <td>
+                            <a href="{{ HERE }}/{{ scooter.id}}/delete">x</a>
+                            <a href="{{ HERE }}/{{ scooter.id}}/edit">m</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock content %}
