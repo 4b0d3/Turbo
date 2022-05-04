@@ -15,7 +15,13 @@
             <h1><a href="{{ BASEURL }}">Turbo</a></h1>
             <nav>
                 <ul>
-                    <li><a href="{{ BASEURL }}login">Login ></a></li>
+                    {% if header.navs is defined %}
+                        {% for nav in header.navs %}
+                            <li><a href="{{ nav.href }}">{{ nav.name }}</a></li>
+                        {% endfor %}
+                    {% else %}
+                        <li><a href="{{ BASEURL }}login">Login ></a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </header>
