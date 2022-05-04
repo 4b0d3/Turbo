@@ -54,4 +54,17 @@ class Users {
 
         return $res;
     }
+
+    public static function delete(int $id) :bool
+    {
+        $db = new Database();
+        $q = "DELETE FROM users WHERE id = ?";
+
+        $res = false;
+        if($id != null && $id > 0) {
+            $res = $db->query($q, [$id]);
+        }
+
+        return $res;
+    }
 }
