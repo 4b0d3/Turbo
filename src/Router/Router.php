@@ -31,7 +31,7 @@ class Router {
     {
 
         $match = $this->router->match($route);
-        dump($match);
+        
         if($match !== false && isset($match['target'])) {
             $controllerName = "\\App\\Controllers\\" . explode("@", $match['target'])[0] . "Controller";
             $action = explode("@", $match['target'])[1];
