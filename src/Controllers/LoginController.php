@@ -6,7 +6,7 @@ use App\Database\Database;
 
 class LoginController extends BaseController {
     public function get() {
-        $this->display("login.html.twig", ["user" => "ok"]);
+        $this->display("login.html.twig");
     }
 
     public function post() {
