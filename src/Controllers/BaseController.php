@@ -23,7 +23,7 @@ class BaseController {
     {
         $this->match = $match;
         $this->router = $router;
-        $this->user = new User();
+        $this->user = new User(); 
         $this->FSLoader = new FilesystemLoader(VIEWS);
         $this->twig = new Environment($this->FSLoader, [
             "debug" => true
