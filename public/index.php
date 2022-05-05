@@ -24,5 +24,6 @@ $router
     ->post("/[a:lang]/login", "Login@post")
     ->get("/[a:lang]/register", "Register@get", "Register")
     ->post("/[a:lang]/register", "Register@post")
+    ->get("/[a:lang]/shop", "Shop@get")
     ->get("/test", "Test@get")
     ->run($route);

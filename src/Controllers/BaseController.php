@@ -45,10 +45,6 @@ class BaseController {
             $navs = 
             [
                 [
-                    "name" => "shop",
-                    "href" => $data["BASEURL"] . "shop"
-                ],
-                [
                     "name" => "profil",
                     "href" => $data["BASEURL"] . "user/" . $data["user"]["id"]
                 ]

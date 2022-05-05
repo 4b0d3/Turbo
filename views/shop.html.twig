@@ -1,12 +1,33 @@
 {% extends "templates/base.html.twig" %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}shop.css">
+{% endblock stylesheets %}
+
 {% block content %}
 
-    {% for article in articles %}
-        <div>
-            <h2>{{ article.title }}</h2>
-            <a href="{{ article.href }}">View more</a>
+<main>
+    <section id="hero">
+        <div class="content">
+            <h1>Discover our collection</h1>
+            <a href="{{ HERE }}#our-collection">Let's Go</a>
         </div>
-    {% endfor %}
+    </section>
 
+    <section id="products">
+        <h1 id="our-collection">Our collection</h1>
+        <div class="content">
+            {% for product in products %}
+                <div class="product">
+                    <h2>{{ product.name }}</h2>
+                    <a href="{{ product.href }}">Add to cart</a>
+                    <a href="{{ product.href }}">View more</a>
+                    <p>{{ product.description }}</p>
+                    <p>{{ product.price }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+    
 {% endblock content %}

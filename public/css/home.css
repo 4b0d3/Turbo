@@ -118,7 +118,7 @@
 **********************/
 
 #block-article-one {
-    height: 40vh;
+    min-height: 40vh;
     border-bottom: 25px solid #FD7014;
     background-color: #FFD7BE;
     display: flex;
