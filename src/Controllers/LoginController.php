@@ -25,9 +25,16 @@ class LoginController extends BaseController {
         
         if(!array_key_exists("error", $data)) {
             $db = new Database();
-            $user = $db->queryOne("SELECT * from users where email = ? AND password = ?", [$_POST["email"], password_hash($_POST["password"], PASSWORD_DEFAULT)]);
-            if($user != false && isset($user["id"])) {
-                $_SESSION["id"] = $user["id"];
+            $user = $db->queryOne("SELECT * from users where email = ?", [$_POST["email"]]);
+            if($user != false && isset($user["password"])) {
+                $passwordHash = $user["password"];
+                $password = $_POST["password"];
+                if(password_verify($password, $passwordHash)) {
+                    $_SESSION["id"] = $user["id"];
+                    header("Location:" . HOST);
+                    return;
+                }
+                $data["error"]["message"] = "Email ou mot de passe invalides";
             } else {
                 $data["error"]["message"] = "Email ou mot de passe invalides";
             }

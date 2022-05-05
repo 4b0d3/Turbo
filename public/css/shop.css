@@ -1,0 +1,51 @@
+body {
+    scroll-behavior: smooth;
+}
+
+/*********************
+    Hero
+**********************/
+
+#hero {
+    height: 90vh;
+    background: url("../uploads/Images/full-shot-people-with-electric-scooter-outdoors.jpg") center;
+    background-size: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#hero > div.content {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+#hero > div.content > h1 {
+    font-size: 8em;
+    color: white
+}
+
+#hero > div.content > a {
+    margin: 0 100px 100px 0;
+    padding: 10px;
+    color: white;
+    font-size: 2em;
+    text-decoration: none;
+    border-radius: 4px;
+    background-color: orange;
+    display: inline-block;
+    align-self: flex-end;
+}
+
+
+/*********************
+    Products
+**********************/
+
+
+#products {
+    min-height: 100vh;
+}

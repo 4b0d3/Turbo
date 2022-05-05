@@ -16,7 +16,6 @@ $router = new Router();
 $route = isset($_REQUEST["route"]) ? "/" . $_REQUEST["route"] : "/fr/";
 
 session_start();
-$_SESSION["id"] = 3;
 
 $router
     ->get("/admin/scooters", "Admin\\Scooters@get", "AdminScooter")
@@ -25,7 +24,7 @@ $router
     ->post("/[a:lang]/login", "Login@post")
     ->get("/[a:lang]/register", "Register@get", "Register")
     ->post("/[a:lang]/register", "Register@post")
-    ->get("/[a:lang]/shop", "Shop@get", "Shop")
+    ->get("/[a:lang]/shop", "Shop@get")
     ->get("/test", "Test@get")
     ->get("/user/[i:id]/password", "UserPass@get")
     ->post("/user/[i:id]/password", "UserPass@post")
