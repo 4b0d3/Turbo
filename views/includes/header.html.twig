@@ -4,6 +4,7 @@
         <header id="mainAdminHeader">
             <nav>
                 <ul>
+                    <li><a href="{{ BASEURL}}" style="color: orange;">T</a></li>
                     <li><a href="{{ BASEURL }}admin/scooters">Scooters</a></li>
                     <li><a href="{{ BASEURL }}admin/users">Users</a></li>
                     <li><a href="{{ BASEURL }}admin/settings">Settings</a></li>
@@ -14,8 +15,14 @@
         <header id="mainHeader">
             <h1><a href="{{ BASEURL }}">Turbo</a></h1>
             <nav>
-                <ul>
+                <ul>  
+                    {% if user.role == "admin" %}
+                        <li><a href="{{ HOST }}admin/scooters">administration</a></li>
+                    {% endif %} 
+                    <li><a href="{{ BASEURL }}shop">shop</a></li>
+                    <li><button>Cart</button></li>
                     {% if header.navs is defined %}
+                    <li><a href="{{ HOST }}test">disconnect</a></li>
                         {% for nav in header.navs %}
                             <li><a href="{{ nav.href }}">{{ nav.name }}</a></li>
                         {% endfor %}
@@ -23,6 +30,10 @@
                         <li><a href="{{ BASEURL }}login">Login ></a></li>
                     {% endif %}
                 </ul>
+
+                <div id="cart">
+                    
+                </div>
             </nav>
         </header>
     {% endif %}

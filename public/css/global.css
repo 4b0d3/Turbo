@@ -33,6 +33,10 @@ body {
     text-decoration: none;
 }
 
+#mainHeader > nav {
+    position: relative;
+}
+
 #mainHeader > nav > ul {
     list-style-type: none;
     display: flex;

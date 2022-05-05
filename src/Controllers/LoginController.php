@@ -31,7 +31,8 @@ class LoginController extends BaseController {
                 $password = $_POST["password"];
                 if(password_verify($password, $passwordHash)) {
                     $_SESSION["id"] = $user["id"];
-                    // return;
+                    header("Location:" . HOST);
+                    return;
                 }
                 $data["error"]["message"] = "Email ou mot de passe invalides";
             } else {
