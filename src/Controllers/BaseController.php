@@ -46,7 +46,7 @@ class BaseController {
             [
                 [
                     "name" => "profil",
-                    "href" => $data["BASEURL"] . "user/" . $data["user"]["id"]
+                    "href" => $data["BASEURL"] . "user/" . $data["user"]["id"] . "/password"
                 ]
             ];
             $data["header"]["navs"] = $navs;

@@ -5,7 +5,7 @@ include("../vendor/autoload.php");
 use App\Router\Router;
 
 
-define('HOST', "/Turbo/public/");
+define('HOST', "TODO");
 define('STYLESHEETS', HOST . "css/");
 define('JAVASCRIPTS', HOST . "javascript/");
 define('UPLOADS', HOST . "uploads/");
@@ -25,7 +25,7 @@ $router
     ->get("/[a:lang]/register", "Register@get", "Register")
     ->post("/[a:lang]/register", "Register@post")
     ->get("/[a:lang]/shop", "Shop@get")
+    ->get("/[a:lang]/user/[i:id]/password", "UserPass@get")
+    ->post("/[a:lang]/user/[i:id]/password", "UserPass@post")
     ->get("/test", "Test@get")
-    ->get("/user/[i:id]/password", "UserPass@get")
-    ->post("/user/[i:id]/password", "UserPass@post")
     ->run($route);

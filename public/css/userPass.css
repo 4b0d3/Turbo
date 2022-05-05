@@ -1,3 +1,7 @@
+main {
+    min-height: 70vh;
+}
+
 div.input-box {
     margin: 15px 0;
     display: flex;

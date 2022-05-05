@@ -3,4 +3,4 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^(.*)$ "/Turbo/public/index.php?route=$1" [L,QSA]
+RewriteRule ^(.*)$ "TODO/index.php?route=$1" [L,QSA]

@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ STYLESHEETS }}userPass.css">
 {% endblock stylesheets %}
 
-{% block body %}
+{% block content %}
     <main>
         <form action="{{ HERE }}" method="post">
             <h1>Change Your Password !</h1>
@@ -20,4 +20,4 @@
             {% if success.message is defined %}<p class="inputError">{{ success.message }}</p>{% endif %}
         </form>
     </main>
-{% endblock body %}
+{% endblock content %}
