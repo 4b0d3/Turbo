@@ -1,0 +1,15 @@
+main {
+    min-height: 70vh;
+}
+
+div.input-box {
+    margin: 15px 0;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+div.input-box > input {
+    max-width: 500px;
+    padding: 3px;
+    font-size: 1rem;
+}

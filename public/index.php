@@ -5,7 +5,8 @@ include("../vendor/autoload.php");
 use App\Router\Router;
 
 
-define('HOST', "/public/");
+
+define('HOST', "TODO");
 define('STYLESHEETS', HOST . "css/");
 define('JAVASCRIPTS', HOST . "javascript/");
 define('UPLOADS', HOST . "uploads/");
@@ -16,7 +17,6 @@ $router = new Router();
 $route = isset($_REQUEST["route"]) ? "/" . $_REQUEST["route"] : "/fr/";
 //dump($_REQUEST);
 session_start();
-$_SESSION["id"] = 1;
 
 $router                                                                                                     
     ->get("/admin/scooters", "Admin\\Scooters@get", "AdminScooter")
@@ -33,6 +33,8 @@ $router
     ->post("/[a:lang]/login", "Login@post")
     ->get("/[a:lang]/register", "Register@get", "Register")
     ->post("/[a:lang]/register", "Register@post")
-    ->get("/[a:lang]/shop", "Shop@get", "Shop")
+    ->get("/[a:lang]/shop", "Shop@get")
+    ->get("/[a:lang]/user/[i:id]/password", "UserPass@get")
+    ->post("/[a:lang]/user/[i:id]/password", "UserPass@post")
     ->get("/test", "Test@get")
     ->run($route);

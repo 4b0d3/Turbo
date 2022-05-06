@@ -1,0 +1,23 @@
+{% extends "templates/base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}userPass.css">
+{% endblock stylesheets %}
+
+{% block content %}
+    <main>
+        <form action="{{ HERE }}" method="post">
+            <h1>Change Your Password !</h1>
+            <div class="input-box">
+                <label for="password">Old Password :</label>
+                <input type="password" name="password" id="password" value="{{ form.password ?? '' }}">
+                <label for="confirmEmail">New Password :</label>
+                <input type="password" name="newpassword">
+                {% if error.message is defined %}<p class="inputError">{{ error.message }}</p>{% endif %}
+            </div>
+           
+            <input type="submit">
+            {% if success.message is defined %}<p class="inputError">{{ success.message }}</p>{% endif %}
+        </form>
+    </main>
+{% endblock content %}

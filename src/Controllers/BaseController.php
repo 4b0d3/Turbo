@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use App\Database\Database;
 use App\Entity\User;
 use App\Router\Router;
 
@@ -24,7 +23,7 @@ class BaseController {
     {
         $this->match = $match;
         $this->router = $router;
-        $this->user = new User();
+        $this->user = new User(); 
         $this->FSLoader = new FilesystemLoader(VIEWS);
         $this->twig = new Environment($this->FSLoader, [
             "debug" => true
@@ -35,11 +34,23 @@ class BaseController {
     public function display(string $template, array $data = []) 
     {
         $data["HOST"] = HOST;
-        $data["BASEURL"] = isset($this->match["params"]["lang"]) ? HOST . $this->match["params"]["lang"] . "/" : HOST;
+        $data["BASEURL"] = isset($this->match["params"]["lang"]) ? HOST . $this->match["params"]["lang"] . "/" : HOST ;
         $data["HERE"] = isset($_REQUEST["route"]) ? $data["HOST"] . $_REQUEST["route"] : HOST;
         $data["STYLESHEETS"] = defined("STYLESHEETS") ? STYLESHEETS : "../public/css";
         $data["UPLOADS"] = defined("UPLOADS") ? UPLOADS : "../public/uploads";
-        $data["user"] = ["role" => $this->user->get("role")];
+        $data["user"] = ["id" => $this->user->get("id"), "role" => $this->user->get("role"), "authenticated" => $this->user->isAuthenticated()];
+
+
+        if($data["user"]["authenticated"]) {
+            $navs = 
+            [
+                [
+                    "name" => "profil",
+                    "href" => $data["BASEURL"] . "user/" . $data["user"]["id"] . "/password"
+                ]
+            ];
+            $data["header"]["navs"] = $navs;
+        }
         dump($data);
         $this->twig->display($template, $data);
     }
