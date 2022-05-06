@@ -23,7 +23,7 @@ class User {
     {
         $this->authenticated = false;
         $this->user = null;
-
+        
         if(isset($_SESSION["id"]) && !empty($_SESSION["id"])) {
             $this->user = Users::get($_SESSION["id"]) ?: null;
             $this->checkAuth();   

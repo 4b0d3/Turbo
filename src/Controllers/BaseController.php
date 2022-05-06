@@ -51,7 +51,6 @@ class BaseController {
             ];
             $data["header"]["navs"] = $navs;
         }
-        dump($data);
         $this->twig->display($template, $data);
     }
 

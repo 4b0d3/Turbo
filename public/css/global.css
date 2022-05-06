@@ -22,6 +22,7 @@ body {
     height: 10vh;
     padding: 10px 50px;
     background-color: #222831;
+    position: relative;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -52,6 +53,34 @@ body {
     color: #FD7014;
 }
 
+#mainHeader > div#cart {
+    padding: 8px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    min-width: 300px;
+    background-color: #ffffff;
+    max-height: 400px;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    overflow: hidden;
+    border: 1px solid #828282;
+}
+
+#mainHeader > div#cart > table {
+    background-color: #d4d4d4;
+}
+
+#mainHeader > div#cart > table > tr {
+    border-bottom: 1px solid #444444;
+}
+
+
+#mainHeader > div#cart.hide {
+    padding: 0;
+    max-height: 0;
+    border: none;
+}
+
 /*********************
         FOOTER
 **********************/
@@ -65,3 +94,4 @@ body {
     left: 0;
     right: 0;
 }
+

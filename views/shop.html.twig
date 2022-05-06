@@ -20,7 +20,7 @@
             {% for product in products %}
                 <div class="product">
                     <h2>{{ product.name }}</h2>
-                    <a href="{{ product.href }}">Add to cart</a>
+                    <button onclick="addToCart({{ product.id }})">Add to cart</button>
                     <a href="{{ product.href }}">View more</a>
                     <p>{{ product.description }}</p>
                     <p>{{ product.price }}</p>

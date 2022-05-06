@@ -35,13 +35,13 @@ class UserPassController extends BaseController {
             $db = new Database();
             $attrs = ["email"=>$this->user->get("email")];
             $user = $db->queryOne("SELECT id, password from users where email = :email ", $attrs);
-            dump($user);
+
             if($user != false && isset($user["id"])){
                 $passwordHash = $user["password"];
                 $password = $_POST["password"];
                 if(password_verify($password, $passwordHash)) {
-                    $newPass = password_hash($_POST["newpassword"], PASSWORD_DEFAULT);
-                    $attrs["newpassword"] =$newPass;
+
+                    $attrs["newpassword"] = password_hash($_POST["newpassword"], PASSWORD_DEFAULT);
                     $req = $db->query("UPDATE users SET password = :newpassword where email = :email", $attrs);
                     if ($req !=false) {
                         $data["success"]["message"] = "Le mot de passe a été modifié";
