@@ -37,7 +37,7 @@
                 <input type="mail" name="name" id="name" value="{{ form.name ?? ''}}" >
                 {% if error.name is defined %}<p class="inputError">{{ error.name }}</p>{% endif %}
             </div>
-            <input type="submit">
         </form>
+        <a href="{{ BASEURL }}register" class="createAccount">Create account</a>
     </main>
 {% endblock body %}
