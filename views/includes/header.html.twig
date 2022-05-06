@@ -22,7 +22,7 @@
                     <li><a href="{{ BASEURL }}shop">shop</a></li>
                     <li><button id="btn-cart" data-userId="{{ user.id }}">Cart</button></li>
                     {% if header.navs is defined %}
-                    <li><a href="{{ HOST }}test">disconnect</a></li>
+                    <li><a href="{{ HOST }}disconnect">disconnect</a></li>
                         {% for nav in header.navs %}
                             <li><a href="{{ nav.href }}">{{ nav.name }}</a></li>
                         {% endfor %}
