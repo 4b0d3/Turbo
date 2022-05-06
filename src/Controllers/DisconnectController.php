@@ -7,7 +7,7 @@ use App\Entity\User;
 use App\Models\Scooters;
 use App\Models\Users;
 
-class TestController extends BaseController {
+class DisconnectController extends BaseController {
     public function get() {
         $db = new Database();
 
