@@ -6,13 +6,23 @@ use App\Database\Database;
 
 class UserPassController extends BaseController {
     public function get() {
-        $this->display("userPass.html.twig");
+        $username = $this->user->get("firstName");
+        if ($username != null) {
+            $data["success"]["username"] = $username;
+        }else{
+            $data["error"]["message"] = "error ";
+        }
+        dump("Hello");
+        $this->display("userPass.html.twig", $data);
+
     }
 
     public function post() {
 
         $data = [];
 
+        
+       
         if(!isset($_POST["password"]) || empty($_POST["password"])) {
             $data["error"]["message"] = "Veuillez renseignez un mot de passe";
         }
@@ -21,6 +31,7 @@ class UserPassController extends BaseController {
         }
 
         if(!array_key_exists("error", $data)) {
+           
             $db = new Database();
             $attrs = ["email"=>$this->user->get("email")];
             $user = $db->queryOne("SELECT id, password from users where email = :email ", $attrs);
@@ -29,7 +40,8 @@ class UserPassController extends BaseController {
                 $passwordHash = $user["password"];
                 $password = $_POST["password"];
                 if(password_verify($password, $passwordHash)) {
-                    $attrs["newpassword"] = $_POST["newpassword"];
+                    $newPass = password_hash($_POST["newpassword"], PASSWORD_DEFAULT);
+                    $attrs["newpassword"] =$newPass;
                     $req = $db->query("UPDATE users SET password = :newpassword where email = :email", $attrs);
                     if ($req !=false) {
                         $data["success"]["message"] = "Le mot de passe a été modifié";
