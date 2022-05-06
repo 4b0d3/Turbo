@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Database\Database;
 
 class Products {
-    public static function get(int $id) :array
+    public static function get(int $id)
     {
         $db = new Database();
         $q = "SELECT * FROM products WHERE id = ?";

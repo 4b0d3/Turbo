@@ -20,7 +20,7 @@
                         <li><a href="{{ HOST }}admin/scooters">administration</a></li>
                     {% endif %} 
                     <li><a href="{{ BASEURL }}shop">shop</a></li>
-                    <li><button>Cart</button></li>
+                    <li><button id="btn-cart" data-userId="{{ user.id }}">Cart</button></li>
                     {% if header.navs is defined %}
                     <li><a href="{{ HOST }}test">disconnect</a></li>
                         {% for nav in header.navs %}
@@ -31,10 +31,23 @@
                     {% endif %}
                 </ul>
 
-                <div id="cart">
-                    
-                </div>
             </nav>
+            <div class="hide" id="cart">
+                <h3>Panier</h3>
+                <table style="width: 100%;" id="cart-content">
+                    <tr>
+                        <td>Name</td>
+                        <td>Price</td>
+                        <td>
+                            <button>-</button>
+                            <span>1</span>
+                            <button>+</button>
+                        </td>
+                    </tr>
+                </table>
+                <a href="">Voir le panier</a>
+            </div>
+            <script defer src="{{ HOST }}javascript/cart.js"></script>
         </header>
     {% endif %}
 {% endblock header %}
