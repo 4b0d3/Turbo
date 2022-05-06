@@ -26,8 +26,8 @@
                         <td>{{ scooter.battery }}</td>
                         <td>{{ scooter.qrcode ?: "none" }}</td>
                         <td>
-                            <a href="{{ HERE }}/{{ scooter.id}}/delete">x</a>
-                            <a href="{{ HERE }}/{{ scooter.id}}/edit">m</a>
+                            <a href="{{ HERE }}/{{ scooter.id}}/delete">delete</a>
+                            <a href="{{ HERE }}/{{ scooter.id}}/edit">edit</a>
                         </td>
                     </tr>
                 {% endfor %}

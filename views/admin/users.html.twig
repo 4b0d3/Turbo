@@ -1,0 +1,45 @@
+{% extends "templates/base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}admin.css">
+{% endblock stylesheets %}
+
+
+{% block content %}
+    <main>
+        <h1>Users</h1>
+        <table id="content">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Email</th>
+                    {# <th>Mot de Passe</th> #}
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Role</th>
+                    <th>Confirmé</th>
+                    <th>Crée le</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.email }}</td>
+                        {# <td>{{ user.password }}</td> #}
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>{{ user.confirmed }}</td>
+                        <td>{{ user.createdAt }}</td>
+                        
+                        <td>
+                            <a href="{{ HERE }}/{{ user.id}}/delete">delete</a>
+                            <a href="{{ HERE }}/{{ user.id}}/edit">edit</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock content %}
