@@ -18,16 +18,18 @@ $route = isset($_REQUEST["route"]) ? "/" . $_REQUEST["route"] : "/fr/";
 session_start();
 $_SESSION["id"] = 1;
 
-$router
+$router                                                                                                     
     ->get("/admin/scooters", "Admin\\Scooters@get", "AdminScooter")
     ->get("/admin/users", "Admin\\Users@get", "AdminUser")
     ->get("/admin/scooters/[i:id]/delete", "Admin\\Scooter@delete")
-    // ->get("/admin/scooters/[i:id]/edit", "Admin\\Scooter@get")
-    // ->post("/admin/scooters/[i:id]/edit", "Admin\\Scooter@post")
-    ->get("/admin/users/[i:id]/delete", "Admin\\Users@delete")
+    ->get("/admin/scooters/[i:id]/edit", "Admin\\Scooter@get")
+    ->post("/admin/scooters/[i:id]/edit", "Admin\\Scooter@post")
 
+    ->get("/admin/users/[i:id]/delete", "Admin\\User@delete")
+    ->get("/admin/users/[i:id]/edit", "Admin\\User@get")
+    ->post("/admin/users/[i:id]/edit", "Admin\\User@post")
     ->get("/[a:lang]/", "Home@get", "Home")
-    ->get("/[a:lang]/login  ", "Login@get", "Login")
+    ->get("/[a:lang]/login", "Login@get", "Login")
     ->post("/[a:lang]/login", "Login@post")
     ->get("/[a:lang]/register", "Register@get", "Register")
     ->post("/[a:lang]/register", "Register@post")

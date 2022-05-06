@@ -16,18 +16,45 @@
       <form action="{{ HERE }}" method="POST">
         <a href="{{ BASEURL }}" style="text-align: center; margin-bottom: 15px; color: #FD7014; text-decoration: none; font-size: 2rem; display: inline-block; width: 100%;">Turbo</a></h3>
         <h1 style="text-align: center;">Que voulez-vous modifier? </h1>
+
         <div class="form-group">
-          <label for="exampleInputPassword1">Géolocalisation</label>
-          <input type="text" class="form-control" name="geo" placeholder="localisation">
+          <label for="exampleInputPassword1">Email</label>
+          <input type="text" class="form-control" name="email">
         </div>
 
         <div class="form-group">
-          <label for="exampleInputPassword1">Batterie</label>
-          <input type="number" class="form-control" name="battery" placeholder="Batterie %">
+          <label for="exampleInputPassword1">password</label>
+          <input type="text" class="form-control" name="passwd" >
         </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">name</label>
+          <input type="text" class="form-control" name="name">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">firstName</label>
+          <input type="text" class="form-control" name="firstName" >
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">role</label>
+          <input type="number" class="form-control" name="role" >
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Confirmé</label>
+          <input type="number" class="form-control" name="confirme">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Crée à</label>
+          <input type="datetime-local" class="form-control" name="date" >
+        </div>
+
         <br>
         <input type="submit" value="save">
-        {% if success.message is defined %}<p>Hello{{ success.message }}</p>{% endif %}
+        {% if success.message is defined %}<p>{{ success.message }}</p>{% endif %}
         {% if error.message is defined %}<p>{{ error.message }}</p>{% endif %}
       </form>
       

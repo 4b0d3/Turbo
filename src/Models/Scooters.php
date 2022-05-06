@@ -46,5 +46,4 @@ class Scooters {
 
         return $res;
     }
-    
 }

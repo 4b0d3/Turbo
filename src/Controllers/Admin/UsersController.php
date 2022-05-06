@@ -13,22 +13,4 @@ class UsersController extends BaseController
             $data["header"]["admin"] = 1;
             $this->display("Admin/users.html.twig", $data);
     }
-
-    public function delete()
-    {
-            
-            $data["users"] = Users::delete($this->match["params"]["id"]);
-            $data["header"]["admin"] = 1;   
-            $this->display("Admin/users.html.twig", $data);
-    }
-
-    
-
-
 }
-
-
-
-
-
-
