@@ -46,10 +46,10 @@ class Router {
         return $this;
     }
 
-    public function generate(string $routeName) :string
+    public function generate(string $routeName, array $params = []) :string
     {
-        $basePath = "http://localhost/ESGI/ESGI2/Projet%20Annuel/Projet/public";
-        $route = $this->router->generate($routeName);
+        $basePath = defined("HOST") ? substr(HOST, 0, -1) : "";
+        $route = $this->router->generate($routeName, $params);
         return $basePath . $route;
     }
     

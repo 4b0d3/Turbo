@@ -1,5 +1,6 @@
-{% block header %}
+{% set headerType = "mainHeader" %}
 
+{% block header %}
     {% if (user.role == "admin") and (header.admin is defined) %} {# ADMIN HEADER #}
         <header id="mainAdminHeader">
             <nav>
@@ -22,12 +23,11 @@
                     <li><a href="{{ BASEURL }}shop">shop</a></li>
                     <li><button id="btn-cart" data-userId="{{ user.id }}">Cart</button></li>
                     {% if header.navs is defined %}
-                    <li><a href="{{ HOST }}disconnect">disconnect</a></li>
                         {% for nav in header.navs %}
                             <li><a href="{{ nav.href }}">{{ nav.name }}</a></li>
                         {% endfor %}
                     {% else %}
-                        <li><a href="{{ BASEURL }}login">Login ></a></li>
+                        <li><a href="{{ BASEURL }}login/">Login ></a></li>
                     {% endif %}
                 </ul>
 
@@ -47,7 +47,6 @@
                 </table>
                 <a href="">Voir le panier</a>
             </div>
-            <script defer src="{{ HOST }}javascript/cart.js"></script>
         </header>
     {% endif %}
 {% endblock header %}

@@ -5,26 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ title ?: "Turbo"}}{% endblock %}</title>
-    <script src="https://kit.fontawesome.com/e3e8110796.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{ STYLESHEETS }}fonts.css">
     <link rel="stylesheet" href="{{ STYLESHEETS }}global.css">
     {% block stylesheets %}{% endblock %} 
+    {% block javascripts %}{% endblock %} 
 </head>
 <body>
-
     {% block body %}
         {%  block header %}{% include "includes/header.html.twig" %}{% endblock header %}
 
         {% block content %}{% endblock content %}    
     
-        {% block footer %} {% include "includes/footer.html.twig" %}{% endblock footer %}
+        {% if header.admin is not defined %}
+            {% embed "includes/footer.html.twig" %}{% endembed %}
+        {% endif %}
 
     {% endblock body %}   
-
-
-    {% block javascripts %}
-        {% if headerType == "mainHeader" %}<script defer src="{{ HOST }}javascript/cart.js"></script>{% endif %}
-    {% endblock %} 
 
 </body>
 </html>

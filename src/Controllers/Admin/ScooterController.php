@@ -11,6 +11,7 @@ class ScooterController extends BaseController
 
     public function get() {
         $data = ["edit" => "Edit | Turbo"];
+        $data["header"]["admin"] = 1;
         $this->display("Admin/updateScooter.html.twig", $data); 
     }
 

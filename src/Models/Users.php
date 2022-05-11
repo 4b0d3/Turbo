@@ -55,6 +55,26 @@ class Users {
         return $res;
     }
 
+    public static function updateOneById(int $id, array $user) :bool
+    {
+        $set = [];
+        $allowedKeys = ["name", "firstName", "email", "password", "role"];
+
+        foreach ($user as $key => $value) {
+            if (!in_array($key, $allowedKeys)) {
+                continue;
+            }
+
+            $set[] = "$key = :$key";
+        }
+
+        $set = implode(", ", $set);
+        $db = new Database();
+        $res = $db->query("UPDATE users SET $set WHERE id = :id", array_merge(["id" => $id], $user));
+
+        return $res;
+    }
+
     public static function delete(int $id) :bool
     {
         $db = new Database();

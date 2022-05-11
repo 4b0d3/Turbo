@@ -1,0 +1,25 @@
+{% extends "templates/base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}user.css">
+{% endblock stylesheets %}
+
+
+{% block body %}
+
+    {% block header %}
+        <header id="userHeader">
+            <h1><a href="{{ BASEURL }}">Turbo</a></h1>
+            <h3>Mon compte</h3>
+        </header>
+    {% endblock header %}
+
+    <main>
+        {% block nav %}{% include "includes/navUser.html.twig" %}{% endblock nav %}
+
+        {% block content %}
+            
+        {% endblock content %}
+    </main>
+
+{% endblock body %}

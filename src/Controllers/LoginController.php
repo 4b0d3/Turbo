@@ -4,7 +4,8 @@ namespace App\Controllers;
 
 use App\Database\Database;
 
-class LoginController extends BaseController {
+class LoginController extends BaseController 
+{
     public function get() {
         $this->display("login.html.twig");
     }

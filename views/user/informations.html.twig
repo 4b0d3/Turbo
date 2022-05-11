@@ -1,0 +1,58 @@
+{% set navActive = "informations" %}
+
+{% extends "templates/user.html.twig" %}
+
+{% block content %}
+    <section id="display">
+    
+        {% if msgBoxes is defined %}
+            {% for msgBox in msgBoxes %}
+                <div class="msgBox {{ msgBox.status }}">
+                    <h3>{{ msgBox.status }}</h3>
+                    <p>{{ msgBox.description }}</p>
+                    <button><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="header">
+            <h1><i class="fa-solid fa-address-card fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> Mes informations</h1>
+            <p>Vous pouvez modifiez vos coordonnées ci-dessous.</p>
+        </div>
+
+        <div class="container-user-form">
+            <form action="{{ HERE }}" method="POST" id="infoForm">
+                <div class="input-txt-box">
+                    <label>
+                        <span>Prénom :</span>
+                        <div>
+                            <input type="text" name="firstName" value="{{ user.firstName }}">
+                        </div>
+                    </label>
+                </div>
+                <div class="input-txt-box">
+                    <label>
+                        <span>Nom :</span>
+                        <div>
+                            <input type="text" name="name" value="{{ user.name }}">
+                        </div>
+                    </label>
+                </div>
+                <div class="input-txt-box">
+                    <label>
+                        <span>Adresse email :</span>
+                        <div>
+                            <input type="email" name="email" value="{{ user.email }}">
+                        </div>
+                    </label>
+                </div>
+                <div>
+                    {# TODO add field birthdate maybe phonenumber also #}
+                </div>
+                <div class="btn-submit-box">
+                    <button type="submit">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock content %}

@@ -2,10 +2,16 @@
         GLOBAL
 **********************/
 *, *::before, *::after {
+    box-sizing: border-box;
+}
+
+* {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
+    font: inherit;
+    font-family: Nunito, serif;
+    font-size: 100%;
+    vertical-align: baseline;
 }
 
 body {
@@ -13,7 +19,6 @@ body {
     padding-bottom: 25vh;
     position: relative;
 }
-
 
 /*********************
         HEADER

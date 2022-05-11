@@ -1,0 +1,208 @@
+/*********************
+        GLOBAL
+**********************/
+body {
+    padding: 0;
+    width: 100%;
+    background-color: #EEEEEE;
+}
+
+main {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+#userHeader {
+    width: 60%;
+    margin: 0 auto 24px auto;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#userHeader > h1 > a {
+    font-size: 3rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: #FD7014;
+}
+
+#userHeader > h3 {
+    font-size: 2.4rem;
+    flex: 1;
+    text-align: center;
+}
+
+
+/*********************
+        NAV
+**********************/
+#nav-user {
+    width: calc(100% / 3);
+    margin: 0 15px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+}
+
+#nav-user > * {
+    margin-bottom: 8px;
+    background-color: #FFFFFF;
+}
+
+/* Div presentation */
+#nav-user > div:first-child {
+    padding: 16px 0;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#nav-user > div:first-child > p:first-child {
+    margin-bottom: 4px;
+    font-size: 1.5rem;
+}
+
+#nav-user > div:first-child > p:last-child {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Real navigation with ul li & a */
+#nav-user > ul {
+    list-style-type: none;
+}
+
+#nav-user > ul > li > a {
+    padding: 8px;
+    color: #262626;
+    font-size: 1.2rem;
+    text-decoration: none;
+    letter-spacing: 0.03rem;
+    line-height: 2.4rem;
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+#nav-user > ul > li > a:hover {
+    text-decoration: underline;
+}
+
+#nav-user > ul > li > a.active {
+    font-weight: bold;
+    background-color: #F8F8F8;
+}
+
+#nav-user > ul > li > a.active::before {
+    content: "";
+    border-right: 4px solid #FD7014;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -2px;
+}
+
+#nav-user > ul > li > a::after {
+    content: "";
+    border-top: 1px solid rgb(209, 209, 209);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 64px;
+} 
+
+#nav-user > ul > li:last-child > a::after {
+    border: none;
+} 
+
+#nav-user > ul > li > a > div:first-child {
+    margin: 0 32px 0 4px;
+}
+
+
+/*********************
+        DISPLAY
+**********************/
+#display {
+    width: calc((100% / 3) * 2);
+    margin: 0 15px;
+    background-color: #FFFFFF;
+}
+
+#display > div.header {
+    padding: calc(8 * 4px);
+}
+
+#display > div.header > h1 {
+    text-transform: uppercase;
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+}
+
+#display > div.header > p {
+    margin-top: 16px ;
+} 
+
+
+/* User Information Form */
+#display > div.container-user-form,
+#display > div.container-change-password-form 
+{
+    padding: 0 32px 32px 32px;
+}
+
+.input-txt-box {
+    margin-bottom: 24px;
+}
+
+.input-txt-box:last-child {
+    margin-bottom: 0;
+}
+
+.input-txt-box > label > span {
+    padding-bottom: 12px;
+    color: #777;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    line-height: 1.4rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.input-txt-box > label input {
+    width: 65%;
+    min-width: 250px;
+    padding: 10px 16px;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    border: 1px solid #777;
+    border-radius: 0;
+    appearance: none;
+}
+
+.btn-submit-box > button {
+    width: 65%;
+    min-width: 250px;
+    margin: 0;
+    padding: 8px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    border: 0;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-submit-box > button:hover {
+    background-color: #c0c0c0;
+}
+

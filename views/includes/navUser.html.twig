@@ -1,0 +1,123 @@
+{% block navUser %}
+    <nav id="nav-user">
+        <div>
+            <p>Bonjour,</p>
+            <p>{{user.firstName}} {{user.name}}</p>
+        </div>
+
+        <ul>
+            <li>
+                <a href="{{ BASEURL }}my-account/" class="{{ navActive == "informations" ? "active"}}">
+                    <div>
+                        <i class="fa-solid fa-address-card fa-lg"></i>
+                    </div>
+                    <div>
+                        <span>Mes informations</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+        <ul>
+            <li>
+                <a href="{{ BASEURL }}my-account/orders/" class="{{ navActive == "orders" ? "active"}}">
+                    <div>
+                        <i class="fa-solid fa-bag-shopping fa-lg"></i>
+                    </div>
+                    <div>
+                        <span>Mes Commandes</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ BASEURL }}my-account/returns/" class="{{ navActive == "returns" ? "active"}}">
+                    <div>
+                        <i class="fa-solid fa-arrow-rotate-left fa-lg"></i>
+                    </div>
+                    <div>
+                        <span>Mes Retours</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ BASEURL }}my-account/rides/" class="{{ navActive == "rides" ? "active"}}">
+                    <div>
+                        <i class="fa-solid fa-route fa-lg"></i>
+                    </div>
+                    <div>
+                        <span>Mes Trajets</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+        <ul>
+            <li>
+                <a href="{{ BASEURL }}my-account/change-password/" class="{{ navActive == "change-password" ? "active"}}">
+                    <div>
+                        <i class="fa-solid fa-lock fa-lg"></i>
+                    </div>
+                    <div>
+                        <span>Changer de mot de passe</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ BASEURL }}my-account/addresses/" class="{{ navActive == "addresses" ? "active"}}">
+                    <div>
+                        <i class="fa-solid fa-house fa-lg"></i>
+                    </div>
+                    <div>
+                        <span>Carnet d'adressses</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ BASEURL }}my-account/payment-methods/" class="{{ navActive == "payment-methods" ? "active"}}">
+                    <div>
+                        <i class="fa-solid fa-credit-card fa-lg"></i>
+                    </div>
+                    <div>
+                        <span>Mes Modes de paiement</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ BASEURL }}my-account/notifications/" class="{{ navActive == "notifications" ? "active"}}">
+                    <div>
+                        <i class="fa-solid fa-envelope fa-lg"></i>
+                    </div>
+                    <div>
+                        <span>Notifications</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+        <ul>
+            <li>
+                <a href="{{ BASEURL }}TODO/">
+                    <div>
+                        <i class="fa-solid fa-gift fa-lg"></i>
+                    </div>
+                    <div>
+                        <span>Carte cadeaux et chèques cadeaux</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+        <ul>
+            <li>
+                <a href="{{ HOST }}disconnect/">
+                    <div>
+                        <i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i>
+                    </div>
+                    <div>
+                        <span>Déconnexion</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock navUser %}

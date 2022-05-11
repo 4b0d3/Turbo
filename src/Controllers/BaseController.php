@@ -7,11 +7,12 @@ use Twig\Loader\FilesystemLoader;
 use App\Entity\User;
 use App\Router\Router;
 
-class BaseController {
+class BaseController 
+{
 
     protected $match;
 
-    protected $router;
+    public $router;
 
     protected $user;
 
@@ -26,6 +27,7 @@ class BaseController {
         $this->user = new User(); 
         $this->FSLoader = new FilesystemLoader(VIEWS);
         $this->twig = new Environment($this->FSLoader, [
+            // TODO env check debug
             "debug" => true
         ]);
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
@@ -38,7 +40,14 @@ class BaseController {
         $data["HERE"] = isset($_REQUEST["route"]) ? $data["HOST"] . $_REQUEST["route"] : HOST;
         $data["STYLESHEETS"] = defined("STYLESHEETS") ? STYLESHEETS : "../public/css";
         $data["UPLOADS"] = defined("UPLOADS") ? UPLOADS : "../public/uploads";
-        $data["user"] = ["id" => $this->user->get("id"), "role" => $this->user->get("role"), "authenticated" => $this->user->isAuthenticated()];
+        $data["user"] = [
+            "id" => $this->user->get("id"), 
+            "role" => $this->user->get("role"), 
+            "authenticated" => $this->user->isAuthenticated(),
+            "firstName" => $this->user->get("firstName"), 
+            "name" => $this->user->get("name"),
+            "email" => $this->user->get("email")
+        ];
 
 
         if($data["user"]["authenticated"]) {
@@ -46,11 +55,12 @@ class BaseController {
             [
                 [
                     "name" => "profil",
-                    "href" => $data["BASEURL"] . "user/" . $data["user"]["id"] . "/password"
+                    "href" => $data["BASEURL"] . "my-account/"
                 ]
             ];
             $data["header"]["navs"] = $navs;
         }
+        dump($data);
         $this->twig->display($template, $data);
     }
 

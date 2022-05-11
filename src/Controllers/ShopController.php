@@ -5,7 +5,8 @@ namespace App\Controllers;
 use App\Models\Products;
 use App\Models\Scooters;
 
-class ShopController extends BaseController {
+class ShopController extends BaseController 
+{
     public function get() {
         $page = 0;
         $perPage = 10;

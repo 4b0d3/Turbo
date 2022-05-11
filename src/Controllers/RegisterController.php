@@ -3,7 +3,8 @@
 namespace App\Controllers;
 use \App\Models\Users;
 
-class RegisterController extends BaseController {
+class RegisterController extends BaseController 
+{
 
     public function get($data = []) {
         $this->display("register.html.twig", $data);

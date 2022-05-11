@@ -4,7 +4,8 @@ namespace App\Controllers;
 
 use App\Database\Database;
 
-class UserPassController extends BaseController {
+class UserPassController extends BaseController 
+{
     public function get() {
         $username = $this->user->get("firstName");
         if ($username != null) {
@@ -12,7 +13,6 @@ class UserPassController extends BaseController {
         }else{
             $data["error"]["message"] = "error ";
         }
-        dump("Hello");
         $this->display("userPass.html.twig", $data);
 
     }

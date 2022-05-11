@@ -1,0 +1,24 @@
+{% set navActive = "returns" %}
+
+{% extends "templates/user.html.twig" %}
+
+{% block content %}
+    <section id="display">
+    
+        {% if msgBoxes is defined %}
+            {% for msgBox in msgBoxes %}
+                <div class="msgBox {{ msgBox.status }}">
+                    <h3>{{ msgBox.status }}</h3>
+                    <p>{{ msgBox.description }}</p>
+                    <button><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="header">
+            <h1><i class="fa-solid fa-arrow-rotate-left fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> Mes retours</h1>
+            <p>Liste de vos retours.</p>
+        </div>
+
+    </section>
+{% endblock content %}

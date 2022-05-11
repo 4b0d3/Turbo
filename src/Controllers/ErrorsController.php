@@ -2,8 +2,10 @@
 
 namespace App\Controllers;
 
-class ErrorsController extends BaseController {
-    public function get() {
+class ErrorsController extends BaseController 
+{
+    public function get() 
+    {
         $data = $this->getData($this->match["error"] ?? 500);
         $this->display("error.html.twig", $data);
     }

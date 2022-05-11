@@ -12,6 +12,7 @@ class UserController extends BaseController
     {
             $data["users"] = Users::getAll();
             $data["header"]["admin"] = 1;
+            
             $this->display("Admin/updateUsers.html.twig", $data);
     }
 
@@ -78,10 +79,10 @@ class UserController extends BaseController
             $data["error"]["message"] = "error 1";
         }
         
-
+        $data["header"]["admin"] = 1;
         $this->display("admin/updateUsers.html.twig", $data);
+    }
 
-}
     public function delete()
     {
             
@@ -89,9 +90,6 @@ class UserController extends BaseController
             $data["header"]["admin"] = 1;   
             $this->display("Admin/users.html.twig", $data);
     }
-
-    
-
 
 }
 
