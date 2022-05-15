@@ -7,7 +7,7 @@ use App\Models\Scooters;
 
 class ScootersController extends BaseController 
 {
-    public function get()
+    public function showAll()
     {
             $data["scooters"] = Scooters::getAll();
             $data["header"]["admin"] = 1;

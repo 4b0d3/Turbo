@@ -7,7 +7,7 @@ use App\Database\Database;
 class LoginController extends BaseController 
 {
     public function get() {
-        $this->display("login.html.twig");
+        $this->display("site/login.html.twig");
     }
 
     public function post() {
@@ -41,7 +41,7 @@ class LoginController extends BaseController
             }
         }
 
-        $this->display("login.html.twig", $data);
+        $this->display("site/login.html.twig", $data);
     }
 
 }

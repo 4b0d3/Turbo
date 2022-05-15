@@ -1,25 +1,23 @@
-<!DOCTYPE html>
-<html lang="{{ lang ?: "fr" }}">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ title ?: "Turbo"}}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ STYLESHEETS }}global.css">
-    {% block stylesheets %}{% endblock %} 
-    {% block javascripts %}{% endblock %} 
-</head>
-<body>
-    {% block body %}
-        {%  block header %}{% include "includes/header.html.twig" %}{% endblock header %}
+{% extends "templates/base.html.twig" %}
 
-        {% block content %}{% endblock content %}    
-    
-        {% if header.admin is not defined %}
-            {% embed "includes/footer.html.twig" %}{% endembed %}
-        {% endif %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}admin.css">
+{% endblock stylesheets %}
 
-    {% endblock body %}   
 
-</body>
-</html>
+{% block body %}
+
+    <main>
+        {% block nav %}{% include "includes/navAdmin.html.twig" %}{% endblock nav %}
+
+        {% block content %}
+            
+        {% endblock content %}
+    </main>
+
+{% endblock body %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ HOST }}javascript/boxMessages.js"></script>
+{% endblock javascripts %}

@@ -16,87 +16,74 @@
 
 body {
     min-height: 100vh;
-    padding-bottom: 25vh;
     position: relative;
 }
 
+
 /*********************
-        HEADER
+        BOX-MSG
 **********************/
-#mainHeader {
-    height: 10vh;
-    padding: 10px 50px;
-    background-color: #222831;
+div.box-msg {
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px 0px rgba(150,150,150,0.2);
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(150,150,150,0.2);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(150,150,150,0.2);
     position: relative;
+    overflow: hidden;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+    background-color: white;
 }
 
-#mainHeader > h1 > a {
-    color: white;
-    text-decoration: none;
+div.box-msg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 6px;
+    background-color: red;
 }
 
-#mainHeader > nav {
-    position: relative;
+div.box-msg.success::before {
+    background-color: green;
 }
 
-#mainHeader > nav > ul {
-    list-style-type: none;
+div.box-msg > div.msg {
     display: flex;
     flex-flow: row nowrap;
+    align-items: center; 
 }
 
-#mainHeader > nav > ul > li {
-    margin: 0 8px;
+div.box-msg > div.msg > div.icon > i {
+    font-size: 2rem;
+    color: red;
 }
 
-#mainHeader > nav > ul > li > a {
-    text-decoration: none;
-    color: #FD7014;
+div.box-msg.success > div.msg > div.icon > i {
+    color: green;
 }
 
-#mainHeader > div#cart {
-    padding: 8px;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    min-width: 300px;
-    background-color: #ffffff;
-    max-height: 400px;
-    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
-    overflow: hidden;
-    border: 1px solid #828282;
+div.box-msg > div.msg > div:last-child {
+    margin: 0 16px;
 }
 
-#mainHeader > div#cart > table {
-    background-color: #d4d4d4;
+div.box-msg > div.msg > div > h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
 }
 
-#mainHeader > div#cart > table > tr {
-    border-bottom: 1px solid #444444;
+div.box-msg > div.msg > div > p {
+    color: rgb(120, 120, 120);
 }
 
-
-#mainHeader > div#cart.hide {
-    padding: 0;
-    max-height: 0;
+div.box-msg > button {
+    font-size: 1.3rem;
+    margin: 0 4px;
+    background: none;
     border: none;
+    cursor: pointer;
 }
-
-/*********************
-        FOOTER
-**********************/
-#mainFooter {
-    padding: 15px;
-    min-height: 20vh;
-    color: white;
-    background-color: #222831;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-

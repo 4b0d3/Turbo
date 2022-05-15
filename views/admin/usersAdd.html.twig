@@ -1,0 +1,68 @@
+{% set navActive = "users" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Ajouter un utilisateur</h1>
+        </header>
+
+        <section id="admin-content">
+            <form action="{{ HERE }}" method="POST" id="form-users-add">
+                <div class="box-input-txt">
+                    <label>
+                        <div>Email<span style="color: red">*</span></div>
+                        <input type="email" name="email" value="{{ form.email ?? '' }}">
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Nom<span style="color: red">*</span></div>
+                        <input type="name" name="name" value="{{ form.name ?? '' }}">
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Prénom<span style="color: red">*</span></div>
+                        <input type="firstName" name="firstName" value="{{ form.firstName ?? '' }}">
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Mot de passe<span style="color: red">*</span></div>
+                        <input type="password" name="password">
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Confirmer le mot de passe<span style="color: red">*</span></div>
+                        <input type="confirmPassword" name="confirmPassword">
+                    </label>
+                </div>
+
+                <div class="box-select">
+                    <label>
+                        <div>Role<span style="color: red">*</span></div>
+                        <select name="role">
+                            {% for role in roles %}
+                                <option value="{{ role.id }}" {{ form.role == role.id ? "selected" : '' }}>{{ role.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </div>
+
+                <div class="box-input-submit">
+                    <input type="submit" value="Ajouter">
+                </div>
+            </form>
+        </section>
+    </section>
+{% endblock content %}

@@ -38,6 +38,7 @@ class Router {
             $controller = new $controllerName($match, $this);
             $controller->$action();
         } else {
+            $match = [];
             $match["error"] = 404;
             $controller = new \App\Controllers\ErrorsController($match);
             $controller->get();

@@ -1,52 +1,37 @@
-{% set headerType = "mainHeader" %}
-
 {% block header %}
-    {% if (user.role == "admin") and (header.admin is defined) %} {# ADMIN HEADER #}
-        <header id="mainAdminHeader">
-            <nav>
-                <ul>
-                    <li><a href="{{ BASEURL}}" style="color: orange;">T</a></li>
-                    <li><a href="{{ BASEURL }}admin/scooters">Scooters</a></li>
-                    <li><a href="{{ BASEURL }}admin/users">Users</a></li>
-                    <li><a href="{{ BASEURL }}admin/settings">Settings</a></li>
-                </ul>
-            </nav>
-        </header>
-    {% else %} {# USER HEADER #}
-        <header id="mainHeader">
-            <h1><a href="{{ BASEURL }}">Turbo</a></h1>
-            <nav>
-                <ul>  
-                    {% if user.role == "admin" %}
-                        <li><a href="{{ HOST }}admin/scooters">administration</a></li>
-                    {% endif %} 
-                    <li><a href="{{ BASEURL }}shop">shop</a></li>
-                    <li><button id="btn-cart" data-userId="{{ user.id }}">Cart</button></li>
-                    {% if header.navs is defined %}
-                        {% for nav in header.navs %}
-                            <li><a href="{{ nav.href }}">{{ nav.name }}</a></li>
-                        {% endfor %}
-                    {% else %}
-                        <li><a href="{{ BASEURL }}login/">Login ></a></li>
-                    {% endif %}
-                </ul>
+    <header id="mainHeader">
+        <h1><a href="{{ BASEURL }}">Turbo</a></h1>
+        <nav>
+            <ul>  
+                {% if user.role == "admin" %}
+                    <li><a href="{{ HOST }}admin/scooters/">administration</a></li>
+                {% endif %} 
+                <li><a href="{{ BASEURL }}shop">shop</a></li>
+                <li><button id="btn-cart" data-userId="{{ user.id }}">Cart</button></li>
+                {% if header.navs is defined %}
+                    {% for nav in header.navs %}
+                        <li><a href="{{ nav.href }}">{{ nav.name }}</a></li>
+                    {% endfor %}
+                {% else %}
+                    <li><a href="{{ BASEURL }}login/">Login ></a></li>
+                {% endif %}
+            </ul>
 
-            </nav>
-            <div class="hide" id="cart">
-                <h3>Panier</h3>
-                <table style="width: 100%;" id="cart-content">
-                    <tr>
-                        <td>Name</td>
-                        <td>Price</td>
-                        <td>
-                            <button>-</button>
-                            <span>1</span>
-                            <button>+</button>
-                        </td>
-                    </tr>
-                </table>
-                <a href="">Voir le panier</a>
-            </div>
-        </header>
-    {% endif %}
+        </nav>
+        <div class="hide" id="cart">
+            <h3>Panier</h3>
+            <table style="width: 100%;" id="cart-content">
+                <tr>
+                    <td>Name</td>
+                    <td>Price</td>
+                    <td>
+                        <button>-</button>
+                        <span>1</span>
+                        <button>+</button>
+                    </td>
+                </tr>
+            </table>
+            <a href="">Voir le panier</a>
+        </div>
+    </header>
 {% endblock header %}

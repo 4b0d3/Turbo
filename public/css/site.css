@@ -1,0 +1,84 @@
+
+body {
+    padding-bottom: 25vh;
+}
+
+/*********************
+        HEADER
+**********************/
+#mainHeader {
+    height: 10vh;
+    padding: 10px 50px;
+    background-color: #222831;
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#mainHeader > h1 > a {
+    color: white;
+    text-decoration: none;
+}
+
+#mainHeader > nav {
+    position: relative;
+}
+
+#mainHeader > nav > ul {
+    list-style-type: none;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+#mainHeader > nav > ul > li {
+    margin: 0 8px;
+}
+
+#mainHeader > nav > ul > li > a {
+    text-decoration: none;
+    color: #FD7014;
+}
+
+#mainHeader > div#cart {
+    padding: 8px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    min-width: 300px;
+    background-color: #ffffff;
+    max-height: 400px;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    overflow: hidden;
+    border: 1px solid #828282;
+}
+
+#mainHeader > div#cart > table {
+    background-color: #d4d4d4;
+}
+
+#mainHeader > div#cart > table > tr {
+    border-bottom: 1px solid #444444;
+}
+
+
+#mainHeader > div#cart.hide {
+    padding: 0;
+    max-height: 0;
+    border: none;
+}
+
+/*********************
+        FOOTER
+**********************/
+#mainFooter {
+    padding: 15px;
+    min-height: 20vh;
+    color: white;
+    background-color: #222831;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

@@ -19,6 +19,6 @@ class ShopController extends BaseController
         $data["products"] = $products;
 
 
-        $this->display("shop.html.twig", $data);
+        $this->display("site/shop.html.twig", $data);
     }
 }

@@ -1,0 +1,12 @@
+{% block navAdmin %}
+    <nav id="nav-admin">
+        <h2><a href="{{ BASEURL }}">Turbo</a></h2>
+        <ul>
+            <li><a href="{{ BASEURL }}admin/scooters/" class="{{ navActive == "scooters" ? "active"}}"><i class="fa-solid fa-bicycle"></i><span>Trottinettes</span></a></li>
+            <li><a href="{{ BASEURL }}admin/users/" class="{{ navActive == "users" ? "active"}}"><i class="fa-solid fa-user-group"></i><span>Utilisateurs</span></a></li>
+            <li><a href="{{ BASEURL }}admin/subscriptions/" class="{{ navActive == "subscriptions" ? "active"}}"><i class="fa-solid fa-clipboard"></i><span>Abonnements</span></a></li>
+            <li><a href="{{ BASEURL }}admin/medias/" class="{{ navActive == "medias" ? "active"}}"><i class="fa-solid fa-photo-film"></i><span>Medias</span></a></li>
+            <li><a href="{{ BASEURL }}admin/settings/" class="{{ navActive == "settings" ? "active"}}"><i class="fa-solid fa-gear"></i><span>Paramètres</span></a></li>
+        </ul>
+    </nav>
+{% endblock navAdmin %}

@@ -7,7 +7,7 @@ class RegisterController extends BaseController
 {
 
     public function get($data = []) {
-        $this->display("register.html.twig", $data);
+        $this->display("site/register.html.twig", $data);
     }
 
     public function post($data = []) {
@@ -25,7 +25,7 @@ class RegisterController extends BaseController
             return;
         }
 
-        $this->display("register.html.twig", $data);
+        $this->display("site/register.html.twig", $data);
         return;
     }
 

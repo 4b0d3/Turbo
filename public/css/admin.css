@@ -1,39 +1,275 @@
 body {
     padding: 0;
+    background-color: #F5F5F9;
+}
+
+main {
     display: flex;
     flex-flow: row nowrap;
+}
+
+/*********************
+        NAVBAR
+**********************/
+
+#nav-admin {
+    min-width: 175px;
+    max-width: 200px;
+    height: 100vh;
+    padding-top: 16px;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #040622;
+}
+
+#nav-admin > h2 {
+    margin-bottom: 16px;
+}
+
+#nav-admin > h2 > a {
+    color:orange;
+    font-size: 2rem;
+    font-weight: bolder;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+}
+
+#nav-admin > ul {
+    list-style-type: none;
+}
+
+#nav-admin > ul > li > a {
+    padding: 8px;
+    color: #bbbbbb;
+    font-size: 1.2rem;
+    text-decoration: none;
+    letter-spacing: 0.03rem;
+    line-height: 2.4rem;
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+#nav-admin > ul > li > a > * {
+    margin: 0 8px;
+}
+
+#nav-admin > ul > li > a:hover > span {
+    text-decoration: underline;
+}
+
+
+#nav-admin > ul > li > a.active {
+    color: white;
+    font-weight: bold;
+}
+
+#nav-admin > ul > li > a.active::before {
+    content: "";
+    border-right: 4px solid #FD7014;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0px;
+}
+
+/*********************
+    ADMIN CONTENT
+**********************/
+
+section#container-admin {
+    margin: 0 64px;
+    padding-top: 16px;
+    flex: 1;
+}
+
+section#container-admin > *:not(:first-child) {
+    margin-top: 32px;
+}
+
+/* header */
+#admin-header {
+    /* position: sticky;
+    top: 0;
+    background-color: #F5F5F9; */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#admin-header > h1 {
+    font-size: 3rem;
+    font-style: italic;
+}
+
+#admin-header > nav > ul {
+    list-style-type: none;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.btn-header-filled {
+    padding: 8px 16px;
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border-radius: 4px;
+    background-color: #FD7014;
+    display: block;
+}
+
+/* Nav header */
+#admin-nav {
     background-color: #F5F5F9;
     position: relative;
 }
 
-#mainAdminHeader {
-    position: sticky;
-    top: 0;
+#admin-nav::after {
+    content:"";
+    position:absolute;
+    width:100%;
+    bottom:1px;
+    z-index:-1;
+    transform:scale(.99);
+    box-shadow: 0px 0px 16px 2px #6b6b6b;
+}
+
+#admin-nav > ul {
+    list-style-type: none;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+#admin-nav > ul > li > a {
+    padding: 16px 24px;
+    color: #040622;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+}
+
+#admin-nav > ul > li > a.active {
+    color: #FD7014;
+}
+
+#admin-nav > ul > li > a.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
     left: 0;
-    height: 100Vh;
-    width: 150px;
-    background-color: white;
+    right: 0;
+    height: 4px;
+    background-color: #FD7014;
 }
 
-main {
-    min-height: 100vh;
-    padding: 15px;
-    flex-grow: 1;
-}
-
-#content {
-    width: 95%;
-    padding: 15px;
-    background-color: white;
+/* admin-content */
+#admin-content {
+    width: 100%;
+    padding: 16px;
+    border-radius: 4px;
     border: 1px solid rgb(235, 235, 235);
+    background-color: white;
 }
 
-#content th, #content td {
-    padding: 5px;
-    text-align: left;
+/* table content */
+
+#table-content {
+    width: 100%;
     border-collapse: collapse;
 }
 
-#content > thead th {
-    background-color: #DFE0E4;
+#table-content th, #table-content td {
+    padding: 8px;
+    text-align: left;
+
 }
+
+#table-content > thead {
+    width: 100%;
+    background-color: #E5E8EE;
+}
+
+#table-content > thead th {
+    font-weight: bold;
+}
+
+#table-content > tbody > tr {
+    line-height: 2.4rem;
+}
+
+#table-content > tbody > tr:not(:last-child) {
+    border-bottom: 1px solid #e4e8ed;
+}
+
+/*********************
+    Admin Forms
+**********************/
+
+div.box-input-txt {
+    margin: 24px 0;
+}
+
+div.box-input-txt > label > div {
+    font-weight: 800;
+}
+
+div.box-input-txt > label > input {
+    width: 50%;
+    min-width: 300px;
+    padding: 8px;
+    font-size: 1.4rem;
+}
+
+div.box-select {
+
+}
+
+div.box-select {
+    margin: 24px 0;
+}
+
+div.box-select > label > div {
+    font-weight: 800;
+}
+
+div.box-select > label > select {
+    min-width: 200px;
+    padding: 8px;
+    font-size: 1.4rem;
+}
+
+div.box-input-submit {
+    margin-top: 32px;
+}
+
+div.box-input-submit > input {
+    width: 50%;
+    padding: 8px;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    background-color: rgb(254, 189, 69);
+    transition: background-color 0.3s ease-in-out;
+}
+
+div.box-input-submit > input:hover {
+    background-color: orange;
+}
+
+/*********************
+    Users
+**********************/
+
+#form-users-add {
+}
+

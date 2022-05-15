@@ -1,0 +1,22 @@
+{% if boxMsgs is defined %}
+    {% for boxMsg in boxMsgs %}
+        <div class="box-msg {{ boxMsg.class ?: "error" }}">
+            <div class="msg">
+                <div class="icon">
+                    {% if boxMsg.class == "success" %}
+                        <i class="fa-solid fa-circle-check"></i>
+                    {% elseif boxMsg.class == "info" %}
+                    
+                    {% else %}
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    {% endif %}
+                </div>
+                <div>
+                    <h3>{{ boxMsg.status }}</h3>
+                    <p>{{ boxMsg.description }}</p>
+                </div>
+            </div>
+            <button><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    {% endfor %}
+{% endif %}

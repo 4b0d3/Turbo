@@ -6,7 +6,7 @@ use App\Router\Router;
 
 
 // TODO CHANGE HOST UNTIL IMPLEMENTATIONS OF DOTENV
-define('HOST', "TODO");
+define('HOST', "/ESGI/ESGI2/Projet Annuelp/Turbo/public/");
 define('STYLESHEETS', HOST . "css/");
 define('JAVASCRIPTS', HOST . "javascript/");
 define('UPLOADS', HOST . "uploads/");
@@ -18,14 +18,27 @@ $route = isset($_REQUEST["route"]) ? "/" . $_REQUEST["route"] : header("Location
 
 session_start();
 
-$router                                                                                                     
-    ->get("/admin/scooters", "Admin\\Scooters@get", "AdminScooter")
-    ->get("/admin/users", "Admin\\Users@get", "AdminUser")
-    ->get("/admin/scooters/[i:id]/delete", "Admin\\Scooter@delete")
-    ->get("/admin/scooters/[i:id]/edit", "Admin\\Scooter@get")
-    ->post("/admin/scooters/[i:id]/edit", "Admin\\Scooter@post")
+$router
+    /* ADMIN */
+    // scooters                                                                                     
+    ->get("/admin/scooters/", "Admin\\Scooters@showAll")
+    ->get("/admin/scooters/[i:id]/delete/", "Admin\\Scooter@delete")
+    ->get("/admin/scooters/[i:id]/edit/", "Admin\\Scooter@get")
+    ->post("/admin/scooters/[i:id]/edit/", "Admin\\Scooter@post")
+
+    // Users
+    ->get("/admin/users/", "Admin\\Users@getAll")
+    ->get("/admin/users/add/", "Admin\\Users@getAdd")
+    ->post("/admin/users/add/", "Admin\\Users@postAdd")
+    ->get("/admin/users/[i:id]/edit/", "Admin\\User@get")
+    ->post("/admin/users/[i:id]/edit/", "Admin\\User@post")
+    ->get("/admin/users/[i:id]/delete/", "Admin\\User@delete")
+
+    // Roles
+    ->get("/admin/roles/", "Admin\\Users@showAllRoles")
 
 
+    /* WEBSITE */
     ->get("/disconnect/", "User@disconnect")
     // my account
     ->get("/[a:lang]/my-account/", "User@showInformations")
@@ -41,9 +54,7 @@ $router
 
 
     ->get("/test", "Test@get")
-    ->get("/admin/users/[i:id]/delete", "Admin\\User@delete")
-    ->get("/admin/users/[i:id]/edit", "Admin\\User@get")
-    ->post("/admin/users/[i:id]/edit", "Admin\\User@post")
+
 
     ->get("/[a:lang]/", "Home@get", "Home")
 

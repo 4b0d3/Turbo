@@ -1,0 +1,19 @@
+{% set headerType = "mainHeader" %}
+
+{% extends "templates/base.html.twig" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}site.css">
+{% endblock head %}
+
+
+{% block header %}{% include "includes/header.html.twig" %}{% endblock header %}
+
+
+
+{% block footer %}{% include "includes/footer.html.twig" %}{% endblock footer %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script defer src="{{ HOST }}javascript/cart.js"></script>
+{% endblock javascripts %}
