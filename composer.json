@@ -24,6 +24,7 @@
     },
     "require": {
         "altorouter/altorouter": "^2.0",
-        "twig/twig": "^3.3"
+        "twig/twig": "^3.3",
+        "stichoza/google-translate-php": "^4.1"
     }
 }

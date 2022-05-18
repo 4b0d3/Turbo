@@ -1,0 +1,28 @@
+{% set navActive = "users" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Editer un utilisateur</h1>
+        </header>
+
+        {% include "includes/navAdminUsers.html.twig" with {active : "delete"} %}
+
+        <section id="admin-content">
+            <form action="{{ HERE }}" method="POST" id="form-users-add">
+                <p>
+                    Supprimer un utilisateur est fortement déconseillé êtes vous sûr de vouloir réaliser cette action ?
+                </p>
+                <input type="hidden" name="id" value="{{ userInfo.id }}">
+                <div class="box-input-submit">
+                    <input type="submit" value="supprimer">
+                </div>
+            </form>
+        </section>
+    </section>
+{% endblock content %}

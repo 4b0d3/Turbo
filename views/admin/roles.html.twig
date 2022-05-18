@@ -5,6 +5,8 @@
 {% block content %}
     <section id="container-admin">
 
+       {{ include('includes/boxMessages.html.twig') }}
+
         <header id="admin-header">
             <h1>Liste des roles</h1>
             <nav>
@@ -16,7 +18,7 @@
 
         <nav id="admin-nav">
             <ul>
-                <li><a href="{{ BASEURL }}admin/users/">Utilisateurs</a></li>
+                <li><a href="{{ HOST }}admin/users/">Utilisateurs</a></li>
                 <li><a href="{{ HERE }}" class="active">Roles</a></li>
             </ul>
         </nav>
@@ -36,10 +38,9 @@
                         <tr>
                             <td>{{ role.id }}</td>
                             <td>{{ role.name }}</td>
-                            <td>{{ role.createdAt }}</td>
+                            <td>{{ role.createdAt|date("d/m/Y") }}</td>
                             <td>
-                                <a href="{{ HERE }}/{{ user.id}}/delete">delete</a>
-                                <a href="{{ HERE }}/{{ user.id}}/edit">edit</a>
+                                <a href="{{ HERE }}{{ role.id}}/delete/">delete</a>
                             </td>
                         </tr>
                     {% endfor %}

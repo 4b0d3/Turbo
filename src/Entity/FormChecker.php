@@ -12,10 +12,10 @@ class FormChecker {
 
     }
 
-    public function check(array $fields, array $posts)  
+    public function check(array $fields, array $posts, string $entName = "L'utilisateur")  
     {
         $data = [];
-        $allowedTypes = ["email", "password", "name", "firstName", "role"];
+        $allowedTypes = ["email", "password", "name", "firstName", "role", "rolename", "checkbox", "int"];
 
         foreach ($fields as $field) {
             $type = $field["type"];
@@ -23,21 +23,21 @@ class FormChecker {
 
             if (!in_array($type, $allowedTypes)) {
                 if(!isset($data["boxMsgs"])) { $data["boxMsgs"] = []; }
-                array_push($data["boxMsgs"], ["status" => "Erreur", "class" => "error", "description" => "L'utilisateur n'a pas été créé : Le type de champs $type n'est pas autorisé."]);
+                array_push($data["boxMsgs"], ["status" => "Erreur", "class" => "error", "description" => "$entName n'a pas été créé : Le type de champs $type n'est pas autorisé."]);
                 continue;
             }
 
             $action = "check" . ucfirst($type);
             if(!method_exists($this, $action)) {
                 if(!isset($data["boxMsgs"])) { $data["boxMsgs"] = []; }
-                array_push($data["boxMsgs"], ["status" => "Erreur", "class" => "error", "description" => "L'utilisateur n'a pas été créé : La méthode permettant de vérifier le champ $type n'existe pas"]);
+                array_push($data["boxMsgs"], ["status" => "Erreur", "class" => "error", "description" => "$entName n'a pas été créé : La méthode permettant de vérifier le champ $type n'existe pas"]);
                 continue;
             }
 
             $res = $this->$action($name, $posts);
             if((!isset($data["boxMsgs"]) || empty($data["boxMsgs"])) && isset($res["error"][$name])) {
                 if(!isset($data["boxMsgs"])) { $data["boxMsgs"] = []; }
-                $data["boxMsgs"][] = ["status" => "Erreur", "class" => "error", "description" => "L'utilisateur n'a pas été créé : " . $res["error"][$name]];
+                $data["boxMsgs"][] = ["status" => "Erreur", "class" => "error", "description" => "$entName n'a pas été créé : " . $res["error"][$name]];
             }
             $data = array_merge_recursive($data, $res); 
         }
@@ -65,8 +65,7 @@ class FormChecker {
         } else if($cm && ($posts[$name] != $posts["email"])) {
             $data["error"][$name] = "Le mail de confirmation est différent du mail principal.";
         } else {
-            !$cm ? $data["form"][$name] = $posts[$name] : "";
-            !$cm ? $data["user"][$name] = $posts[$name] : "";
+            !$cm ? $data["checkedFields"][$name] = $posts[$name] : "";
         }
 
         return $data;
@@ -86,7 +85,7 @@ class FormChecker {
         } else if($cp && ($posts[$name] != $posts["password"])) {
             $data["error"][$name] = "Les mots de passe sont différents.";
         } else {
-            !$cp ? $data["user"][$name] = $posts[$name] : "";
+            !$cp ? $data["checkedFields"][$name] = $posts[$name] : "";
         }
 
         return $data;
@@ -97,8 +96,7 @@ class FormChecker {
         if(!isset($posts[$name]) || empty($posts[$name])) {
             $data["error"][$name] = "Veuillez renseigner un prénom.";
         } else {
-            $data["form"][$name] = $posts[$name];
-            $data["user"][$name] = strtolower($posts[$name]);
+            $data["checkedFields"][$name] = $posts[$name];
         }
 
         return $data;
@@ -109,8 +107,7 @@ class FormChecker {
         if(!isset($posts[$name]) || empty($posts[$name])) {
             $data["error"][$name] = "Veuillez renseigner un nom.";
         } else {
-            $data["form"][$name] = $posts[$name];
-            $data["user"][$name] = strtolower($posts[$name]);
+            $data["checkedFields"][$name] = $posts[$name];
         }
 
         return $data;
@@ -124,12 +121,46 @@ class FormChecker {
         } else if (!in_array($posts[$name], array_column($roles, "id"))) {
             $data["error"][$name] = "Le role spécifié n'existe pas.";
         } else {
-            $data["form"][$name] = $posts[$name];
-            $data["user"]["roleId"] = $posts[$name];
+            $data["checkedFields"][$name] = $posts[$name];
         }
 
         return $data;
     }
 
+    public function checkCheckbox($name, $posts) 
+    {
+        $cm = $name == "confirmEmail" ? true : false;
+
+        $data = [];
+        if(!isset($posts[$name]) || empty($posts[$name])) {
+            $data["error"][$name] = !$cm ? "Veuillez renseigner une adresse mail." : "Veuillez confirmer votre adresse mail.";
+        } else if(!filter_var($posts[$name], FILTER_VALIDATE_EMAIL) && !$cm) {
+            $data["error"][$name] = "Le format du mail ne respecte pas les standards.";
+        } else if(strlen($posts[$name]) > 255 && !$cm) {
+            $data["error"][$name] = "La longueur maximum du mail doit être de 255 caractères.";
+        } else if($cm && ($posts[$name] != $posts["email"])) {
+            $data["error"][$name] = "Le mail de confirmation est différent du mail principal.";
+        } else {
+            !$cm ? $data["checkedFields"][$name] = $posts[$name] : "";
+        }
+
+        return $data;
+    }
+
+    public function checkRolename($name, $posts)
+    {
+
+        $data = [];
+        if(!isset($posts[$name]) || empty($posts[$name])) {
+            $data["error"][$name] = "Veuillez renseigner le nom du role" ;
+        } else if(strlen($posts[$name]) > 255) {
+            $data["error"][$name] = "La longueur maximum du rôle doit être de 255 caractères.";
+        } else if (Roles::getId($posts["name"])) {
+            $data["error"][$name] = "Le nom du rôle est déjà utilisé, il doit être unique.";
+        } else {
+            $data["checkedFields"][$name] = $posts[$name];
+        }
+        return $data; 
+    }
 
 }

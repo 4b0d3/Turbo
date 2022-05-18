@@ -1,0 +1,30 @@
+{% set navActive = "users" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Ajouter un rôle</h1>
+        </header>
+
+        <section id="admin-content">
+            <form action="{{ HERE }}" method="POST" id="form-users-add">
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Nom du rôle<span style="color: red">*</span></div>
+                        <input type="text" name="name" value="{{ form.name ?? '' }}">
+                    </label>
+                </div>
+
+                <div class="box-input-submit">
+                    <input type="submit" value="Ajouter">
+                </div>
+            </form>
+        </section>
+    </section>
+{% endblock content %}

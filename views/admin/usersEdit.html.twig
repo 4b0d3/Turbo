@@ -8,59 +8,76 @@
        {{ include('includes/boxMessages.html.twig') }}
 
         <header id="admin-header">
-            <h1>Ajouter un utilisateur</h1>
+            <h1>Editer un utilisateur</h1>
         </header>
+
+        {% include "includes/navAdminUsers.html.twig" with {active : "edit"} %}
+
 
         <section id="admin-content">
             <form action="{{ HERE }}" method="POST" id="form-users-add">
                 <div class="box-input-txt">
                     <label>
-                        <div>Email<span style="color: red">*</span></div>
-                        <input type="email" name="email" value="{{ checkedFields.email ?? '' }}">
+                        <div>Id</div>
+                        <input value="{{ userInfo.id ?? '' }}" readonly>
                     </label>
                 </div>
 
                 <div class="box-input-txt">
                     <label>
-                        <div>Nom<span style="color: red">*</span></div>
-                        <input type="text" name="name" value="{{ checkedFields.name ?? '' }}">
+                        <div>Email</span></div>
+                        <input type="email" name="email" value="{{ userInfo.email ?? ''  }}">
                     </label>
                 </div>
 
                 <div class="box-input-txt">
                     <label>
-                        <div>Prénom<span style="color: red">*</span></div>
-                        <input type="text" name="firstName" value="{{ checkedFields.firstName ?? '' }}">
+                        <div>Nom</div>
+                        <input type="text" name="name" value="{{ userInfo.name ?? '' }}">
                     </label>
                 </div>
 
                 <div class="box-input-txt">
                     <label>
-                        <div>Mot de passe<span style="color: red">*</span></div>
+                        <div>Prénom</div>
+                        <input type="text" name="firstName" value="{{ userInfo.firstName ?? '' }}">
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Nouveau mot de passe</div>
                         <input type="password" name="password">
                     </label>
                 </div>
 
                 <div class="box-input-txt">
                     <label>
-                        <div>Confirmer le mot de passe<span style="color: red">*</span></div>
+                        <div>Confirmer le nouveau mot de passe</div>
                         <input type="password" name="confirmPassword">
                     </label>
                 </div>
 
                 <div class="box-select">
                     <label>
-                        <div>Role<span style="color: red">*</span></div>
+                        <div>Role</div>
                         <select name="role">
                             {% for role in roles %}
-                                <option value="{{ role.id }}" {{ checkedFields.role == role.id ? "selected" : '' }}>{{ role.name }}</option>
+                                <option value="{{ role.id }}" {{ userInfo.role == role.name ? "selected" : '' }}>{{ role.name }}</option>
                             {% endfor %}
                         </select>
                     </label>
                 </div>
 
+                <div class="box-input-toggle">
+                    <label>
+                        <div>Utilisateur vérifié</div>
+                        <input type="checkbox" {{ userInfo.confirmed ? "checked" : "" }}>
+                    </label>
+                </div>
+
                 <div class="box-input-submit">
-                    <input type="submit" value="Ajouter">
+                    <input type="submit" value="Editer">
                 </div>
             </form>
         </section>

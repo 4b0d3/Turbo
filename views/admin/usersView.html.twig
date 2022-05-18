@@ -1,0 +1,60 @@
+{% set navActive = "users" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Editer un utilisateur</h1>
+        </header>
+
+        {% include "includes/navAdminUsers.html.twig" with {active : "view"} %}
+
+        <section id="admin-content">
+                <div class="box-input-txt">
+                    <label>
+                        <div>Id</div>
+                        <input value="{{ userInfo.id ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Email</span></div>
+                        <input type="email" name="email" value="{{ userInfo.email ?? ''  }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Nom</div>
+                        <input type="text" name="name" value="{{ userInfo.name ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Prénom</div>
+                        <input type="text" value="{{ userInfo.firstName ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Role</div>
+                        <input type="text" value="{{ userInfo.role ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-toggle">
+                    <label>
+                        <div>Utilisateur vérifié</div>
+                        <input type="checkbox" name="confirmed" value="1" {{ userInfo.confirmed ? "checked" : "" }} readonly>
+                    </label>
+                </div>
+        </section>
+    </section>
+{% endblock content %}

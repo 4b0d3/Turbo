@@ -28,14 +28,19 @@ $router
 
     // Users
     ->get("/admin/users/", "Admin\\Users@getAll")
+    ->get("/admin/users/[i:id]/view/", "Admin\\Users@getView")
     ->get("/admin/users/add/", "Admin\\Users@getAdd")
     ->post("/admin/users/add/", "Admin\\Users@postAdd")
-    ->get("/admin/users/[i:id]/edit/", "Admin\\User@get")
-    ->post("/admin/users/[i:id]/edit/", "Admin\\User@post")
-    ->get("/admin/users/[i:id]/delete/", "Admin\\User@delete")
+    ->get("/admin/users/[i:id]/edit/", "Admin\\Users@getEdit")
+    ->post("/admin/users/[i:id]/edit/", "Admin\\Users@postEdit")
+    ->get("/admin/users/[i:id]/delete/", "Admin\\Users@getDel")
+    ->post("/admin/users/[i:id]/delete/", "Admin\\Users@postDel")
 
     // Roles
-    ->get("/admin/roles/", "Admin\\Users@showAllRoles")
+    ->get("/admin/roles/", "Admin\\Users@getAllRoles")
+    ->get("/admin/roles/add/", "Admin\\Users@getAddRoles")
+    ->post("/admin/roles/add/", "Admin\\Users@postAddRoles")
+    ->get("/admin/roles/[i:id]/delete/", "Admin\\Users@postDelRoles")
 
 
     /* WEBSITE */

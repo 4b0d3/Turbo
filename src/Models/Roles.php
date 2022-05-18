@@ -3,8 +3,21 @@
 namespace App\Models;
 
 use App\Database\Database;
+use App\Entity\FormChecker;
+use App\Entity\User;
 
 class Roles {
+    public static function get(int $id)
+    {
+        if($id == null && $id <= 0) return null;
+
+        $db = new Database();
+        $q = "SELECT * FROM roles WHERE id = ?";
+
+        $res = $db->queryOne($q, [$id]) ?: null;
+        return $res;
+    }
+
     public static function getId(string $role) 
     {
         $db = new Database();
@@ -20,12 +33,62 @@ class Roles {
     public static function getAll()
     {
         $db = new Database();
-        $roles = $db->queryAll("SELECT * FROM roles order by id DESC");
+        $roles = $db->queryAll("SELECT * FROM roles order by id");
 
         if($roles != false) {
             return $roles;
         }
 
         return null;
+    }
+
+    public static function add($roleInfo)
+    {
+        $data = [];
+        $fields = [
+            [ "type" => "rolename", "name" => "name" ],
+        ];
+
+        $data = (new FormChecker)->check($fields, $roleInfo, "Le rôle");
+
+        if(!$data["status"]) {
+            return $data;
+        }
+
+        $role = $data["checkedFields"];
+        $alreadyExists = Roles::getId($role["name"]);
+
+        if($alreadyExists != null) {
+            $data["status"] = false;
+            $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Le rôle n'a pas été créé : le nom est déjà utilisé."]];
+            return $data;
+        }        
+
+        $db = new Database();
+        $currentUser = new User();
+
+        $q = "INSERT INTO roles(name, createdBy) VALUES(?,?)";
+        $res = $db->query($q, [$role["name"], $currentUser->get("id")]);
+
+        if(!$res) {
+            $data["status"] = false;
+            $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Le rôle n'a pas été créé : problème lors de la requête d'ajout du rôle dans la base de données."]];
+            return $data;
+        }
+
+        $data["boxMsgs"] = [["status" => "Succès", "class" => "success", "description" => "Le rôle a bien été créé."]];
+        return $data;  
+    }
+
+    public static function delete(int $id) :bool
+    {
+        if($id == null && $id <= 0) return false;
+
+        $db = new Database();
+        $q = "DELETE FROM roles WHERE id = ?";
+
+        $res = $db->query($q, [$id]);
+
+        return $res;
     }
 }

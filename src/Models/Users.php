@@ -9,14 +9,12 @@ use App\Entity\FormChecker;
 class Users {
     public static function get(int $id)
     {
+        if($id == null && $id <= 0) return null;
+
         $db = new Database();
         $q = "SELECT users.*, roles.name as role FROM users LEFT JOIN roles ON users.role = roles.id WHERE users.id = ?";
 
-        $res = [];
-        if($id != null && $id > 0) {
-            $res = $db->queryOne($q, [$id]);
-        }
-
+        $res = $db->queryOne($q, [$id]) ?: null;
         return $res;
     }
 
@@ -25,24 +23,22 @@ class Users {
         $db = new Database();
         $q = "SELECT users.*, roles.name as role FROM users LEFT JOIN roles ON users.role = roles.id WHERE users.email = ?";
 
-        $res = $db->queryOne($q, [$email]);
-        $res = $res == false ? null : $res;
-
+        $res = $db->queryOne($q, [$email]) ?: null;
         return $res;
     }
 
-    public static function getAll(int $start = null, int $total = null) :array
+    public static function getAll(int $start = null, int $total = null)
     {
         $db = new Database();
         $q = "SELECT users.*, roles.name as role FROM users LEFT JOIN roles ON users.role = roles.id";
 
-        $res = [];
+        $res = null;
         if(!($start == null || $start < 0 || $total == null || $total < 0 )) {
             $q = $q . " LIMIT " . $start . ", " . $total; 
             $res = $db->queryAll($q);
-        } else {
-            $res = $db->queryAll($q);
         }
+
+        $res = $db->queryAll($q) ?: null;
 
         return $res;
     }
@@ -95,10 +91,28 @@ class Users {
         return $data;
     }
 
-    public static function updateOneById(int $id, array $user) :bool
+    public static function updateOneById(array $user) :bool
     {
+        $data = [];
+        $fields = [
+            [ "type" => "int", "name" => "id" ],
+            [ "type" => "email", "name" => "email" ],
+            [ "type" => "name", "name" => "name" ],
+            [ "type" => "firstName", "name" => "firstName" ],
+            [ "type" => "password", "name" => "password" ],
+            [ "type" => "password", "name" => "confirmPassword" ],
+            [ "type" => "role", "name" => "role" ],
+            [ "type" => "checkbox", "name" => "confirmed" ]
+        ];
+
+        $data = (new FormChecker)->check($fields, $user);
+
+        if(!$data["status"]) {
+            return $data;
+        }
+
         $set = [];
-        $allowedKeys = ["name", "firstName", "email", "password", "role"];
+        $allowedKeys = ["email", "password", "name", "firstName", "role", "confirmed"];
 
         foreach ($user as $key => $value) {
             if (!in_array($key, $allowedKeys)) {
@@ -110,20 +124,19 @@ class Users {
 
         $set = implode(", ", $set);
         $db = new Database();
-        $res = $db->query("UPDATE users SET $set WHERE id = :id", array_merge(["id" => $id], $user));
+        $res = $db->query("UPDATE users SET $set WHERE id = :id",  $user);
 
         return $res;
     }
 
     public static function delete(int $id) :bool
     {
+        if($id == null && $id <= 0) return false;
+
         $db = new Database();
         $q = "DELETE FROM users WHERE id = ?";
 
-        $res = false;
-        if($id != null && $id > 0) {
-            $res = $db->query($q, [$id]);
-        }
+        $res = $db->query($q, [$id]);
 
         return $res;
     }

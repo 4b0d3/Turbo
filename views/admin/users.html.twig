@@ -19,7 +19,7 @@
         <nav id="admin-nav">
             <ul>
                 <li><a href="{{ HERE }}" class="active">Utilisateurs</a></li>
-                <li><a href="{{ BASEURL }}admin/roles/" class="">Roles</a></li>
+                <li><a href="{{ HOST }}admin/roles/" class="">Roles</a></li>
             </ul>
         </nav>
 
@@ -46,10 +46,9 @@
                             <td>{{ user.firstName }}</td>
                             <td>{{ user.role }}</td>
                             <td>{{ user.confirmed }}</td>
-                            <td>{{ user.createdAt }}</td>
+                            <td>{{ user.createdAt|date("d/m/Y") }}</td>
                             <td>
-                                <a href="{{ HERE }}{{ user.id}}/delete/">delete</a>
-                                <a href="{{ HERE }}{{ user.id}}/edit/">edit</a>
+                                <a href="{{ HERE }}{{ user.id}}/view/">Voir</a>
                             </td>
                         </tr>
                     {% endfor %}

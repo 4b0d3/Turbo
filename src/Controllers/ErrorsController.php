@@ -15,6 +15,11 @@ class ErrorsController extends BaseController
         $data["code"] = $code;
 
         switch($code) {
+            case 403:
+                $data["status"] = "Unauthorized";
+                $data["message"] = "Woops. Looks like you don't have the permissions to acces this page.";
+                break;
+
             case 404:
                 $data["status"] = "Not found";
                 $data["message"] = "Woops. Looks like this page doesn't exist.";
