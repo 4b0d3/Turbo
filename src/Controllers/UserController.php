@@ -4,26 +4,81 @@ namespace App\Controllers;
 
 use App\Database\Database;
 use App\Models\Users;
+use App\Models\Roles;
 
 class UserController extends BaseController 
 {
+    /* LOGIN */
+    public function getLogin(array $data = []) 
+    {
+        $this->display("site/login.html.twig", $data);
+    }
+
+    public function postLogin() 
+    {
+        $res = Users::login($_POST);
+
+        if($res["status"]) {
+            // TODO REDIRECTION MAIL DE CONFIRMATION
+            $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;Connecté.";
+            $redirect = $this->urls["BASEURL"] . "?boxMsgs=" . $val;
+            header("Location:" . $redirect);
+            return;
+        }
+
+        if(isset($res["form"]["checkedFields"])) $data["form"]["checkedFields"] = $res["form"]["checkedFields"];
+        if(isset($res["boxMsgs"])) $data["boxMsgs"] = $res["boxMsgs"];
+        if(isset($res["form"]["error"])) $data["form"]["error"] = $res["form"]["error"];
+
+        $this->getLogin($data);
+    }
+
+    /* REGISTER */
+    public function getRegister(array $data = []) 
+    {
+        $this->display("site/register.html.twig", $data);
+    }
+
+    public function postRegister() 
+    {
+        $_POST["role"] = Roles::getId("user");
+        $res = Users::add($_POST);
+
+        if($res["status"]) {
+            // TODO REDIRECTION MAIL DE CONFIRMATION
+            $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;L'utilisateur a bien été créé.";
+            $redirect = $this->urls["BASEURL"] . "?boxMsgs=" . $val;
+            header("Location:" . $redirect);
+            return;
+        }
+
+        if(isset($res["form"]["checkedFields"])) $data["form"]["checkedFields"] = $res["form"]["checkedFields"];
+        if(isset($res["boxMsgs"])) $data["boxMsgs"] = $res["boxMsgs"];
+        if(isset($res["form"]["error"])) $data["form"]["error"] = $res["form"]["error"];
+
+        $this->getRegister($data);
+    }
+
+
+    public function checkAnonymous()
+    {
+        if(!$this->user->hasRole("admin"))  {
+            header("Location:" . $this->router->generate("login", ["lang" => $this->lang]));
+            return true;
+        }
+        return false;
+    }
 
     public function showInformations() 
     {
-        if($this->user->isAnonymous()) {
-            header("Location:" . $this->router->generate("login", ["lang" => $this->match["params"]["lang"] ?? "fr"]));
-            exit;
-        }
+        if($this->checkAnonymous()) return;
 
         $this->display("user/informations.html.twig");
     }
 
     public function editInformations()
     {
-        if($this->user->isAnonymous()) {
-            header("Location:" . $this->router->generate("login", ["lang" => $this->match["params"]["lang"] ?? "fr"]));
-            exit;
-        }
+        if($this->checkAnonymous()) return;
 
 
         $this->display("user/informations.html.twig");
@@ -31,30 +86,31 @@ class UserController extends BaseController
 
     public function showOrders() 
     {
+        if($this->checkAnonymous()) return;
         $this->display("user/orders.html.twig");
     }
     
     public function showReturns() 
     {
+        if($this->checkAnonymous()) return;
         $this->display("user/returns.html.twig");
     }
 
     public function showRides() 
     {
+        if($this->checkAnonymous()) return;
         $this->display("user/rides.html.twig");
     }
 
     public function showChangePassword() 
     {
+        if($this->checkAnonymous()) return;
         $this->display("user/change-password.html.twig");
     }
 
     public function editChangePassword() 
     {
-        if($this->user->isAnonymous()) {
-            header("Location:" . $this->router->generate("login", ["lang" => $this->match["params"]["lang"] ?? "fr"]));
-            exit;
-        }
+        if($this->checkAnonymous()) return;
 
         $data = [];
 
@@ -83,16 +139,19 @@ class UserController extends BaseController
 
     public function showAddresses() 
     {
+        if($this->checkAnonymous()) return;
         $this->display("user/addresses.html.twig");
     }
 
     public function showPaymentMethods() 
     {
+        if($this->checkAnonymous()) return;
         $this->display("user/payment-methods.html.twig");
     }
 
     public function showNotifications() 
     {
+        if($this->checkAnonymous()) return;
         $this->display("user/notifications.html.twig");
     }
 
@@ -114,7 +173,7 @@ class UserController extends BaseController
 
         // Finalement, on détruit la session.
         session_destroy();
-        header("Location:". HOST);
+        header("Location:". $this->urls["BASEURL"]);
     }
 
 }

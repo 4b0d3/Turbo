@@ -35,14 +35,17 @@ class Router {
         if($match !== false && isset($match['target'])) {
             $controllerName = "\\App\\Controllers\\" . explode("@", $match['target'])[0] . "Controller";
             $action = explode("@", $match['target'])[1];
-            $controller = new $controllerName($match, $this);
-            $controller->$action();
-        } else {
-            $match = [];
-            $match["error"] = 404;
-            $controller = new \App\Controllers\ErrorsController($match);
-            $controller->get();
+            if(method_exists($controllerName, $action)){
+                $controller = new $controllerName($match, $this);
+                $controller->$action();
+                return $this;
+            }
         }
+        
+        $match = [];
+        $match["error"] = 404;
+        $controller = new \App\Controllers\ErrorsController($match);
+        $controller->get();
 
         return $this;
     }

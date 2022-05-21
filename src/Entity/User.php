@@ -30,7 +30,7 @@ class User {
         }
 
         /**
-         * TOMAKE
+         * TODO
          * Identification par token ? maybe
          */
     }

@@ -1,0 +1,53 @@
+/*********************
+        FORM
+**********************/
+.box-input-txt {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.box-input-txt > label {
+    margin: 0 auto;
+}
+
+.box-input-txt:last-child {
+    margin-bottom: 0;
+}
+
+.box-input-txt > label > span {
+    padding-bottom: 12px;
+    color: #777;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    line-height: 1.4rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.box-input-txt > label input {
+    width: 65%;
+    min-width: 250px;
+    padding: 10px 16px;
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    border: 1px solid #777;
+    outline: none;
+    border-radius: 0;
+    appearance: none;
+}
+
+.box-button-submit > button {
+    width: 65%;
+    min-width: 250px;
+    margin: 0;
+    padding: 8px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    border: 0;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.box-button-submit > button:hover {
+    background-color: #c0c0c0;
+}

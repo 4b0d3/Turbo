@@ -43,11 +43,12 @@ class Users {
         return $res;
     }
 
-    public static function add(array $userInfo) :array
+    public static function add(array $user) :array
     {
         $data = [];
         $fields = [
             [ "type" => "email", "name" => "email" ],
+            [ "type" => "email", "name" => "confirmEmail" ],
             [ "type" => "name", "name" => "name" ],
             [ "type" => "firstName", "name" => "firstName" ],
             [ "type" => "password", "name" => "password" ],
@@ -55,27 +56,23 @@ class Users {
             [ "type" => "role", "name" => "role" ],
         ];
 
-        $data = (new FormChecker)->check($fields, $userInfo);
+        $data = (new FormChecker)->check($fields, $user);
 
         if(!$data["status"]) {
             return $data;
         }
 
-        $user = $data["user"];
+        $user = $data["form"]["checkedFields"];
         $alreadyExists = Users::getByMail($user["email"]);
 
         if($alreadyExists != null) {
             $data["status"] = false;
             $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "L'utilisateur n'a pas été créé : l'adresse mail est déjà utilisée."]];
             return $data;
-        }        
-        
-        if(!isset($user["roleId"])) {
-            $user["roleId"] = Roles::getId("user");
-        }
+        }   
 
         $db = new Database();
-        $q = "INSERT INTO users(email, password, name, firstName, role) VALUES(:email, :password, :name, :firstName, :roleId)";
+        $q = "INSERT INTO users(email, password, name, firstName, role) VALUES(:email, :password, :name, :firstName, :role)";
 
         $user["password"] = password_hash($user["password"], PASSWORD_DEFAULT); // TODO CHANGE PASSWORD_DEFAULT
 
@@ -91,7 +88,7 @@ class Users {
         return $data;
     }
 
-    public static function updateOneById(array $user) :bool
+    public static function updateOneById(array $user)
     {
         $data = [];
         $fields = [
@@ -139,5 +136,38 @@ class Users {
         $res = $db->query($q, [$id]);
 
         return $res;
+    }
+
+    public static function login(array $user)
+    {
+        $data = [];
+        $fields = [
+            [ "type" => "email", "name" => "email" ],
+            [ "type" => "password", "name" => "password" ],
+        ];
+
+        $data = (new FormChecker)->check($fields, $user);
+
+        if(!$data["status"]) {
+            return $data;
+        }
+
+        $user = $data["form"]["checkedFields"];
+        $getUser = Users::getByMail($user["email"]);
+
+        if($getUser == null) {
+            $data["status"] = false;
+            $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Idientifiants invalides"]];
+            return $data;
+        }   
+
+        if(password_verify($user["password"], $getUser["password"])) {
+            $_SESSION["id"] = $getUser["id"];
+            return $data;
+        }
+
+        $data["status"] = false;
+        $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Idientifiants invalides"]];
+        return $data;
     }
 }

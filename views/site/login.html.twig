@@ -1,35 +1,55 @@
 {% extends "templates/site.html.twig" %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ STYLESHEETS }}login.css">
+    <link rel="stylesheet" href="{{ STYLESHEETS }}auth.css">
 {% endblock stylesheets %}
 
 {% block body %}
     <main>
-        <div id="container">
-            <!-- zone de connexion -->
+
+        {{ include('includes/boxMessages.html.twig') }}
+
+        <h1><a href="{{ BASEURL }}">Turbo</a></h1>
+        
+        <section id="section-login">
+            <nav>
+                <ul>
+                    <li><a href="{{ BASEURL }}register/">{{ "Créer un compte"|trans }}</a></li>
+                    <li class="active"><a href="{{ HERE }}">{{ "Connexion"|trans }}</a></li>
+                </ul>
+            </nav>
 
             <form action="{{ HERE }}" method="POST">
-                <h3><a href="{{ BASEURL }}" style="text-align: center; margin-bottom: 15px; color: #FD7014; text-decoration: none; font-size: 2rem; display: inline-block; width: 100%;">Turbo</a></h3>
-                <h1 style="text-align: center;">Account login</h1>
-                
-                <input type="text" placeholder="Email" name="email" value="{{ form.email ?? "" }}" required>
-                
-                <input type="password" placeholder="Password" name="password" required>
-                
-                {% if error is defined %}
-                    <p style='color:red; margin: 5px 0; text-align: center;'>{{ error.message }}</p>                    
-                {% endif %}
-                
-                <input type="submit" id='submit' value='Login' >
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Email"|trans }} :</span>
+                        <div>
+                            <input type="email" name="email" value="{{ form.checkedFields.email ?? '' }}" required>
+                        </div>
+                        {% if form.error.email is defined %}<p class="inputError">{{ form.error.email|trans }}</p>{% endif %}
+                    </label>
+                </div>
 
-                <a href="{{ BASEURL }}register/" class="linkRegister"><h3 >Need help?</h3></a>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Mot de passe"|trans }} :</span>
+                        <div>
+                            <input type="password" name="password">
+                        </div>
+                        {% if form.error.password is defined %}<p class="inputError">{{ form.error.password|trans }}</p>{% endif %}
+                    </label>
+                </div>
+                
+                {% if error.message is defined %}<p style='color:red; margin: 5px 0; text-align: center;'>{{ error.message }}</p>{% endif %}
+
+                <div class="box-button-submit">
+                    <button type="submit">{{ "Connexion"|trans}}</button>
+                </div>  
+
+                <p class="passwordForgot">
+                    <a href="">{{ "Mot de passe oublié ?"|trans }}</a>
+                </p>
             </form>
-            <br>
-            <div class="noAccount">
-                <h1 class="question">No account yet ?</h1>
-                <a href="{{ BASEURL }}register/" class="createAccount">Create account</a>
-            </div>
-        </div>
+        </section>
     </main>
 {% endblock body %}

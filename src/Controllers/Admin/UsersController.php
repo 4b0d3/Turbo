@@ -33,6 +33,7 @@ class UsersController extends BaseController
     {
         if(!$this->checkAdminAccess()) return;
 
+        if(isset($_POST["email"])) $_POST["confirmEmail"] = $_POST["email"];
         $res = Users::add($_POST);
 
         if($res["status"]) {

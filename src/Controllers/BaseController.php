@@ -113,10 +113,13 @@ class BaseController
         ]);
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
         $this->twig->addFilter(new TwigFilter("trans", function ($value) {
-            $tr = new GoogleTranslate($this->lang);
-            $tr->setUrl('http://translate.google.cn/translate_a/single'); 
-            $tr->setSource('fr');
-            return $tr->translate($value);
+            if($this->lang != "fr") {
+                $tr = new GoogleTranslate($this->lang);
+                $tr->setUrl('http://translate.google.cn/translate_a/single'); 
+                $tr->setSource('fr');
+                return $tr->translate($value);
+            }
+            return $value;
         }));
     }
 

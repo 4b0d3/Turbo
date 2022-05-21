@@ -21,11 +21,10 @@ session_start();
 $router
     /* ADMIN */
     // scooters                                                                                     
-    ->get("/admin/scooters/", "Admin\\Scooters@showAll")
+    ->get("/admin/scooters/", "Admin\\Scooters@getAll")
     ->get("/admin/scooters/[i:id]/delete/", "Admin\\Scooter@delete")
     ->get("/admin/scooters/[i:id]/edit/", "Admin\\Scooter@get")
     ->post("/admin/scooters/[i:id]/edit/", "Admin\\Scooter@post")
-
     // Users
     ->get("/admin/users/", "Admin\\Users@getAll")
     ->get("/admin/users/[i:id]/view/", "Admin\\Users@getView")
@@ -35,7 +34,6 @@ $router
     ->post("/admin/users/[i:id]/edit/", "Admin\\Users@postEdit")
     ->get("/admin/users/[i:id]/delete/", "Admin\\Users@getDel")
     ->post("/admin/users/[i:id]/delete/", "Admin\\Users@postDel")
-
     // Roles
     ->get("/admin/roles/", "Admin\\Users@getAllRoles")
     ->get("/admin/roles/add/", "Admin\\Users@getAddRoles")
@@ -44,8 +42,8 @@ $router
 
 
     /* WEBSITE */
-    ->get("/disconnect/", "User@disconnect")
-    // my account
+    ->get("/[a:lang]/disconnect/", "User@disconnect")
+    // User profil
     ->get("/[a:lang]/my-account/", "User@showInformations")
     ->post("/[a:lang]/my-account/", "User@editInformations")
     ->get("/[a:lang]/my-account/orders/", "User@showOrders")
@@ -58,16 +56,15 @@ $router
     ->get("/[a:lang]/my-account/notifications/", "User@showNotifications")
 
 
-    ->get("/test", "Test@get")
-
-
-    ->get("/[a:lang]/", "Home@get", "Home")
-
-    ->get("/[a:lang]/login/", "Login@get", "login")
-    ->post("/[a:lang]/login/", "Login@post")
-    ->get("/[a:lang]/register/", "Register@get", "Register")
-    ->post("/[a:lang]/register/", "Register@post")
-
+    // Login
+    ->get("/[a:lang]/login/", "Site@getLogin", "login")
+    ->post("/[a:lang]/login/", "Site@postLogin")
+    // Register
+    ->get("/[a:lang]/register/", "Site@getRegister")
+    ->post("/[a:lang]/register/", "Site@postRegister")
+    
+    // Pages
+    ->get("/[a:lang]/", "Site@getHome")
     ->get("/[a:lang]/shop", "Shop@get")
 
     ->run($route);

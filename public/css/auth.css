@@ -1,0 +1,116 @@
+body {
+    padding: 0;
+}
+
+main {
+    min-height: 100vh;
+    background-color: #EEEEEE;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+main > h1 {
+    margin-bottom: 16px;
+}
+
+main > h1 a {
+    text-decoration: none;
+    color: orange;
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+#section-login {
+    width: 35%;
+    min-width: 400px;
+    padding: 0 32px 32px 32px;
+    background-color: white;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: stretch;
+}
+
+#section-login > nav {
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+#section-login > nav > ul {
+    list-style-type: none;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: stretch;
+}
+
+#section-login > nav > ul > li {
+    width: 45%;
+    text-align: center;
+    border-bottom: 2px solid rgb(241, 241, 241);
+}
+
+#section-login > nav > ul > li > a {
+    padding: 16px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    line-height: 1.7;
+    color: rgb(27, 27, 27);
+
+    position: relative;
+    display: block;
+}
+
+#section-login > nav > ul > li:first-child > a::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 2px;
+    background-color: rgb(241, 241, 241);
+}
+
+#section-login > nav > ul > li.active > a  {
+    color: black;
+}
+
+#section-login > nav > ul > li.active  {
+    border-bottom: 2px solid orange;
+}
+
+#section-login > form{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-input-txt > label {
+    width: 65%;
+    margin: auto auto;
+    display: block;
+}
+
+.box-input-txt > label input {
+    width: 100%;
+}
+
+p.passwordForgot {
+    margin-top: 24px;
+}
+
+p.passwordForgot > a {
+    text-decoration: none;
+    color: black;
+}
+
+.inputError {
+    color: red;
+}

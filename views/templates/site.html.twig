@@ -4,16 +4,20 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ STYLESHEETS }}site.css">
+    <link rel="stylesheet" href="{{ STYLESHEETS }}formBasic.css">
 {% endblock head %}
 
 
 {% block header %}{% include "includes/header.html.twig" %}{% endblock header %}
 
-
+{% block content %}
+    
+{% endblock content %}
 
 {% block footer %}{% include "includes/footer.html.twig" %}{% endblock footer %}
 
 {% block javascripts %}
     {{ parent() }}
     <script defer src="{{ HOST }}javascript/cart.js"></script>
+    <script src="{{ HOST }}javascript/boxMessages.js"></script>
 {% endblock javascripts %}

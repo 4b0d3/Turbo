@@ -1,43 +1,89 @@
 {% extends "templates/site.html.twig" %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ STYLESHEETS }}register.css">
+    <link rel="stylesheet" href="{{ STYLESHEETS }}auth.css">
 {% endblock stylesheets %}
 
 {% block body %}
     <main>
-        <form action="{{ HERE }}" method="post">
-            <div class="input-box">
-                <label for="email">Email :</label>
-                <input type="mail" name="email" id="email" value="{{ form.email ?? '' }}">
-                {% if error.email is defined %}<p class="inputError">{{ error.email }}</p>{% endif %}
-            </div>
-            <div class="input-box">
-                <label for="confirmEmail">Confirm email :</label>
-                <input type="mail" name="confirmEmail">
-                {% if error.confirmEmail is defined %}<p class="inputError">{{ error.confirmEmail }}</p>{% endif %}
-            </div>
-            <div class="input-box">
-                <label for="password">Password :</label>
-                <input type="password" name="password" id="password">
-                {% if error.password is defined %}<p class="inputError">{{ error.password }}</p>{% endif %}
-            </div>
-            <div class="input-box">
-                <label for="confirmPassword">Confirm password :</label>
-                <input type="password" name="confirmPassword" id="confirmPassword">
-                {% if error.confirmPassword is defined %}<p class="inputError">{{ error.confirmPassword }}</p>{% endif %}
-            </div>
-            <div class="input-box">
-                <label for="firstName">First Name :</label>
-                <input type="text" name="firstName" id="firstName" value="{{ form.firstName ?? '' }}">
-                {% if error.firstName is defined %}<p class="inputError">{{ error.firstName }}</p>{% endif %}
-            </div>
-            <div class="input-box">
-                <label for="name">Name :</label>
-                <input type="mail" name="name" id="name" value="{{ form.name ?? ''}}" >
-                {% if error.name is defined %}<p class="inputError">{{ error.name }}</p>{% endif %}
-            </div>
-        </form>
-        <a href="{{ BASEURL }}register" class="createAccount">Create account</a>
+
+        {{ include('includes/boxMessages.html.twig') }}
+
+        <h1><a href="{{ BASEURL }}">Turbo</a></h1>
+        
+        <section id="section-login">
+            <nav>
+                <ul>
+                    <li class="active"><a href="{{ HERE }}">{{ "Créer un compte"|trans }}</a></li>
+                    <li><a href="{{ BASEURL }}login/">{{ "Connexion"|trans }}</a></li>
+                </ul>
+            </nav>
+
+            <form action="{{ HERE }}" method="post">
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Prénom"|trans }}<span style="color: red">*</span> :</span>
+                        <div>
+                            <input type="text" name="firstName" value="{{ form.checkedFields.firstName ?? '' }}">
+                        </div>
+                        {% if form.error.firstName is defined %}<p class="inputError">{{ form.error.firstName|trans }}</p>{% endif %}
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Nom de famille"|trans }}<span style="color: red">*</span> :</span>
+                        <div>
+                            <input type="text" name="name" value="{{ form.checkedFields.name ?? '' }}">
+                        </div>
+                        {% if form.error.name is defined %}<p class="inputError">{{ form.error.name|trans }}</p>{% endif %}
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Email"|trans }}<span style="color: red">*</span> :</span>
+                        <div>
+                            <input type="email" name="email" value="{{ form.checkedFields.email ?? '' }}">
+                        </div>
+                        {% if form.error.email is defined %}<p class="inputError">{{ form.error.email|trans }}</p>{% endif %}
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Mail de confirmation"|trans }}<span style="color: red">*</span> :</span>
+                        <div>
+                            <input type="email" name="confirmEmail">
+                        </div>
+                        {% if form.error.confirmEmail is defined %}<p class="inputError">{{ form.error.confirmEmail|trans }}</p>{% endif %}
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Mot de passe"|trans }}<span style="color: red">*</span> :</span>
+                        <div>
+                            <input type="password" name="password">
+                        </div>
+                        {% if form.error.password is defined %}<p class="inputError">{{ form.error.password|trans }}</p>{% endif %}
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Confirmation du mot de passe"|trans }}<span style="color: red">*</span> :</span>
+                        <div>
+                            <input type="password" name="confirmPassword">
+                        </div>
+                        {% if form.error.confirmPassword is defined %}<p class="inputError">{{ form.error.confirmPassword|trans }}</p>{% endif %}
+                    </label>
+                </div>
+
+                <div class="box-button-submit">
+                    <button type="submit">{{ "Créer"|trans}}</button>
+                </div>  
+            </form>
+        </section>
     </main>
 {% endblock body %}
