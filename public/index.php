@@ -4,9 +4,15 @@ include("../vendor/autoload.php");
 
 use App\Router\Router;
 
+use Symfony\Component\Dotenv\Dotenv;
 
-// TODO CHANGE HOST UNTIL IMPLEMENTATIONS OF DOTENV
-define('HOST', "/ESGI/ESGI2/Projet Annuelp/Turbo/public/");
+session_start();
+
+$dotenv = new Dotenv();
+$dotenv->load("../.env");
+
+
+define('HOST', $_ENV["HOST"]);
 define('STYLESHEETS', HOST . "css/");
 define('JAVASCRIPTS', HOST . "javascript/");
 define('UPLOADS', HOST . "uploads/");
@@ -16,7 +22,7 @@ define('VIEWS', dirname(__DIR__) . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEP
 $router = new Router();
 $route = isset($_REQUEST["route"]) ? "/" . $_REQUEST["route"] : header("Location:" . HOST . "fr/");
 
-session_start();
+
 
 $router
     /* ADMIN */
@@ -44,7 +50,7 @@ $router
     /* WEBSITE */
     ->get("/[a:lang]/disconnect/", "User@disconnect")
     // User profil
-    ->get("/[a:lang]/my-account/", "User@showInformations")
+    ->get("/[a:lang]/my-account/", "User@showInformations", "myaccount")
     ->post("/[a:lang]/my-account/", "User@editInformations")
     ->get("/[a:lang]/my-account/orders/", "User@showOrders")
     ->get("/[a:lang]/my-account/returns/", "User@showReturns")
@@ -55,13 +61,12 @@ $router
     ->get("/[a:lang]/my-account/payment-methods/", "User@showPaymentMethods")
     ->get("/[a:lang]/my-account/notifications/", "User@showNotifications")
 
-
     // Login
-    ->get("/[a:lang]/login/", "Site@getLogin", "login")
-    ->post("/[a:lang]/login/", "Site@postLogin")
+    ->get("/[a:lang]/login/", "User@getLogin", "login")
+    ->post("/[a:lang]/login/", "User@postLogin")
     // Register
-    ->get("/[a:lang]/register/", "Site@getRegister")
-    ->post("/[a:lang]/register/", "Site@postRegister")
+    ->get("/[a:lang]/register/", "User@getRegister")
+    ->post("/[a:lang]/register/", "User@postRegister")
     
     // Pages
     ->get("/[a:lang]/", "Site@getHome")

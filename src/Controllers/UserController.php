@@ -11,15 +11,24 @@ class UserController extends BaseController
     /* LOGIN */
     public function getLogin(array $data = []) 
     {
+        if($this->user->isAuthenticated()) {
+            header("Location:" . $this->router->generate("myaccount", ["lang" => $this->lang]));
+            return true;
+        }
+
         $this->display("site/login.html.twig", $data);
     }
 
     public function postLogin() 
     {
+        if($this->user->isAuthenticated()) {
+            header("Location:" . $this->router->generate("myaccount", ["lang" => $this->lang]));
+            return true;
+        }
+
         $res = Users::login($_POST);
 
         if($res["status"]) {
-            // TODO REDIRECTION MAIL DE CONFIRMATION
             $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;Connecté.";
             $redirect = $this->urls["BASEURL"] . "?boxMsgs=" . $val;
             header("Location:" . $redirect);
@@ -36,11 +45,21 @@ class UserController extends BaseController
     /* REGISTER */
     public function getRegister(array $data = []) 
     {
+        if($this->user->isAuthenticated()) {
+            header("Location:" . $this->router->generate("myaccount", ["lang" => $this->lang]));
+            return true;
+        }
+
         $this->display("site/register.html.twig", $data);
     }
 
     public function postRegister() 
     {
+        if($this->user->isAuthenticated()) {
+            header("Location:" . $this->router->generate("myaccount", ["lang" => $this->lang]));
+            return true;
+        }
+
         $_POST["role"] = Roles::getId("user");
         $res = Users::add($_POST);
 
@@ -62,7 +81,7 @@ class UserController extends BaseController
 
     public function checkAnonymous()
     {
-        if(!$this->user->hasRole("admin"))  {
+        if(!$this->user->isAuthenticated())  {
             header("Location:" . $this->router->generate("login", ["lang" => $this->lang]));
             return true;
         }
