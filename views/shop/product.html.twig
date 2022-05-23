@@ -1,0 +1,44 @@
+{% extends "templates/site.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}shop.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+<main id="product-container">
+    <section id="product">
+        <div id="vitrine">
+            <ul>
+                {% if product.images == null %}
+                    <li><img src="{{ UPLOADS }}images/products/notfound.png" alt="not-found-image"></li>
+                {% else %}
+                    <li class="prev">prev</li>
+                    {% for image in product.images %}
+                        <li class="{{ loop.first == 1 ? 'actif'}}" ><img src="{{ UPLOADS }}{{ image.path ?: "images/products/notfound.png" }}" alt="{{ product.name|trans }}"></li>
+                    {% endfor %}
+                    <li class="next">next</li>
+                {% endif %}
+            </ul>
+
+        </div>
+        <div id="informations">
+            <h1>{{ product.name|trans }}</h1>
+            <div class="price">{{ product.price }} € <span>{{ "TVA include"|trans }}</span></div>
+            <div class="notation">TODO NOTATION</div>
+            <p class="description">{{ product.description|trans }}</p>
+            <ul>
+                <li><span><i class="fa-solid fa-box-open"></i></span>{{ "Livraison et retour gratuits"|trans }}</li>
+                <li><span><i class="fa-solid fa-rotate-left"></i></span>{{ "Retour gratuit sous 100 jours"|trans }}</li>
+            </ul>
+            <div class="box-button-submit">
+                <a href="{{ HERE}}add/">{{ "Ajouter au panier"|trans }}</a>
+            </div>
+        </div>
+    </section>
+    <section id="notations">
+        <h2>{{ "Evaluations d'utilisateurs"|trans }}</h2>
+    </section>
+</main>
+    
+{% endblock content %}

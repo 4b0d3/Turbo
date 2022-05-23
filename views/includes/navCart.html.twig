@@ -1,0 +1,8 @@
+<section id="nav">
+    <ul>
+        <li class="{{ navActive == "cart" ? "active" }}">1<span>{{ "Panier"|trans }}</span></li>
+        {% if not user.authenticated %}<li>2<span>{{ "Authentification"|trans }}</li>{% endif %}
+        <li class="{{ navActive == "delivery" ? "active" }}">{{ user.authenticated ? '2' : '3' }}<span>{{ "Livraison"|trans }}</li>
+        <li class="{{ navActive == "payment" ? "active" }}">{{ user.authenticated ? '3' : '4' }}<span>{{ "Paiement"|trans }}</li>
+    </ul>
+</section>

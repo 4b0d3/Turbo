@@ -155,14 +155,9 @@ class Users {
         $user = $data["form"]["checkedFields"];
         $getUser = Users::getByMail($user["email"]);
 
-        if($getUser == null) {
-            $data["status"] = false;
-            $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Idientifiants invalides"]];
-            return $data;
-        }   
-
-        if(password_verify($user["password"], $getUser["password"])) {
+        if($getUser != null && password_verify($user["password"], $getUser["password"])) {
             $_SESSION["id"] = $getUser["id"];
+            Cart::mergeCartCookies();
             return $data;
         }
 

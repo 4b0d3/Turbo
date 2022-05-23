@@ -3,49 +3,243 @@ body {
 }
 
 /*********************
-    Hero
+        SHOP
 **********************/
-
-#hero {
-    height: 90vh;
-    background: url("../uploads/Images/full-shot-people-with-electric-scooter-outdoors.jpg") center;
-    background-size: 100% 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#products {
+    margin: auto;
+    width: 60%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
 }
 
-#hero > div.content {
-    width: 80%;
-    height: 80%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
+#products article.product {
+    background-color: lightgrey;
 }
 
-#hero > div.content > h1 {
-    font-size: 8em;
-    color: white
-}
-
-#hero > div.content > a {
-    margin: 0 100px 100px 0;
-    padding: 10px;
-    color: white;
-    font-size: 2em;
+#products article.product > a {
+    width: 100%;
+    height: 100%;
+    color: black;
     text-decoration: none;
-    border-radius: 4px;
-    background-color: orange;
-    display: inline-block;
-    align-self: flex-end;
+    display: block;
+}
+
+#products article.product > a > img {
+    width: 100% ;
 }
 
 
 /*********************
-    Products
+        PRODUCT
+**********************/
+#product-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+#product-container #product {
+    width: 80%;
+    margin-top: 16px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+#product-container #product #vitrine {
+    width: 50%;
+    min-width: 600px;
+}
+
+#product-container #product #vitrine ul li.actif {
+    display: block;
+}
+
+#product-container #product #vitrine ul li {
+    display: none;
+}
+
+#product-container #product #vitrine ul li img {
+    max-width: 90%;
+}
+
+#product-container #product #informations {
+    margin-top: 32px;
+    min-width: 30%;
+    flex: 1;
+}
+
+#product-container #product #informations > h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+#product-container #product #informations > div.price {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+#product-container #product #informations > div.price > span {
+    color: rgb(44, 44, 44);
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+
+#product-container #product #informations > div.notation {
+    margin: 32px 0;
+}
+
+#product-container #product #informations > p.description {
+    margin: 32px 0;
+}
+
+#product-container #product #informations > ul {
+    list-style-type: none;
+}
+
+#product-container #product #informations > ul > li {
+    padding: 16px;
+    font-size: 1.4rem;
+    border: 1px solid rgb(204, 204, 204);
+    border-bottom: none;
+}
+
+#product-container #product #informations > ul > li:last-child {
+    border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+#product-container #product #informations > ul > li span {
+    margin-right: 16px;
+}
+
+.box-button-submit > a {
+    width: 100%;
+    min-width: 250px;
+    margin: 32px 0;
+    padding: 8px;
+    color: black;
+    text-decoration: none;
+    font-size: 1.6rem;
+    text-align: center;
+    background-color: #a8a8a8;
+    transition: background-color 0.2s ease-in-out;
+    display: inline-block;
+}
+
+.box-button-submit > a:hover {
+    background-color: #c0c0c0;
+}
+
+/* Product notations */
+
+#product-container #notations {
+    width: 80%;
+    min-height: 50vh;
+}
+
+#product-container #notations > h2 {
+    margin: 32px 0;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+
+/*********************
+        CART
 **********************/
 
+#main-cart {
+    height: 100%;
+    padding-top: 24px;
+    background-color: #EFF1F3;
+}
 
-#products {
-    min-height: 100vh;
+#main-cart > section {
+    width: 70%;
+    margin: 0 auto;
+}
+
+#main-cart > #nav {
+    margin-bottom: 24px;
+}
+
+#main-cart > #nav > ul::before {
+    content: '';
+    background-color: white ;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    transform: translateY(-50%);
+}
+
+#main-cart > #nav > ul {
+    list-style-type: none;
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#main-cart > #nav > ul > li {
+    width: 50px;
+    height: 50px;
+    color: white;
+    letter-spacing: 1.2px;
+    border-radius: 25px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #222831;
+}
+
+#main-cart > #nav > ul > li.active {
+    background-color: orange;
+}
+
+#main-cart > #nav > ul > li.active > span {
+    color: orange;
+    font-weight: 700;
+}
+
+#main-cart > #nav > ul > li > span {
+    position: absolute;
+    top: 105%;
+    left: 50%;
+    color: #687787;
+    transform: translateX(-50%);
+}
+
+#main-cart #section-box-cart {
+    min-height: 200vh;
+    margin-top: 80px;
+    display: flex;
+}
+
+#main-cart #section-cart > h1,
+#main-cart #resume > h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+#main-cart #resume {
+    position: sticky;
+    top: 0;
+}
+
+#main-cart #section-cart .product {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+#main-cart #section-cart .product > div {
+    width: 20%;
 }

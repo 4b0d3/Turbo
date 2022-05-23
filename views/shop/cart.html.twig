@@ -1,0 +1,47 @@
+{% set navActive = "cart" %}
+
+{% extends "templates/site.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}shop.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+<main id="main-cart">
+
+    {% include "includes/navCart.html.twig" %}
+
+    <section id="section-box-cart">
+        <section id="section-cart">
+            <h1>{{ "Panier"|trans }}</h1>
+            {% if products is null %}
+                <div>
+                    <p>{{ "Aucun produit dans votre panier"|trans }}</p>
+                    <a href="{{ BASEURL }}shop/">{{ "Visiter la boutique"|trans }}</a>
+                </div>
+            {% else %}
+                {% for product in products %}
+                    <div class="product">
+                        <div class="image"><img src="{{ UPLOADS }}{{ product.images[0].path }}" alt="{{ product.name|trans }}"></div>
+                        <div class="infoProduct">{{ product.name|trans }}</div>
+                        <div>{{ product.price}}</div>
+                        <div>
+                            <button>-</button>
+                            <button>{{ product.quantity }}</button>
+                            <button>+</button>
+                        </div>
+                        <div>{{ product.price * product.quantity}}</div>
+                        <div><button>x</button></div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </section>
+        <aside id="resume">
+            <h1>{{ "Récapitulatif"|trans }}</h1>
+        </aside>
+    </section>
+
+</main>
+    
+{% endblock content %}

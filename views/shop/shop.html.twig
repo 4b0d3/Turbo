@@ -1,0 +1,24 @@
+{% extends "templates/site.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}shop.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+<main>
+    <section id="products">
+            {% for product in content.products %}
+                <article class="product">
+                    <a href="{{ BASEURL }}product/{{ product.id }}/">
+                        <img src="{{ UPLOADS }}{{ product.images[0].path ?: "images/products/notfound.png" }}" alt="{{ product.name|trans }}">
+                        <h2>{{ product.name|trans }}</h2>
+                        {# TODO remove <button onclick="addToCart({{ product.id }})">Add to cart</button> #}
+                        <p>{{ product.price }} €</p>
+                    </a>
+                </article>
+            {% endfor %}
+    </section>
+</main>
+    
+{% endblock content %}

@@ -25,6 +25,7 @@ $route = isset($_REQUEST["route"]) ? "/" . $_REQUEST["route"] : header("Location
 
 
 $router
+
     /* ADMIN */
     // scooters                                                                                     
     ->get("/admin/scooters/", "Admin\\Scooters@getAll")
@@ -47,7 +48,12 @@ $router
     ->get("/admin/roles/[i:id]/delete/", "Admin\\Users@postDelRoles")
 
 
+
+
+
     /* WEBSITE */
+    
+    ->get("/[a:lang]/test/", "Site@test")
     ->get("/[a:lang]/disconnect/", "User@disconnect")
     // User profil
     ->get("/[a:lang]/my-account/", "User@showInformations", "myaccount")
@@ -70,6 +76,12 @@ $router
     
     // Pages
     ->get("/[a:lang]/", "Site@getHome")
-    ->get("/[a:lang]/shop", "Shop@get")
+
+    // SHOP
+    ->get("/[a:lang]/shop/", "Shop@getAll")
+    ->get("/[a:lang]/product/[i:id]/", "Shop@getProduct", "product")
+    ->get("/[a:lang]/product/[i:id]/add/", "Shop@addProduct")
+    ->get("/[a:lang]/product/[i:id]/delete/", "Shop@deleteProduct")
+    ->get("/[a:lang]/cart/", "Shop@getCart")
 
     ->run($route);

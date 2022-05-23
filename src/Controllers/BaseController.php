@@ -6,6 +6,7 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use App\Entity\User;
+use App\Models\Cart;
 use App\Router\Router;
 use Twig\TwigFilter;
 
@@ -47,7 +48,6 @@ class BaseController
         $data["UPLOADS"] = defined("UPLOADS") ? UPLOADS : "../public/uploads";
         $data["user"] = $this->getUserInfos();
         !empty($this->getBoxMsgs()) ? $data["boxMsgs"] = $this->getBoxMsgs() : "" ;
-
 
         dump($data);
         $this->twig->display($template, $data);

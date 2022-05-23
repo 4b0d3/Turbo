@@ -11,6 +11,7 @@ class Router {
     public function __construct()
     {
         $this->router = new AltoRouter();
+        $this->router->addMatchTypes(['n'  => '[_0-9A-Za-z]++']);
     }
 
     public function get(string $url, string $view, ?string $name = null) :self
