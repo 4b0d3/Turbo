@@ -2,16 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Database\Database;
-use App\Models\Products;
-use App\Models\Users;
-use App\Models\Roles;
+use App\Models\Cart;
 
 class SiteController extends BaseController 
 {
     public function getHome() 
     {
         $data = ["title" => "Home | Turbo"];
+        $data["cart"]["products"] = Cart::getAllProducts();
         $this->display("site/home.html.twig", $data);
     }
 

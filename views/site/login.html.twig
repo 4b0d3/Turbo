@@ -19,7 +19,7 @@
                 </ul>
             </nav>
 
-            <form action="{{ HERE }}" method="POST">
+            <form action="{{ HERE }}{{ r is defined ? '?r=' ~ r }}" method="POST">
                 <div class="box-input-txt">
                     <label>
                         <span>{{ "Email"|trans }} :</span>

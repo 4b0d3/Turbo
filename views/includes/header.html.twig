@@ -19,19 +19,24 @@
 
         </nav>
         <div class="hide" id="cart">
-            <h3>Panier</h3>
-            <table style="width: 100%;" id="cart-content">
-                <tr>
-                    <td>Name</td>
-                    <td>Price</td>
-                    <td>
-                        <button>-</button>
-                        <span>1</span>
-                        <button>+</button>
-                    </td>
-                </tr>
-            </table>
-            <a href="">Voir le panier</a>
+            <h3>{{ "Panier"|trans }}</h3>
+            <div class="products">
+                {% if cart is not null %}
+                    <div class="product">
+                        <div>{{ "Produit"|trans }}</div>
+                        <div>{{ "Quantité"|trans }}</div>
+                        <div>{{ "Prix"|trans }}</div>
+                    </div>
+                    {% for product in cart.products|slice(0, 3) %}
+                        <div class="product">
+                            <div>{{ product.name|trans }}</div>
+                            <div>{{ product.quantity }}</div>
+                            <div>{{ product.quantity * product.price }}</div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div><a href="{{ BASEURL }}cart/">{{ "Voir le panier"|trans }}</a></div>
         </div>
     </header>
 {% endblock header %}

@@ -55,7 +55,7 @@ class Roles {
             return $data;
         }
 
-        $role = $data["checkedFields"];
+        $role = $data["form"]["checkedFields"];
         $alreadyExists = Roles::getId($role["name"]);
 
         if($alreadyExists != null) {

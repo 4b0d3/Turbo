@@ -14,16 +14,16 @@ class Router {
         $this->router->addMatchTypes(['n'  => '[_0-9A-Za-z]++']);
     }
 
-    public function get(string $url, string $view, ?string $name = null) :self
+    public function get(string $url, string $controller, ?string $name = null) :self
     {
-        $this->router->map('GET', $url, $view, $name);
+        $this->router->map('GET', $url, $controller, $name);
         
         return $this;
     }
 
-    public function post(string $url, string $view, ?string $name = null) :self
+    public function post(string $url, string $controller, ?string $name = null) :self
     {
-        $this->router->map('POST', $url, $view, $name);
+        $this->router->map('POST', $url, $controller, $name);
         
         return $this;
     }

@@ -3,7 +3,7 @@
 {% extends "templates/site.html.twig" %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ STYLESHEETS }}shop.css">
+    <link rel="stylesheet" href="{{ STYLESHEETS }}shop/cart.css">
 {% endblock stylesheets %}
 
 {% block content %}
@@ -16,32 +16,41 @@
         <section id="section-cart">
             <h1>{{ "Panier"|trans }}</h1>
             {% if products is null %}
-                <div>
+                <div class="noProducts">
                     <p>{{ "Aucun produit dans votre panier"|trans }}</p>
                     <a href="{{ BASEURL }}shop/">{{ "Visiter la boutique"|trans }}</a>
                 </div>
-            {% else %}
+            {% else %}                    
+                <div class="product">
+                    <div >{{ "Image"|trans }}</div>
+                    <div >{{ "Produit"|trans }}</div>
+                    <div >{{ "Prix unité"|trans }}</div>
+                    <div >{{ "Quantité"|trans }}</div>
+                    <div >{{ "Prix total"|trans }}</div>
+                </div>
                 {% for product in products %}
-                    <div class="product">
+                    <div class="product flex">
                         <div class="image"><img src="{{ UPLOADS }}{{ product.images[0].path }}" alt="{{ product.name|trans }}"></div>
                         <div class="infoProduct">{{ product.name|trans }}</div>
-                        <div>{{ product.price}}</div>
+                        <div>{{ product.price }}</div>
                         <div>
-                            <button>-</button>
-                            <button>{{ product.quantity }}</button>
-                            <button>+</button>
+                            <button onclick="delProductOne(this, {{ product.id }})">-</button>
+                            <span>{{ product.quantity }}</span>
+                            <button onclick="addProductOne(this, {{ product.id }})">+</button>
                         </div>
                         <div>{{ product.price * product.quantity}}</div>
-                        <div><button>x</button></div>
+                        <div><button onclick="delProductAll(this, {{ product.id }})">x</button></div>
                     </div>
                 {% endfor %}
             {% endif %}
         </section>
         <aside id="resume">
             <h1>{{ "Récapitulatif"|trans }}</h1>
+
         </aside>
     </section>
 
 </main>
     
 {% endblock content %}
+

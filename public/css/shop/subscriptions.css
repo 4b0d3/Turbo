@@ -1,0 +1,15 @@
+#subs-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+#subs-container > section {
+    width: 30%;
+}
+
+#subs-container > section:last-child > ul {
+    list-style-type: none;
+    display: flex;
+}

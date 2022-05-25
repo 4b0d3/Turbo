@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Database\Database;
 use App\Models\Roles;
 use App\Entity\FormChecker;
+use App\Entity\User;
 
 class Users {
     public static function get(int $id)
@@ -91,25 +92,9 @@ class Users {
     public static function updateOneById(array $user)
     {
         $data = [];
-        $fields = [
-            [ "type" => "int", "name" => "id" ],
-            [ "type" => "email", "name" => "email" ],
-            [ "type" => "name", "name" => "name" ],
-            [ "type" => "firstName", "name" => "firstName" ],
-            [ "type" => "password", "name" => "password" ],
-            [ "type" => "password", "name" => "confirmPassword" ],
-            [ "type" => "role", "name" => "role" ],
-            [ "type" => "checkbox", "name" => "confirmed" ]
-        ];
-
-        $data = (new FormChecker)->check($fields, $user);
-
-        if(!$data["status"]) {
-            return $data;
-        }
 
         $set = [];
-        $allowedKeys = ["email", "password", "name", "firstName", "role", "confirmed"];
+        $allowedKeys = ["email", "password", "name", "firstName", "role", "confirmed", "sub"];
 
         foreach ($user as $key => $value) {
             if (!in_array($key, $allowedKeys)) {
@@ -164,5 +149,57 @@ class Users {
         $data["status"] = false;
         $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Idientifiants invalides"]];
         return $data;
+    }
+
+    public static function changeSub(int $id, int $userId = null)
+    {
+        $db = new Database();
+        $q = "UPDATE users SET sub = ?, timeRemaining = ? WHERE id = ?";
+
+        $userId = $userId ?: (new User())->get("id");
+        
+        // TODO : enlever le champ startRemaining. Réfléchir s'il est utile
+        $time = NULL;
+        switch ($id) {
+            case 1:
+                $time = 30;
+                break;
+            case 2:
+                $time = 30*8;
+                break;
+            case 3:
+                $time = 30*25;
+                break;    
+            case 4:
+                $time = 30*50;
+                break;
+        }
+        return $db->query($q, [$id, $time, $userId]);
+    }
+
+    public static function getSub(int $id, int $userId = null) 
+    {
+        $db = new Database();
+        $q = "SELECT * FROM users WHERE id = ?";
+
+        $userId = $userId ?: (new User())->get("id");
+
+        $res = $db->query($q, [$id, $userId]);
+        if($res == false) return null;
+
+        return $res["sub"];
+    }
+
+    public static function isSub(int $id, int $userId = null)
+    {
+        $db = new Database();
+        $q = "SELECT * FROM users WHERE id = ?";
+
+        $userId = $userId ?: (new User())->get("id");
+
+        $res = $db->query($q, [$id, $userId]);
+        if($res == false) return;
+
+        return !intval($res["sub"]);
     }
 }

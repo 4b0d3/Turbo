@@ -15,7 +15,8 @@ class UserController extends BaseController
             header("Location:" . $this->router->generate("myaccount", ["lang" => $this->lang]));
             return true;
         }
-
+        
+        isset($_GET["r"]) ? $data["r"] = $_GET["r"] : ""; 
         $this->display("site/login.html.twig", $data);
     }
 
@@ -30,7 +31,7 @@ class UserController extends BaseController
 
         if($res["status"]) {
             $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;Connecté.";
-            $redirect = $this->urls["BASEURL"] . "?boxMsgs=" . $val;
+            $redirect = $this->urls["BASEURL"] . (isset($_GET["r"]) ? $_GET["r"] : "?boxMsgs=" . $val);
             header("Location:" . $redirect);
             return;
         }
@@ -64,7 +65,7 @@ class UserController extends BaseController
         $res = Users::add($_POST);
 
         if($res["status"]) {
-            // TODO REDIRECTION MAIL DE CONFIRMATION
+            // TODO REDIRECTION ENVOIE MAIL DE CONFIRMATION
             $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;L'utilisateur a bien été créé.";
             $redirect = $this->urls["BASEURL"] . "?boxMsgs=" . $val;
             header("Location:" . $redirect);

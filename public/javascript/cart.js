@@ -1,30 +1,60 @@
+const HOST = document.documentElement.dataset.host;
 
-function delFromCart(id) {    
+
+function delProductOne(element, id) {    
     const request = new XMLHttpRequest();
     
     request.onreadystatechange = function() {
         if(request.readyState == 4){
-            refreshCart();
+            if(request.responseText != "null" && parseInt(request.responseText) != NaN) {
+                if(parseInt(request.responseText) <= 0) {
+                    element.parentElement.parentElement.remove();
+                } else {
+                    element.parentElement.children[1].textContent = request.responseText
+                    const prixUnite = element.parentElement.parentElement.children[2].textContent;
+                    element.parentElement.parentElement.children[4].textContent = request.responseText * prixUnite;
+                }
+            }
         }
     }
     
-    // TODO CHANGE PATH UNTIL IMPLEMENTATION OF DOTENV
-    request.open("GET", "http://localhost/ESGI/ESGI2/Projet%20Annuelp/Turbo/public/javascript/scripts/addCartElement.php?action=del&productId="+id);
+    request.open("GET", HOST + "ajax/cart/?action=delete&id=" + id);
     
     request.send();
 }
 
-function addToCart(id) {        
+function delProductAll(element, id) {    
     const request = new XMLHttpRequest();
     
     request.onreadystatechange = function() {
         if(request.readyState == 4){
-            refreshCart();
+            console.log(request.responseText);
+            if(request.responseText != "null") {
+                element.parentElement.parentElement.remove();
+            }
         }
     }
     
-    // TODO CHANGE PATH UNTIL IMPLEMENTATION OF DOTENV
-    request.open("GET", "http://localhost/ESGI/ESGI2/Projet%20Annuelp/Turbo/public/javascript/scripts/addCartElement.php?action=add&productId="+id);
+    request.open("GET", HOST + "ajax/cart/?action=deleteAll&id=" + id);
+    
+    request.send();
+}
+
+function addProductOne(element, id) {        
+
+    const request = new XMLHttpRequest();
+    
+    request.onreadystatechange = function() {
+        if(request.readyState == 4){
+            if(request.responseText != "null") {
+                element.parentElement.children[1].textContent = request.responseText
+                const prixUnite = element.parentElement.parentElement.children[2].textContent;
+                element.parentElement.parentElement.children[4].textContent = request.responseText * prixUnite;
+            }
+        }
+    }
+    
+    request.open("GET", HOST + "ajax/cart/?action=add&id=" + id);
     
     request.send();
 }
@@ -86,6 +116,3 @@ btnCart.addEventListener("click", function () {
     let cart = document.getElementById("cart");
     cart.classList.toggle("hide");
 })
-
-refreshCart();
-

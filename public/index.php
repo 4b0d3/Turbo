@@ -48,8 +48,8 @@ $router
     ->get("/admin/roles/[i:id]/delete/", "Admin\\Users@postDelRoles")
 
 
-
-
+    /* AJAX */
+    ->get("/ajax/cart/", "Ajax@cart")
 
     /* WEBSITE */
     
@@ -83,5 +83,8 @@ $router
     ->get("/[a:lang]/product/[i:id]/add/", "Shop@addProduct")
     ->get("/[a:lang]/product/[i:id]/delete/", "Shop@deleteProduct")
     ->get("/[a:lang]/cart/", "Shop@getCart")
+    // SUBSCRIPTION 
+    ->get("/[a:lang]/subscriptions/", "Shop@getAllSubcriptions")
+    ->post("/[a:lang]/subscriptions/add/", "Shop@addSubscription")
 
     ->run($route);

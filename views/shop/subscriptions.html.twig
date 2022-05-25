@@ -1,0 +1,69 @@
+{% extends "templates/site.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}shop/subscriptions.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+<main>
+    <section id="subs-container">
+        <section>
+            <h1>{{ "Sans Forfait"|trans }}</h1>
+            <p>{{ "1€ le déverrouillage et 23 centimes la minute "|trans }}</p>
+            <p>{{ "Tarifs de base"|trans }}</p>
+        </section>
+
+        <section>
+            <h1>{{ "Forfait journalier"|trans }}</h1>
+            <p>9,99€ /{{ "mois"|trans}}</p>
+            <p>{{ "Avec ce forfait, il est possible d’accéder gratuitement à
+                n’importe quel deux-roues, dans une limite d’utilisation de 30 minutes, pendant 24 heures.
+                Les frais de déblocage sont également offerts."|trans }}</p>
+            <form action="{{ BASEURL }}subscriptions/add/" method="POST">
+                <input type="hidden" name="sub" value="1">
+                <input type="submit">
+            </form>
+        </section>
+
+        <section>
+            <h1>{{ "Forfaits mensuel"|trans }}</h1>
+            <ul>
+                <li><button>{{ "Basique"|trans }}</button></li>
+                <li><button>{{ "Medium"|trans }}</button></li>
+                <li><button>{{ "Pro"|trans }}</button></li>
+            </ul>
+            <div>
+                <article>
+                    <p>19,99€ /{{ "mois"|trans}}</p>
+                    <p>{{ "Ce forfait permet de bénéficier de frais de déblocage
+                        gratuits et de courses de 30 minutes"|trans }}</p>
+                    <form action="{{ BASEURL }}subscriptions/add/" method="POST">
+                        <input type="hidden" name="sub" value="2">
+                        <input type="submit">
+                    </form>
+                </article>
+                <article>
+                    <p>44,99€ /{{ "mois"|trans}}</p>
+                    <p>{{ "Ce forfait permet de bénéficier de frais de déblocage
+                        gratuits et de courses de 30 minutes"|trans }}</p>
+                    <form action="{{ BASEURL }}subscriptions/add/" method="POST">
+                        <input type="hidden" name="sub" value="3">
+                        <input type="submit">
+                    </form>
+                </article>
+                <article>
+                    <p>79,99€ /{{ "mois"|trans}}</p>
+                    <p>{{ "Ce forfait permet de bénéficier de frais de déblocage
+                        gratuits et de courses de 30 minutes"|trans }}</p>
+                    <form action="{{ BASEURL }}subscriptions/add/" method="POST">
+                        <input type="hidden" name="sub" value="4">
+                        <input type="submit">
+                    </form>
+                </article>
+            </div>
+        </section>
+    </section>
+</main>
+    
+{% endblock content %}
