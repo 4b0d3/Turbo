@@ -51,13 +51,6 @@
                     </label>
                 </div>
 
-                <div class="box-input-txt">
-                    <label>
-                        <div>Confirmer le nouveau mot de passe</div>
-                        <input type="password" name="confirmPassword">
-                    </label>
-                </div>
-
                 <div class="box-select">
                     <label>
                         <div>Role</div>
@@ -72,7 +65,8 @@
                 <div class="box-input-toggle">
                     <label>
                         <div>Utilisateur vérifié</div>
-                        <input type="checkbox" {{ userInfo.confirmed ? "checked" : "" }}>
+                        <input type='hidden' value='0' name='confirmed'>
+                        <input type="checkbox" name="confirmed" {{ userInfo.confirmed ? "checked" : "" }} value="1">
                     </label>
                 </div>
 

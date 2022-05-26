@@ -16,7 +16,7 @@ class UsersController extends BaseController
         if(!$this->checkAdminAccess()) return;
 
         $data["users"] = Users::getAll();
-        $this->display("Admin/users.html.twig", $data);
+        $this->display("admin/users/users.html.twig", $data);
     }
 
     /**** ONE USER ACTION ****/
@@ -26,7 +26,7 @@ class UsersController extends BaseController
 
         $data["roles"] = Roles::getAll();
 
-        $this->display("admin/usersAdd.html.twig", $data);
+        $this->display("admin/users/usersAdd.html.twig", $data);
     }
 
     public function postAdd()
@@ -63,12 +63,13 @@ class UsersController extends BaseController
             return;
         }
 
-        $this->display("admin/usersEdit.html.twig", $data);
+        $this->display("admin/users/usersEdit.html.twig", $data);
     }
 
     public function postEdit()
     {
         if(!$this->checkAdminAccess()) return;
+
         $userId = $this->match["params"]["id"] ?? null;
         $user = Users::get($userId);
 
@@ -77,6 +78,8 @@ class UsersController extends BaseController
             return;
         }
 
+        $_POST["id"] = $userId;
+        Users::updateOneById($_POST);
         $this->getEdit();
     }
 
@@ -92,7 +95,7 @@ class UsersController extends BaseController
             return;
         }
 
-        $this->display("admin/usersDel.html.twig", $data);
+        $this->display("admin/users/usersDel.html.twig", $data);
         
     }
 
@@ -135,7 +138,7 @@ class UsersController extends BaseController
             return;
         }
 
-        $this->display("admin/usersView.html.twig", $data);
+        $this->display("admin/users/usersView.html.twig", $data);
     }
 
     /**** ROLES ****/

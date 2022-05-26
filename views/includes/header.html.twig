@@ -18,7 +18,7 @@
             </ul>
 
         </nav>
-        <div class="hide" id="cart">
+        <div class="{{ cart.show is null ? 'hide'}}" id="cart">
             <h3>{{ "Panier"|trans }}</h3>
             <div class="products">
                 {% if cart is not null %}

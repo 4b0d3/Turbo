@@ -51,10 +51,15 @@ class Cart {
             $expire = time()+60*60*24*30; // 30 jours
             $products = isset($_COOKIE["cart"]) ? json_decode(stripslashes($_COOKIE['cart']), true) : [];
             $res = null;
+            dump($products);
+            die();
             if(array_key_exists($id, $products)) {
                 $products[$id]++; 
                 $res = $products[$id];
-            } else $products[$id] = 1;
+            } else {
+                $products[$id] = 1;
+                $res = 1;
+            }
             $products = json_encode($products);
             setcookie("cart", $products, $expire, "/");
             return $res;
