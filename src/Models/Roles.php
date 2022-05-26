@@ -49,7 +49,7 @@ class Roles {
             [ "type" => "rolename", "name" => "name" ],
         ];
 
-        $data = (new FormChecker)->check($fields, $roleInfo, "Le rôle");
+        $data = (new FormChecker)->check($fields, $roleInfo, "Le rôle n'a pas été crée");
 
         if(!$data["status"]) {
             return $data;

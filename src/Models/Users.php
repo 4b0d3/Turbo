@@ -140,7 +140,7 @@ class Users {
             [ "type" => "password", "name" => "password" ],
         ];
 
-        $data = (new FormChecker)->check($fields, $user);
+        $data = (new FormChecker)->check($fields, $user, "Impossible de se connecter");
 
         if(!$data["status"]) {
             return $data;
@@ -148,6 +148,18 @@ class Users {
 
         $user = $data["form"]["checkedFields"];
         $getUser = Users::getByMail($user["email"]);
+        
+        if($getUser != null && $getUser["role"] == "banned") {
+            $data["status"] = false;
+            $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Voter compte a été banni."]];
+            return $data;
+        }
+
+        if($getUser != null && !$getUser["confirmed"]) {
+            $data["status"] = false;
+            $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Votre compte n'a pas été confirmé."]];
+            return $data;
+        }
 
         if($getUser != null && password_verify($user["password"], $getUser["password"])) {
             $_SESSION["id"] = $getUser["id"];

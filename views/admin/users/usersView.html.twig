@@ -8,10 +8,10 @@
        {{ include('includes/boxMessages.html.twig') }}
 
         <header id="admin-header">
-            <h1>Editer un utilisateur</h1>
+            <h1>Voir les informations d'un utilisateur</h1>
         </header>
 
-        {% include "includes/navAdminUsers.html.twig" with {active : "view"} %}
+        {% include "admin/users/navAdminUsers.html.twig" with {active : "view"} %}
 
         <section id="admin-content">
                 <div class="box-input-txt">
@@ -52,7 +52,7 @@
                 <div class="box-input-toggle">
                     <label>
                         <div>Utilisateur vérifié</div>
-                        <input type="checkbox" name="confirmed" value="1" {{ userInfo.confirmed ? "checked" : "" }} readonly>
+                        <input type="checkbox" name="confirmed" {{ userInfo.confirmed ? "checked" : "" }} disabled="disabled">
                     </label>
                 </div>
         </section>

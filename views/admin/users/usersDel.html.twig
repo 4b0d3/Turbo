@@ -8,10 +8,10 @@
        {{ include('includes/boxMessages.html.twig') }}
 
         <header id="admin-header">
-            <h1>Editer un utilisateur</h1>
+            <h1>Supprimer un utilisateur</h1>
         </header>
 
-        {% include "includes/navAdminUsers.html.twig" with {active : "delete"} %}
+        {% include "admin/users/navAdminUsers.html.twig" with {active : "delete"} %}
 
         <section id="admin-content">
             <form action="{{ HERE }}" method="POST" id="form-users-add">
