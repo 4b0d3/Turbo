@@ -179,7 +179,6 @@ class Users {
 
         $userId = $userId ?: (new User())->get("id");
         
-        // TODO : enlever le champ startRemaining. Réfléchir s'il est utile
         $time = NULL;
         switch ($id) {
             case 1:

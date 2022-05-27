@@ -8,6 +8,8 @@ use Symfony\Component\Dotenv\Dotenv;
 
 session_start();
 
+date_default_timezone_set("Europe/Paris");
+
 $dotenv = new Dotenv();
 $dotenv->load("../.env");
 
@@ -41,6 +43,7 @@ $router
     ->post("/admin/users/[i:id]/edit/", "Admin\\Users@postEdit")
     ->get("/admin/users/[i:id]/delete/", "Admin\\Users@getDel")
     ->post("/admin/users/[i:id]/delete/", "Admin\\Users@postDel")
+    ->get("/admin/users/[i:id]/rides/", "Admin\\Users@getRides")
     // Roles
     ->get("/admin/roles/", "Admin\\Users@getAllRoles")
     ->get("/admin/roles/add/", "Admin\\Users@getAddRoles")
@@ -52,7 +55,6 @@ $router
     ->get("/ajax/cart/", "Ajax@cart")
 
     /* WEBSITE */
-    
     ->get("/[a:lang]/test/", "Site@test")
     ->get("/[a:lang]/disconnect/", "User@disconnect")
     // User profil
@@ -86,5 +88,10 @@ $router
     // SUBSCRIPTION 
     ->get("/[a:lang]/subscriptions/", "Shop@getAllSubcriptions")
     ->post("/[a:lang]/subscriptions/add/", "Shop@addSubscription")
+
+    // API
+    ->get("/api/scooter/update/", "API\\Scooter@update")
+    ->post("/api/ride/start/", "API\\Scooter@startRide")
+    ->post("/api/ride/stop/", "API\\Scooter@stopRide")
 
     ->run($route);

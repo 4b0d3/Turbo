@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Entity\FormChecker;
 use App\Entity\User;
+use App\Models\Rides;
 use App\Models\Roles;
 use App\Models\Users;
 
@@ -140,6 +141,27 @@ class UsersController extends BaseController
 
         $this->display("admin/users/usersView.html.twig", $data);
     }
+
+    public function getRides(array $data = [])
+    {
+        if(!$this->checkAdminAccess()) return;
+
+        $userId = $this->match["params"]["id"] ?? null;
+        $data["userInfo"] = Users::get($userId);
+
+        if(empty($userId) || intval($userId) <= 0 || !$data["userInfo"]) {
+            header("Location:" . HOST . "admin/users/?boxMsgs=Erreur;error;Utilisateur non trouvé.");
+            return;
+        }
+
+        $data["rides"] = Rides::getAllByUserId($data["userInfo"]["id"]);
+
+        $this->display("admin/users/usersRides.html.twig", $data);
+    }
+
+
+
+    
 
     /**** ROLES ****/
     public function getAllRoles(array $data = [])

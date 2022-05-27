@@ -16,7 +16,7 @@
 
         <nav id="admin-nav">
             <ul>
-                <li><a href="TODO" class="active">Trottinettes</a></li>
+                <li><a href="{{ HOST }}admin/scooters/" class="active">Trottinettes</a></li>
             </ul>
         </nav>
 
@@ -25,8 +25,8 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Longitude</th>
                         <th>Latitude</th>
+                        <th>Longitude</th>
                         <th>Charge</th>
                         <th>Qr Code</th>
                         <th>Actions</th>
@@ -36,8 +36,8 @@
                     {% for scooter in scooters %}
                         <tr>
                             <td>{{ scooter.id }}</td>
-                            <td>{{ scooter.longitude }}</td>
                             <td>{{ scooter.latitude }}</td>
+                            <td>{{ scooter.longitude }}</td>
                             <td>{{ scooter.battery }}%</td>
                             <td>{{ scooter.qrcode ?: "none" }}</td>
                             <td>

@@ -49,7 +49,7 @@ class BaseController
         $data["user"] = $this->getUserInfos();
         !empty($this->getBoxMsgs()) ? $data["boxMsgs"] = $this->getBoxMsgs() : "" ;
 
-        dump($data);
+        $_ENV["DEBUG"] == "true" ? dump($data) : "";
         $this->twig->display($template, $data);
     }
 
@@ -109,7 +109,7 @@ class BaseController
         $this->FSLoader = new FilesystemLoader(VIEWS);
         $this->twig = new Environment($this->FSLoader, [
             // TODO env check debug
-            "debug" => true
+            "debug" => $_ENV["DEBUG"] == "true" ? true : false,
         ]);
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
         $this->twig->addFilter(new TwigFilter("trans", function ($value) {

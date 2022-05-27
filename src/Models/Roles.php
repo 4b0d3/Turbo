@@ -89,6 +89,9 @@ class Roles {
 
         $res = $db->query($q, [$id]);
 
+        $q = "UPDATE users SET role = ? WHERE role = ?";
+        $db->query($q, [Roles::getId("user"), $id]);
+
         return $res;
     }
 }

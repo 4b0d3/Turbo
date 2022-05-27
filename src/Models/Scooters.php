@@ -5,17 +5,12 @@ namespace App\Models;
 use App\Database\Database;
 
 class Scooters {
-    public static function get(int $id) :array
+    public static function get(int $id)
     {
         $db = new Database();
         $q = "SELECT * FROM scooters WHERE id = ?";
 
-        $res = [];
-        if($id != null && $id > 0) {
-            $res = $db->queryOne($q, [$id]);
-        }
-
-        return $res;
+        return $db->queryOne($q, [$id]) ?: null;;
     }
 
     public static function getAll(int $start = null, int $total = null) :array
@@ -39,11 +34,14 @@ class Scooters {
         $db = new Database();
         $q = "DELETE FROM scooters WHERE id = ?";
 
-        $res = false;
-        if($id != null && $id > 0) {
-            $res = $db->query($q, [$id]);
-        }
+        return $db->query($q, [$id]);
+    }
 
-        return $res;
+    public static function putInUse(int $id, int $state = 1)
+    {
+        $db = new Database();
+        $q = "UPDATE scooters SET inUse = ? WHERE id = ?";
+
+        return $db->query($q, [$state, $id]);
     }
 }
