@@ -18,7 +18,7 @@ class Rides {
         $db = new Database();
         $q = "SELECT * FROM rides WHERE idUser = ?";
 
-        return $db->queryOne($q, [$id]) ?: null;;
+        return $db->queryAll($q, [$id]) ?: null;;
     }
 
     public static function getFull(int $id)
