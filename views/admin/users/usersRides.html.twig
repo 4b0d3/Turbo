@@ -1,0 +1,53 @@
+{% set navActive = "users" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+        {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Voir les trajet de l'utilisateur</h1>
+        </header>
+
+        {% include "admin/users/navAdminUsers.html.twig" with {active : "rides"} %}
+
+        <section id="admin-content">
+            <table id="table-content">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Id Scooter</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Role</th>
+                        <th>Confirmé</th>
+                        <th>Crée le</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.firstName }}</td>
+                            <td>{{ user.role }}</td>
+                            <td>{{ user.confirmed }}</td>
+                            <td>{{ user.createdAt|date("d/m/Y") }}</td>
+                            <td>
+                                <a href="{{ HERE }}{{ user.id}}/view/">Voir</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <nav id="pagination">
+
+            </nav>
+        </section>
+    </section>
+{% endblock content %}

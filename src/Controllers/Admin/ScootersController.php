@@ -11,7 +11,7 @@ class ScootersController extends BaseController
     {
             $data["scooters"] = Scooters::getAll();
             $data["header"]["admin"] = 1;
-            $this->display("Admin/scooters.html.twig", $data);
+            $this->display("admin/scooters/scooters.html.twig", $data);
     }
 
 }

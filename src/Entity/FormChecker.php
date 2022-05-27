@@ -12,7 +12,7 @@ class FormChecker {
 
     }
 
-    public function check(array $fields, array $posts, string $entName = "L'utilisateur")  
+    public function check(array $fields, array $posts, string $entName = "L'utilisateur n'a pas été crée")  
     {
         $data = [];
         $allowedTypes = ["email", "password", "name", "firstName", "role", "rolename", "checkbox", "int"];
@@ -23,21 +23,21 @@ class FormChecker {
 
             if (!in_array($type, $allowedTypes)) {
                 !isset($data["boxMsgs"]) ? $data["boxMsgs"] = [] : "";
-                array_push($data["boxMsgs"], ["status" => "Erreur", "class" => "error", "description" => "$entName n'a pas été créé : Le type de champs $type n'est pas autorisé."]);
+                array_push($data["boxMsgs"], ["status" => "Erreur", "class" => "error", "description" => "$entName : Le type de champs $type n'est pas autorisé."]);
                 continue;
             }
 
             $action = "check" . ucfirst($type);
             if(!method_exists($this, $action)) {
                 !isset($data["boxMsgs"]) ? $data["boxMsgs"] = [] : "";
-                array_push($data["boxMsgs"], ["status" => "Erreur", "class" => "error", "description" => "$entName n'a pas été créé : La méthode permettant de vérifier le champ $type n'existe pas"]);
+                array_push($data["boxMsgs"], ["status" => "Erreur", "class" => "error", "description" => "$entName : La méthode permettant de vérifier le champ $type n'existe pas"]);
                 continue;
             }
 
             $res = $this->$action($name, $posts);
             if(!isset($data["boxMsgs"]) && isset($res["form"]["error"][$name])) {
                 !isset($data["boxMsgs"]) ? $data["boxMsgs"] = [] : "";
-                $data["boxMsgs"][] = ["status" => "Erreur", "class" => "error", "description" => "$entName n'a pas été créé : " . $res["form"]["error"][$name]];
+                $data["boxMsgs"][] = ["status" => "Erreur", "class" => "error", "description" => "$entName : " . $res["form"]["error"][$name]];
             }
             $data = array_merge_recursive($data, $res); 
         }

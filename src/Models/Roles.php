@@ -49,7 +49,7 @@ class Roles {
             [ "type" => "rolename", "name" => "name" ],
         ];
 
-        $data = (new FormChecker)->check($fields, $roleInfo, "Le rôle");
+        $data = (new FormChecker)->check($fields, $roleInfo, "Le rôle n'a pas été crée");
 
         if(!$data["status"]) {
             return $data;
@@ -88,6 +88,9 @@ class Roles {
         $q = "DELETE FROM roles WHERE id = ?";
 
         $res = $db->query($q, [$id]);
+
+        $q = "UPDATE users SET role = ? WHERE role = ?";
+        $db->query($q, [Roles::getId("user"), $id]);
 
         return $res;
     }

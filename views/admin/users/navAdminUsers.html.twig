@@ -3,9 +3,8 @@
         <li><a href="{{ HOST }}admin/users/{{ userInfo.id }}/view/" class="{{ active == "view" ? "active" : "" }}">Voir</a></li>
         <li><a href="{{ HOST }}admin/users/{{ userInfo.id }}/edit/" class="{{ active == "edit" ? "active" : "" }}">Editer</a></li>
         <li><a href="{{ HOST }}admin/users/{{ userInfo.id }}/delete/" class="{{ active == "delete" ? "active" : "" }}">Supprimer</a></li>
-        <li><a href="{{ HERE }}">Trajets</a></li>
+        <li><a href="{{ HOST }}admin/users/{{ userInfo.id }}/rides/" class="{{ active == "rides" ? "active" : "" }}">Trajets</a></li>
         <li><a href="{{ HERE }}">Achats</a></li>
-        <li><a href="{{ HERE }}">Abonnements</a></li>
         <li><a href="{{ HERE }}">Logs</a></li>
     </ul>
 </nav>

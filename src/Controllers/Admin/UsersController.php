@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Entity\FormChecker;
 use App\Entity\User;
+use App\Models\Rides;
 use App\Models\Roles;
 use App\Models\Users;
 
@@ -16,7 +17,7 @@ class UsersController extends BaseController
         if(!$this->checkAdminAccess()) return;
 
         $data["users"] = Users::getAll();
-        $this->display("Admin/users.html.twig", $data);
+        $this->display("admin/users/users.html.twig", $data);
     }
 
     /**** ONE USER ACTION ****/
@@ -26,7 +27,7 @@ class UsersController extends BaseController
 
         $data["roles"] = Roles::getAll();
 
-        $this->display("admin/usersAdd.html.twig", $data);
+        $this->display("admin/users/usersAdd.html.twig", $data);
     }
 
     public function postAdd()
@@ -63,12 +64,13 @@ class UsersController extends BaseController
             return;
         }
 
-        $this->display("admin/usersEdit.html.twig", $data);
+        $this->display("admin/users/usersEdit.html.twig", $data);
     }
 
     public function postEdit()
     {
         if(!$this->checkAdminAccess()) return;
+
         $userId = $this->match["params"]["id"] ?? null;
         $user = Users::get($userId);
 
@@ -77,6 +79,8 @@ class UsersController extends BaseController
             return;
         }
 
+        $_POST["id"] = $userId;
+        Users::updateOneById($_POST);
         $this->getEdit();
     }
 
@@ -92,7 +96,7 @@ class UsersController extends BaseController
             return;
         }
 
-        $this->display("admin/usersDel.html.twig", $data);
+        $this->display("admin/users/usersDel.html.twig", $data);
         
     }
 
@@ -135,8 +139,29 @@ class UsersController extends BaseController
             return;
         }
 
-        $this->display("admin/usersView.html.twig", $data);
+        $this->display("admin/users/usersView.html.twig", $data);
     }
+
+    public function getRides(array $data = [])
+    {
+        if(!$this->checkAdminAccess()) return;
+
+        $userId = $this->match["params"]["id"] ?? null;
+        $data["userInfo"] = Users::get($userId);
+
+        if(empty($userId) || intval($userId) <= 0 || !$data["userInfo"]) {
+            header("Location:" . HOST . "admin/users/?boxMsgs=Erreur;error;Utilisateur non trouvé.");
+            return;
+        }
+
+        $data["rides"] = Rides::getAllByUserId($data["userInfo"]["id"]);
+
+        $this->display("admin/users/usersRides.html.twig", $data);
+    }
+
+
+
+    
 
     /**** ROLES ****/
     public function getAllRoles(array $data = [])

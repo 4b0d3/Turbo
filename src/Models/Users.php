@@ -10,13 +10,12 @@ use App\Entity\User;
 class Users {
     public static function get(int $id)
     {
-        if($id == null && $id <= 0) return null;
+        if($id == null || $id <= 0) return null;
 
         $db = new Database();
         $q = "SELECT users.*, roles.name as role FROM users LEFT JOIN roles ON users.role = roles.id WHERE users.id = ?";
 
-        $res = $db->queryOne($q, [$id]) ?: null;
-        return $res;
+        return $res = $db->queryOne($q, [$id]) ?: null;
     }
 
     public static function getByMail(string $email)
@@ -89,26 +88,36 @@ class Users {
         return $data;
     }
 
-    public static function updateOneById(array $user)
+    public static function updateOneById(array $infos)
     {
-        $data = [];
+        $db = new Database();
+        $q = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'users' AND TABLE_SCHEMA = ?";
+        $acceptedFields = array_column($db->queryAll($q, [$_ENV["DB_NAME"]]), "COLUMN_NAME");
+
+        $user = isset($infos["id"]) ? Users::get($infos["id"]) : null;
+        if($user == null) return false;
 
         $set = [];
-        $allowedKeys = ["email", "password", "name", "firstName", "role", "confirmed", "sub"];
-
-        foreach ($user as $key => $value) {
-            if (!in_array($key, $allowedKeys)) {
+        $attrs["id"] = $infos["id"];
+        foreach($infos as $key => $value) {
+            if(!in_array($key, $acceptedFields) || $value == $user[$key]) {
                 continue;
             }
 
+            if($key == "password") {
+                if(!empty($value)) {
+                    $value = password_hash($value, PASSWORD_DEFAULT); // TODO CHANGE PASSWORD_DEFAULT
+                } else {
+                    continue;
+                }
+            }
+
+            $attrs[$key] = $value;
             $set[] = "$key = :$key";
         }
 
         $set = implode(", ", $set);
-        $db = new Database();
-        $res = $db->query("UPDATE users SET $set WHERE id = :id",  $user);
-
-        return $res;
+        return $db->query("UPDATE users SET $set WHERE id = :id",  $attrs);
     }
 
     public static function delete(int $id) :bool
@@ -131,7 +140,7 @@ class Users {
             [ "type" => "password", "name" => "password" ],
         ];
 
-        $data = (new FormChecker)->check($fields, $user);
+        $data = (new FormChecker)->check($fields, $user, "Impossible de se connecter");
 
         if(!$data["status"]) {
             return $data;
@@ -139,6 +148,18 @@ class Users {
 
         $user = $data["form"]["checkedFields"];
         $getUser = Users::getByMail($user["email"]);
+        
+        if($getUser != null && $getUser["role"] == "banned") {
+            $data["status"] = false;
+            $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Voter compte a été banni."]];
+            return $data;
+        }
+
+        if($getUser != null && !$getUser["confirmed"]) {
+            $data["status"] = false;
+            $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Votre compte n'a pas été confirmé."]];
+            return $data;
+        }
 
         if($getUser != null && password_verify($user["password"], $getUser["password"])) {
             $_SESSION["id"] = $getUser["id"];
@@ -158,7 +179,6 @@ class Users {
 
         $userId = $userId ?: (new User())->get("id");
         
-        // TODO : enlever le champ startRemaining. Réfléchir s'il est utile
         $time = NULL;
         switch ($id) {
             case 1:

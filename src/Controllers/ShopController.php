@@ -20,6 +20,7 @@ class ShopController extends BaseController
 
         $products = Products::getAll($page, $perPage);
         $data["content"]["products"] = $products;
+        isset($_GET["showCart"]) ? $data["cart"]["show"] = true : false;
         $data["cart"]["products"] = Cart::getAllProducts();
 
 
@@ -36,6 +37,7 @@ class ShopController extends BaseController
             return;
         }
 
+        isset($_GET["showCart"]) ? $data["cart"]["show"] = true : false;
         $data["cart"]["products"] = Cart::getAllProducts();
 
         $this->display("shop/product.html.twig", $data);
@@ -49,7 +51,7 @@ class ShopController extends BaseController
         if(!$exists) return header("Location:" . HOST . "shop/?boxMsgs=Erreur;error;Produit non trouvé.");
         Cart::addProductOne($productId);
 
-        header("Location: " . $this->router->generate("product", ["lang" => $this->lang, "id" => $productId]));
+        header("Location: " . $this->router->generate("product", ["lang" => $this->lang, "id" => $productId]) . "?showCart=true");
     }
 
     public function deleteProduct() 
