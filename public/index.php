@@ -65,7 +65,9 @@ $router
     ->get("/[a:lang]/my-account/rides/", "User@showRides")
     ->get("/[a:lang]/my-account/change-password/", "User@showChangePassword")
     ->post("/[a:lang]/my-account/change-password/", "User@editChangePassword")
-    ->get("/[a:lang]/my-account/addresses/", "User@showAddresses")
+    ->get("/[a:lang]/my-account/addresses/", "User@getAddresses")
+    ->post("/[a:lang]/my-account/addresses/", "User@postAddresses")
+    ->post("/[a:lang]/my-account/addresses/delete/", "User@deleteAddresses")
     ->get("/[a:lang]/my-account/payment-methods/", "User@showPaymentMethods")
     ->get("/[a:lang]/my-account/notifications/", "User@showNotifications")
 

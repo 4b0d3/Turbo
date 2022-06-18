@@ -157,10 +157,33 @@ class UserController extends BaseController
         $this->display("user/change-password.html.twig", $data);
     }
 
-    public function showAddresses() 
+    public function getAddresses(array $data = []) 
     {
         if($this->checkAnonymous()) return;
-        $this->display("user/addresses.html.twig");
+
+        $data["addresses"] = Users::getAllAddresses($this->user->get("id"));
+        $this->display("user/addresses.html.twig", $data);
+    }
+
+    public function postAddresses() 
+    {
+        if($this->checkAnonymous()) return;
+        if(!isset($_POST["country"]) || empty($_POST["country"]) ||
+        !isset($_POST["city"]) || empty($_POST["city"]) ||
+        !isset($_POST["address"]) || empty($_POST["address"]) ||
+        !isset($_POST["zipcode"]) || empty($_POST["zipcode"]) ||
+        !isset($_POST["isMain"])) { $this->getAddresses(); return; }
+
+        if(!isset($_POST["additional"]) || empty($_POST["additional"])) { $_REQUEST["additional"] = "" ; }
+
+        Users::addAddress($this->user->get("id"), $_REQUEST);
+        $this->getAddresses(); return;
+    }
+
+    public function deleteAddresses() {
+        if(!isset($_POST["idAddress"]) || empty($_POST["idAddress"])) { header("Location:" . $this->urls["BASEURL"] . "my-account/addresses/"); return; }
+        Users::deleteAddress($_POST["idAddress"]);
+        header("Location:" . $this->urls["BASEURL"] . "my-account/addresses/"); return;
     }
 
     public function showPaymentMethods() 

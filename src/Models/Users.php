@@ -222,4 +222,51 @@ class Users {
 
         return !intval($res["sub"]);
     }
+
+    public static function getAllAddresses(int $idUser, int $start = null, int $total = null)
+    {
+        $db = new Database();
+        $q = "SELECT * FROM addresses WHERE idUser = ?";
+
+        $res = null;
+        if(!($start == null || $start < 0 || $total == null || $total < 0 )) {
+            $q = $q . " LIMIT " . $start . ", " . $total; 
+            $res = $db->queryAll($q, [$idUser]);
+        }
+
+        $res = $db->queryAll($q, [$idUser]) ?: null;
+
+        return $res;
+    }
+
+    public static function addAddress($idUser, $address) 
+    {
+        $db = new Database();
+        $q = "INSERT INTO addresses(idUser, country, city, address, zipcode, additional, isMain) VALUES(:idUser, :country, :city, :address, :zipcode, :additional, :isMain) ";
+
+        $params = [
+            "country" => $address["country"],
+            "city" => $address["city"],
+            "address" => $address["address"],
+            "zipcode" => $address["zipcode"],
+            "additional" => $address["additional"],
+            "isMain" => $address["isMain"]
+        ];
+        $params["idUser"] = $idUser;
+        $res = $db->query($q, $params);
+
+        if($res && isset($address["isMain"]) && $address["isMain"] == "1") {
+            $lastId = $db->getPDO()->lastInsertId();
+            $q = "UPDATE addresses SET isMain = 0 WHERE idUser = ? AND id != ?";
+            $res = $db->query($q, [$idUser, $lastId]);
+        }
+
+        return $res; 
+    }
+
+    public static function deleteAddress($idAddress) {
+        $db = new Database();
+        $q = "DELETE FROM addresses WHERE id = ?";
+        return $db->query($q, [$idAddress]);
+    }
 }

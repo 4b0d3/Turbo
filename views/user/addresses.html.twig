@@ -12,5 +12,87 @@
             <p>Liste de vos adresses.</p>
         </div>
 
+        <div id="container-add-address">
+            <button onclick="toggleAddAddressForm(this)"><span>{{ "Ajouter une adresse"|trans }}</span><span class="displayNone">X</span></button>
+            <form action="{{ HERE }}" method="post" id="form-address-add" class="displayNone">
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Pays"|trans }} :</span>
+                        <div>
+                            <input type="text" name="country">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Ville"|trans }} :</span>
+                        <div>
+                            <input type="text" name="city">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Adresse"|trans }} :</span>
+                        <div>
+                            <input type="text" name="address">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Code postal"|trans }} :</span>
+                        <div>
+                            <input type="text" name="zipcode">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Option"|trans }} :</span>
+                        <div>
+                            <input type="text" name="additional">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-toggle">
+                    <label>
+                        <div>{{ "Principale"|trans }} ?</div>
+                        <input type="hidden" value='0' name="isMain">
+                        <input type="checkbox" value='1' name="isMain">
+                    </label>
+                </div>
+                <div class="box-button-submit" style="margin-top: 16px;">
+                    <button type="submit">{{ "Ajouter"|trans }}</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="container-addresses">
+            {% for address in addresses %}
+                <div class="container-address">
+                    <div>
+                        <p><span>{{ "Pays"|trans }}:</span> <span>{{ address.country}}</span></p>
+                        <p><span>{{ "Ville"|trans }}:</span> <span>{{ address.city}}</span></p>
+                        <p><span>{{ "Adresse"|trans }}:</span> <span>{{ address.address}}</span></p>
+                        <p><span>{{ "Code postal"|trans }}:</span> <span>{{ address.zipcode}}</span></p>
+                        <p><span>{{ "Option"|trans }}:</span> <span>{{ address.additional}}</span></p>
+                    </div>
+                    <div>
+                        <button><input type="radio" name="isMain" {{ address.isMain ? "checked"}}></button>
+                        <form action="{{ HERE }}/delete/" method="POST">
+                            <input type="hidden" name="idAddress" value="{{ address.id}}">
+                            <input type="submit" value="X">
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
     </section>
 {% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ HOST }}javascript/addresses.js"></script>
+{% endblock javascripts %}

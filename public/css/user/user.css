@@ -134,11 +134,12 @@ main {
 #display {
     width: calc((100% / 3) * 2);
     margin: 0 15px;
-    background-color: #FFFFFF;
+
 }
 
 #display > div.header {
     padding: calc(8 * 4px);
+    background-color: #FFFFFF;
 }
 
 #display > div.header > h1 {
@@ -159,5 +160,64 @@ main {
 #display > div.container-change-password-form 
 {
     padding: 0 32px 32px 32px;
+    background-color: #FFFFFF;
+}
+
+
+/*********************
+    ADDRESSES
+**********************/
+.displayNone { 
+    display: none;
+}
+
+#container-addresses {
+    margin: 16px 0;
+    padding: 32px 32px 32px 32px;
+    background-color: #FFFFFF; 
+}
+
+#container-addresses > .container-address {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#container-addresses > .container-address:not(:first-child) {
+    margin-top: 32px;
+}
+
+#container-addresses > .container-address > div:last-child {
+    display: flex;
+}
+
+#container-addresses > .container-address > div:last-child input {
+    margin: 0 4px;
+    cursor: pointer;
+}
+
+#container-addresses > .container-address:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: -16px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: rgb(222, 222, 222);
+}
+
+#container-add-address {
+    margin: 16px 0;
+    padding: 32px 32px 32px 32px;
+    background-color: #FFFFFF; 
+}
+
+#container-add-address > button {
+    width: 100%;
+    background: inherit;
+    border: inherit;
+    cursor: pointer;
 }
 
