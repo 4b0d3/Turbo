@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Cart;
+use App\Models\Users;
 
 class AjaxController extends BaseController 
 {
@@ -24,6 +25,24 @@ class AjaxController extends BaseController
                 return;
             case "deleteAll":
                 echo Cart::delProductOne($productId, Cart::getProductQuantity($productId)) ? $productId : 0;
+                return;
+        }
+        echo "null";
+        return;
+    }
+
+    public function address()
+    {
+
+        if(!isset($_REQUEST["action"]) 
+        || !isset($_REQUEST["id"])
+        || intval($_REQUEST["id"]) < 0) 
+        { echo null; return; }
+        $idAddress = $_GET["id"];
+
+        switch($_REQUEST["action"]) {
+            case "changeFavAddress":
+                echo Users::setFavAddresss($this->user->get("id"), $idAddress);
                 return;
         }
         echo "null";

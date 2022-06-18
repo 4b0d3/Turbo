@@ -8,15 +8,15 @@
         {{ include('includes/boxMessages.html.twig') }}
 
         <div class="header">
-            <h1><i class="fa-solid fa-address-card fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> Mes informations</h1>
-            <p>Vous pouvez modifiez vos coordonnées ci-dessous.</p>
+            <h1><i class="fa-solid fa-address-card fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> {{ "Mes informations"|trans }}</h1>
+            <p>{{ "Vous pouvez modifiez vos coordonnées ci-dessous"|trans }}.</p>
         </div>
 
         <div class="container-user-form">
             <form action="{{ HERE }}" method="POST" id="infoForm">
                 <div class="box-input-txt">
                     <label>
-                        <span>Prénom :</span>
+                        <span>{{ "Prénom"|trans }} :</span>
                         <div>
                             <input type="text" name="firstName" value="{{ user.firstName }}">
                         </div>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="box-input-txt">
                     <label>
-                        <span>Nom :</span>
+                        <span>{{ "Nom"|trans }} :</span>
                         <div>
                             <input type="text" name="name" value="{{ user.name }}">
                         </div>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="box-input-txt">
                     <label>
-                        <span>Adresse email :</span>
+                        <span>{{ "Adresse email"|trans }} :</span>
                         <div>
                             <input type="email" name="email" value="{{ user.email }}">
                         </div>
@@ -42,7 +42,7 @@
                     {# TODO add field birthdate maybe phonenumber also #}
                 </div>
                 <div class="box-button-submit">
-                    <button type="submit">Sauvegarder</button>
+                    <button type="submit">{{ "Sauvegarder"|trans }}</button>
                 </div>
             </form>
         </div>

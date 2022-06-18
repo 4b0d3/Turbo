@@ -8,8 +8,8 @@
        {{ include('includes/boxMessages.html.twig') }}
 
         <div class="header">
-            <h1><i class="fa-solid fa-house fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> Mon carnet d'adresses</h1>
-            <p>Liste de vos adresses.</p>
+            <h1><i class="fa-solid fa-house fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> {{ "Mon carnet d'adresses"|trans }}</h1>
+            <p>{{ "Liste de vos adresses"|trans }}.</p>
         </div>
 
         <div id="container-add-address">
@@ -79,9 +79,9 @@
                         <p><span>{{ "Option"|trans }}:</span> <span>{{ address.additional}}</span></p>
                     </div>
                     <div>
-                        <button><input type="radio" name="isMain" {{ address.isMain ? "checked"}}></button>
+                        <button onclick="changeFavAddress({{ address.id }})"><input type="radio" name="isMain" {{ address.isMain ? "checked"}}></button>
                         <form action="{{ HERE }}/delete/" method="POST">
-                            <input type="hidden" name="idAddress" value="{{ address.id}}">
+                            <input type="hidden" name="idAddress" value="{{ address.id }}">
                             <input type="submit" value="X">
                         </form>
                     </div>

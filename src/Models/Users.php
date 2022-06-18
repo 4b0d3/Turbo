@@ -236,6 +236,15 @@ class Users {
 
         $res = $db->queryAll($q, [$idUser]) ?: null;
 
+        if($res != null) {
+            foreach($res as $key => $address) {
+                if($address["isMain"] == "1") {
+                    $out = array_splice($res, $key, 1);
+                    array_splice($res, 0, 0, $out);
+                }
+            }
+        }
+
         return $res;
     }
 
@@ -262,6 +271,19 @@ class Users {
         }
 
         return $res; 
+    }
+
+    public static function setFavAddresss($idUser, $idAddress) {
+        $db = new Database();
+        $q = "UPDATE addresses SET isMain = 0 WHERE idUser = ?";
+        $res = $db->query($q, [$idUser]);
+
+        if($res != null) {
+            $q = "UPDATE addresses SET isMain = 1 WHERE idUser = ? AND id = ?";
+            $res = $db->query($q, [$idUser, $idAddress]);
+        }
+
+        return $res;
     }
 
     public static function deleteAddress($idAddress) {

@@ -53,6 +53,7 @@ $router
 
     /* AJAX */
     ->get("/ajax/cart/", "Ajax@cart")
+    ->get("/ajax/address/", "Ajax@address")
 
     /* WEBSITE */
     ->get("/[a:lang]/test/", "Site@test")
