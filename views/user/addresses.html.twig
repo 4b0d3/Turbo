@@ -79,7 +79,7 @@
                         <p><span>{{ "Option"|trans }}:</span> <span>{{ address.additional}}</span></p>
                     </div>
                     <div>
-                        <button onclick="changeFavAddress({{ address.id }})"><input type="radio" name="isMain" {{ address.isMain ? "checked"}}></button>
+                        <button onclick="changeFavAddress(this, {{ address.id }})"><input type="radio" name="isMain" {{ address.isMain ? "checked"}}></button>
                         <form action="{{ HERE }}/delete/" method="POST">
                             <input type="hidden" name="idAddress" value="{{ address.id }}">
                             <input type="submit" value="X">
