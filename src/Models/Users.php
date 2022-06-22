@@ -223,6 +223,13 @@ class Users {
         return !intval($res["sub"]);
     }
 
+    public static function deleteSub($idUser) {
+        $db = new Database();
+        $q = "UPDATE users SET sub = ?, timeRemaining = ? WHERE id = ?";
+
+        return $db->query($q, [0, 0, $idUser]);
+    }
+
     public static function getAllAddresses(int $idUser, int $start = null, int $total = null)
     {
         $db = new Database();

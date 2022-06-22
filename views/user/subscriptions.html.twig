@@ -1,0 +1,38 @@
+{% set navActive = "payment-methods" %}
+
+{% extends "templates/user.html.twig" %}
+
+{% block content %}
+    <section id="display">
+    
+        {{ include('includes/boxMessages.html.twig') }}
+
+        <div class="header">
+            <h1><i class="fa-solid fa-credit-card fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> {{ "Mon Abonnement"|trans }}</h1>
+            <p>{{ "Gérer votre abonnement"|trans }}.</p>
+        </div>
+
+        {% if page.sub.id is defined %}
+            <div id="container-del-sub">
+                <form action="{{ HERE }}" method="POST">
+                    <button type="submit">{{ "Supprimer mon abonnement"|trans }}</button>
+                </form>
+            </div>
+
+            <div id="container-sub">
+                <h1>{{ "Forfait actuel"|trans }}</h1>
+                <p>{{ page.sub.title|trans }}</p>
+                <p>{{ page.sub.price }} {{ "euros"|trans }}</p>
+                <p>{{ page.sub.description|trans }}</p>
+            </div>
+        {% else %}
+            <div id="container-del-sub">
+                <button><a href="{{ BASEURL }}subscriptions/">{{ "Voir les abonnements"|trans }}</a></button>
+            </div>
+
+            <div id="container-sub">
+                <p>{{ "Actuellement vous ne posseder aucun abonnement. Vos locations de trottinette seront donc au tarifs de base c'est à dire 1€ le déverrouillage et 23 centimes la minute. Vous pouvez changer cela en cliquant sur le lien au-dessus."|trans }}</p>
+            </div>
+        {% endif %}
+    </section>
+{% endblock content %}

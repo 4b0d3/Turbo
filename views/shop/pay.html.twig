@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>Buy cool new product</title>
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
+  <body>
+    <script>
+      var stripe = Stripe("{{ stripe.public }}");
+    stripe.redirectToCheckout({
+        sessionId: "{{ id }}"
+    });
+    </script>
+  </body>
+</html>

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Cart;
 use App\Models\Products;
 use App\Models\Scooters;
+use App\Models\Subscriptions;
 use App\Models\Users;
 
 class ShopController extends BaseController 
@@ -69,8 +70,9 @@ class ShopController extends BaseController
     {
         $data["products"] = Cart::getAllProducts();
 
+        $data["cart"]["info"] = Cart::getCartInfo();
         $data["cart"]["products"] = Cart::getAllProducts();
-
+        
         $this->display("shop/cart.html.twig", $data);
     }
 
@@ -80,7 +82,7 @@ class ShopController extends BaseController
         $this->display("shop/subscriptions.html.twig", $data);
     }
 
-    public function addSubscription()
+    public function addSubscription(array $data = [])
     {
         if($this->user->isAnonymous()) {
             header("Location:" . $this->urls["BASEURL"] . "login/?r=subscriptions/");
@@ -95,24 +97,52 @@ class ShopController extends BaseController
 
         // Si l'utilisateur a déjà un abonnement alors retour vers le catalogue des abonnements
         // IMPLEM : Message d'erreur indiquant qu'il faut annuler l'abonnement en cours 
-        if($this->user->get("sub") != 0) {
-            header("Location: " . $this->urls["BASEURL"] . "subscriptions/");
+        // if($this->user->get("sub") != 0) {
+        //     header("Location: " . $this->urls["BASEURL"] . "subscriptions/");
+        //     return;
+        // }
+        
+        // dump($_REQUEST);
+        // die();
+
+        $sub = Subscriptions::get($_POST["sub"]);
+        
+        \Stripe\Stripe::setApiKey($_ENV["STRIPE_API_PRIVATE"]);
+        $price = intval(floatval($sub["price"])*100);
+        $data["session"] = \Stripe\Checkout\Session::create([
+        'payment_method_types' => ['card'],
+        'line_items' => [[
+            'price_data' => [
+            'currency' => 'eur',
+            'product_data' => [
+                'name' => $sub["title"],
+            ],
+            'unit_amount' => $price,
+            ],
+            'quantity' => 1,
+        ]],
+        'mode' => 'payment',
+        'success_url' => $this->urls["BASEURL"] . 'my-account/subscriptions/',
+        'cancel_url' => $this->urls["BASEURL"] . 'subscriptions/',
+        ]);
+
+        $data["id"] = $data["session"]->id;
+        // TODO si le paiement passe
+        Users::changeSub($_POST["sub"],  $this->user->get("id")); // TODO si le paiement passe
+        $data["stripe"]["public"] = $_ENV["STRIPE_API_PUBLIC"];
+        
+        $this->display("shop/pay.html.twig", $data);
+    }
+
+    public function getChooseShippment(array $data = [])
+    {
+        if($this->user->isAnonymous()) {
+            header("Location:" . $this->urls["BASEURL"] . "login/?r=subscriptions/");
             return;
         }
 
+        $data["addresses"] = Users::getAllAddresses($this->user->get("id"));
 
-
-        // TODO rediriger vers page de paiement puis red
-        // header("Location: " . $this->urls["BASEURL"] . "subscriptions/pay/");
-        // return;
-
-        // Redirect vers la page de paiement 
-        // ... Attente
-        // En fonction du code de retour de la page 
-        // Paiement pas passé -> Page d'erreur indiquant erreur de paiement et proposition de redirection vers la page des abonnements
-        // Paiement passé -> Changer la valeur timeRemaining en fonction de l'abonnement et afficher une 
-        // page de confirmation de paiement à l'utilisateur 
-
-        Users::changeSub($_POST["sub"],  $this->user->get("id")); // TODO si le paiement passe
+        $this->display("shop/shippment.html.twig", $data);
     }
 }

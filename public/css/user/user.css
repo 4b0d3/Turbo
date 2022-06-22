@@ -221,3 +221,35 @@ main {
     cursor: pointer;
 }
 
+/*********************
+    SUBSCRIPTIONS
+**********************/
+
+#container-del-sub {
+    margin: 16px 0;
+    padding: 32px 32px 32px 32px;
+    background-color: #FFFFFF; 
+}
+
+#container-del-sub button {
+    width: 100%;
+    background: inherit;
+    border: inherit;
+    cursor: pointer;
+}
+
+#container-del-sub button a {
+    text-decoration: none;
+    color: orange;
+}
+
+#container-sub {
+    margin: 16px 0;
+    padding: 32px 32px 32px 32px;
+    background-color: #FFFFFF; 
+}
+
+#container-sub > h1 {
+    font-size: 1.3rem;
+    font-weight: bold;
+}

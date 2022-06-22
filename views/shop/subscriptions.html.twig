@@ -8,155 +8,73 @@
 
 <main>
     <section id="subs-container">
-        <section>
-            <h1>{{ "Sans Forfait"|trans }}</h1>
-            <p>{{ "1€ le déverrouillage et 23 centimes la minute "|trans }}</p>
-            <p>{{ "Tarifs de base"|trans }}</p>
-        </section>
-
-        <section>
-            <h1>{{ "Forfait journalier"|trans }}</h1>
-            <p>9,99€ /{{ "mois"|trans}}</p>
-            <p>{{ "Avec ce forfait, il est possible d’accéder gratuitement à
-                n’importe quel deux-roues, dans une limite d’utilisation de 30 minutes, pendant 24 heures.
-                Les frais de déblocage sont également offerts."|trans }}</p>
-            <form action="{{ BASEURL }}subscriptions/add/" method="POST">
-                <input type="hidden" name="sub" value="1">
-                <input type="submit">
-            </form>
-        </section>
-
-        <section>
-            <h1>{{ "Forfaits mensuel"|trans }}</h1>
-            <ul>
-                <li><button>{{ "Basique"|trans }}</button></li>
-                <li><button>{{ "Medium"|trans }}</button></li>
-                <li><button>{{ "Pro"|trans }}</button></li>
-            </ul>
-            <div>
-                <article>
-                    <p>19,99€ /{{ "mois"|trans}}</p>
-                    <p>{{ "Ce forfait permet de bénéficier de frais de déblocage
-                        gratuits et de courses de 30 minutes"|trans }}</p>
-                    <form action="{{ BASEURL }}subscriptions/add/" method="POST">
-                        <input type="hidden" name="sub" value="2">
-                        <input type="submit">
-                    </form>
-                </article>
-                <article>
-                    <p>44,99€ /{{ "mois"|trans}}</p>
-                    <p>{{ "Ce forfait permet de bénéficier de frais de déblocage
-                        gratuits et de courses de 30 minutes"|trans }}</p>
-                    <form action="{{ BASEURL }}subscriptions/add/" method="POST">
-                        <input type="hidden" name="sub" value="3">
-                        <input type="submit">
-                    </form>
-                </article>
-                <article>
-                    <p>79,99€ /{{ "mois"|trans}}</p>
-                    <p>{{ "Ce forfait permet de bénéficier de frais de déblocage
-                        gratuits et de courses de 30 minutes"|trans }}</p>
-                    <form action="{{ BASEURL }}subscriptions/add/" method="POST">
-                        <input type="hidden" name="sub" value="4">
-                        <input type="submit">
-                    </form>
-                </article>
-            </div>
-        </section>
-    </section>
-    <div class="wrapper">
-        <div class="table basic">
-          <div class="price-section">
-            <div class="price-area">
-              <div class="inner-area">
-                <span class="text">$</span>
-                <span class="price">29</span>
-              </div>
-            </div>
-          </div>
-          <div class="package-name"></div>
-          <ul class="features">
-            <li>
-              <span class="list-name">One Selected Template</span>
-              <span class="icon check"><i class="fas fa-check"></i></span>
-            </li>
-            <li>
-              <span class="list-name">100% Responsive Design</span>
-              <span class="icon check"><i class="fas fa-check"></i></span>
-            </li>
-            <li>
-              <span class="list-name">Credit Remove Permission</span>
-              <span class="icon cross"><i class="fas fa-times"></i></span>
-            </li>
-            <li>
-              <span class="list-name">Lifetime Template Updates</span>
-              <span class="icon cross"><i class="fas fa-times"></i></span>
-            </li>
-          </ul>
-          <div class="btn"><button>Purchase</button></div>
-        </div>
-        <div class="table premium">
-          <div class="ribbon"><span>Recommend</span></div>
-          <div class="price-section">
-            <div class="price-area">
-              <div class="inner-area">
-                <span class="text">$</span>
-                <span class="price">59</span>
-              </div>
-            </div>
-          </div>
-          <div class="package-name"></div>
-          <ul class="features">
-            <li>
-              <span class="list-name">Five Existing Templates</span>
-              <span class="icon check"><i class="fas fa-check"></i></span>
-            </li>
-            <li>
-              <span class="list-name">100% Responsive Design</span>
-              <span class="icon check"><i class="fas fa-check"></i></span>
-            </li>
-            <li>
-              <span class="list-name">Credit Remove Permission</span>
-              <span class="icon check"><i class="fas fa-check"></i></span>
-            </li>
-            <li>
-              <span class="list-name">Lifetime Template Updates</span>
-              <span class="icon cross"><i class="fas fa-times"></i></span>
-            </li>
-          </ul>
-          <div class="btn"><button>Purchase</button></div>
-        </div>
-        <div class="table ultimate">
-          <div class="price-section">
-            <div class="price-area">
-              <div class="inner-area">
-                <span class="text">$</span>
-                <span class="price">99</span>
-              </div>
-            </div>
-          </div>
-          <div class="package-name"></div>
-          <ul class="features">
-            <li>
-              <span class="list-name">All Existing Templates</span>
-              <span class="icon check"><i class="fas fa-check"></i></span>
-            </li>
-            <li>
-              <span class="list-name">100% Responsive Design</span>
-              <span class="icon check"><i class="fas fa-check"></i></span>
-            </li>
-            <li>
-              <span class="list-name">Credit Remove Permission</span>
-              <span class="icon check"><i class="fas fa-check"></i></span>
-            </li>
-            <li>
-              <span class="list-name">Lifetime Template Updates</span>
-              <span class="icon check"><i class="fas fa-check"></i></span>
-            </li>
-          </ul>
-          <div class="btn"><button>Purchase</button></div>
-        </div>
+      <div class="wrapper">
+        <h3>{{ "Sans Forfait"|trans }}</h3>
+        <h1><span>€</span>0</h1>
+        <p>{{ "Tarifs de base : 1€ le déverrouillage et 23 centimes la minute"|trans }}</p>
+        <button>{{ "Default"|trans }}</button>
       </div>
+  
+      <div class="wrapper">
+        <h3>{{ "Forfait journalier"|trans }}</h3>
+        <h1><span>€</span>9,99<span>/{{"mois"|trans }}</span></h1>
+        <p>{{ "Avec ce forfait, il est possible d’accéder gratuitement à n’importe quel deux-roues, dans une limite d’utilisation de 30 minutes, pendant 24 heures. Les frais de déblocage sont également offerts."|trans }}</p>
+        <form action="{{ BASEURL }}subscriptions/add/" method="POST">
+          <input type="hidden" name="sub" value="1">
+          <button type="submit">{{ "Souscrire"|trans }}</button>
+       </form>
+      </div>
+  
+      <div class="wrapper displayNone mensuel" id="mensuel1">
+        <h3>{{ "Forfaits mensuel"|trans }}</h3>
+        <ul class="mensuel-selection">
+          <li class="actif"><button onclick="changeMensuelSub('mensuel1')">{{ "Basique"|trans }}</button></li>
+          <li><button onclick="changeMensuelSub('mensuel2')">{{ "Medium"|trans }}</button></li>
+          <li><button onclick="changeMensuelSub('mensuel3')">{{ "Pro"|trans }}</button></li>
+       </ul>
+        <h1><span>€</span>19,99<span>/{{"mois"|trans }}</span></h1>
+        <p>{{ "Ce forfait permet de bénéficier de frais de déblocage gratuits et de courses de 30 minutes."|trans }}</p>
+        <form action="{{ BASEURL }}subscriptions/add/" method="POST">
+          <input type="hidden" name="sub" value="2">
+          <button type="submit">{{ "Souscrire"|trans }}</button>
+       </form>
+      </div>
+  
+      <div class="wrapper mensuel" id="mensuel2">
+        <h3>{{ "Forfaits mensuel"|trans }}</h3>
+        <ul class="mensuel-selection">
+          <li><button onclick="changeMensuelSub('mensuel1')">{{ "Basique"|trans }}</button></li>
+          <li class="actif"><button onclick="changeMensuelSub('mensuel2')">{{ "Medium"|trans }}</button></li>
+          <li><button onclick="changeMensuelSub('mensuel3')">{{ "Pro"|trans }}</button></li>
+       </ul>
+        <h1><span>€</span>44,99<span>/{{"mois"|trans }}</span></h1>
+        <p>{{ "Ce forfait permet de bénéficier de frais de déblocage gratuits et de courses de 30 minutes."|trans }}</p>
+        <form action="{{ BASEURL }}subscriptions/add/" method="POST">
+          <input type="hidden" name="sub" value="3">
+          <button type="submit">{{ "Souscrire"|trans }}</button>
+       </form>
+      </div>
+  
+      <div class="wrapper displayNone mensuel" id="mensuel3">
+        <h3>{{ "Forfaits mensuel"|trans }}</h3>
+        <ul class="mensuel-selection">
+          <li><button onclick="changeMensuelSub('mensuel1')">{{ "Basique"|trans }}</button></li>
+          <li><button onclick="changeMensuelSub('mensuel2')">{{ "Medium"|trans }}</button></li>
+          <li class="actif"><button onclick="changeMensuelSub('mensuel3')">{{ "Pro"|trans }}</button></li>
+       </ul>
+        <h1><span>€</span>79,99<span>/{{"mois"|trans }}</span></h1>
+        <p>{{ "Ce forfait permet de bénéficier de frais de déblocage gratuits et de courses de 30 minutes."|trans }}</p>
+        <form action="{{ BASEURL }}subscriptions/add/" method="POST">
+          <input type="hidden" name="sub" value="4">
+          <button type="submit">{{ "Souscrire"|trans }}</button>
+       </form>
+      </div>
+    </section>
 </main>
     
 {% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script defer src="{{ HOST }}javascript/subscription.js"></script>
+{% endblock javascripts %}

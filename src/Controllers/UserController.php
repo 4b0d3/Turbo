@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Database\Database;
 use App\Models\Users;
 use App\Models\Roles;
+use App\Models\Subscriptions;
 
 class UserController extends BaseController 
 {
@@ -186,10 +187,22 @@ class UserController extends BaseController
         header("Location:" . $this->urls["BASEURL"] . "my-account/addresses/"); return;
     }
 
-    public function showPaymentMethods() 
+    public function getSubscriptions(array $data = []) 
     {
         if($this->checkAnonymous()) return;
-        $this->display("user/payment-methods.html.twig");
+        if(!empty($this->user->get("sub"))) {
+            $data["page"]["sub"] = Subscriptions::get($this->user->get("sub"));
+        }
+
+        $this->display("user/subscriptions.html.twig", $data);
+    }
+
+    public function postSubscriptions() {
+        if($this->checkAnonymous()) return;
+
+        Users::deleteSub($this->user->get("id"));
+
+        header("Location:" . $this->urls["BASEURL"] . "my-account/subscriptions/");
     }
 
     public function showNotifications() 

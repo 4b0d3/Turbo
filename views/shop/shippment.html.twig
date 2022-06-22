@@ -1,0 +1,34 @@
+{% set navActive = "cart" %}
+
+{% extends "templates/site.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}shop/shippment.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+<main id="main-shippment">
+
+    <section id="section-box-shippment">
+        {% if addresses %}
+            <form action="">
+                {% for address in addresses %}
+                    <div>
+                        {{ address.country }}
+                        <input type="radio" name="idAddress" value="{{ address.id }}">
+                    </div>
+                {% endfor %}
+            </form>
+        {% else %}
+
+        {% endif %}
+        <form action="">
+            
+        </form>
+    </section>
+
+</main>
+    
+{% endblock content %}
+

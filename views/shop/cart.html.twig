@@ -46,7 +46,10 @@
         </section>
         <aside id="resume">
             <h1>{{ "Récapitulatif"|trans }}</h1>
-
+            <div>Total : {{ cart.info.total}}</div>
+            {# <div><span>{{ "Sous-total"|trans }} ( {{}} {{ "articles"|trans }})</span><span>{{}}</span></div>
+            <div><span>{{ "Sous-total"|trans }} ( {{}} {{ "articles"|trans }})</span><span>{{}}</span></div> #}
+            <a href="{{ BASEURL }}choose-shippment/">{{ "Prochaine étape"|trans }}</a>
         </aside>
     </section>
 

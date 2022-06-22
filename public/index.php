@@ -69,7 +69,8 @@ $router
     ->get("/[a:lang]/my-account/addresses/", "User@getAddresses")
     ->post("/[a:lang]/my-account/addresses/", "User@postAddresses")
     ->post("/[a:lang]/my-account/addresses/delete/", "User@deleteAddresses")
-    ->get("/[a:lang]/my-account/payment-methods/", "User@showPaymentMethods")
+    ->get("/[a:lang]/my-account/subscriptions/", "User@getSubscriptions")
+    ->post("/[a:lang]/my-account/subscriptions/", "User@postSubscriptions")
     ->get("/[a:lang]/my-account/notifications/", "User@showNotifications")
 
     // Login
@@ -88,6 +89,7 @@ $router
     ->get("/[a:lang]/product/[i:id]/add/", "Shop@addProduct")
     ->get("/[a:lang]/product/[i:id]/delete/", "Shop@deleteProduct")
     ->get("/[a:lang]/cart/", "Shop@getCart")
+    ->get("/[a:lang]/choose-shippment/", "Shop@getChooseShippment")
     // SUBSCRIPTION 
     ->get("/[a:lang]/subscriptions/", "Shop@getAllSubcriptions")
     ->post("/[a:lang]/subscriptions/add/", "Shop@addSubscription")
