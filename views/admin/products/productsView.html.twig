@@ -1,0 +1,67 @@
+{% set navActive = "products" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Voir les informations d'un produit</h1>
+        </header>
+
+        {% include "admin/products/navAdminProducts.html.twig" with {active : "view"} %}
+
+        <section id="admin-content">
+                <div class="box-input-txt">
+                    <label>
+                        <div>Id</div>
+                        <input value="{{ product.id ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Nom</div>
+                        <input type="text" name="name" value="{{ product.name ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Description</div>
+                        <input type="text" value="{{ product.description ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Prix</div>
+                        <input type="text" value="{{ product.price ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-toggle">
+                    <label>
+                        <div>En promotion</div>
+                        <input type="checkbox" name="confirmed" {{ product.isPromotion ? "checked" : "" }} disabled="disabled">
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Promotion</div>
+                        <input type="text" value="{{ product.promotion ?? '' }}" readonly>
+                    </label>
+                </div>
+                
+                <div class="box-input-txt">
+                    <label>
+                        <div>Quantité</div>
+                        <input type="text" value="{{ product.quantity ?? '' }}" readonly>
+                    </label>
+                </div>
+        </section>
+    </section>
+{% endblock content %}

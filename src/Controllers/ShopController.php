@@ -79,6 +79,7 @@ class ShopController extends BaseController
     public function getAllSubcriptions(array $data = [])
     {
         $data["cart"]["products"] = Cart::getAllProducts();
+        $data["subscriptions"] = Subscriptions::getAll();
         $this->display("shop/subscriptions.html.twig", $data);
     }
 
@@ -89,21 +90,17 @@ class ShopController extends BaseController
             return;
         }
 
-        $acceptedForfeits = [1,2,3,4];
+        $acceptedForfeits = array_column(Subscriptions::getAll(), "id");
+
         if(!isset($_POST["sub"]) || !in_array($_POST["sub"], $acceptedForfeits) ) {
             header("Location: " . $this->urls["BASEURL"] . "subscriptions/");
             return;
         }
 
-        // Si l'utilisateur a déjà un abonnement alors retour vers le catalogue des abonnements
-        // IMPLEM : Message d'erreur indiquant qu'il faut annuler l'abonnement en cours 
-        // if($this->user->get("sub") != 0) {
-        //     header("Location: " . $this->urls["BASEURL"] . "subscriptions/");
-        //     return;
-        // }
-        
-        // dump($_REQUEST);
-        // die();
+        if(!empty($this->user->get("sub"))) {
+            header("Location: " . $this->urls["BASEURL"] . "my-account/subscriptions/"); // TODO MESSAGE DERREUR ABONNEMENT DEJA EN COURS
+            return;
+        }
 
         $sub = Subscriptions::get($_POST["sub"]);
         

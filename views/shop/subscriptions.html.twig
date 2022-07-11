@@ -7,74 +7,19 @@
 {% block content %}
 
 <main>
-    <section id="subs-container">
+  <section id="subs-container">
+    {% for subscription in subscriptions %}
       <div class="wrapper">
-        <h3>{{ "Sans Forfait"|trans }}</h3>
-        <h1><span>€</span>0</h1>
-        <p>{{ "Tarifs de base : 1€ le déverrouillage et 23 centimes la minute"|trans }}</p>
-        <button>{{ "Default"|trans }}</button>
-      </div>
-  
-      <div class="wrapper">
-        <h3>{{ "Forfait journalier"|trans }}</h3>
-        <h1><span>€</span>9,99<span>/{{"mois"|trans }}</span></h1>
-        <p>{{ "Avec ce forfait, il est possible d’accéder gratuitement à n’importe quel deux-roues, dans une limite d’utilisation de 30 minutes, pendant 24 heures. Les frais de déblocage sont également offerts."|trans }}</p>
+        <h3>{{ subscription.title|trans }}</h3>
+        <h1><span>€</span>{{ subscription.price }}<span>/{{"mois"|trans }}</span></h1>
+        <p>{{ subscription.description|trans }}</p>
         <form action="{{ BASEURL }}subscriptions/add/" method="POST">
-          <input type="hidden" name="sub" value="1">
+          <input type="hidden" name="sub" value="{{ subscription.id }}">
           <button type="submit">{{ "Souscrire"|trans }}</button>
-       </form>
+        </form>
       </div>
-  
-      <div class="wrapper displayNone mensuel" id="mensuel1">
-        <h3>{{ "Forfaits mensuel"|trans }}</h3>
-        <ul class="mensuel-selection">
-          <li class="actif"><button onclick="changeMensuelSub('mensuel1')">{{ "Basique"|trans }}</button></li>
-          <li><button onclick="changeMensuelSub('mensuel2')">{{ "Medium"|trans }}</button></li>
-          <li><button onclick="changeMensuelSub('mensuel3')">{{ "Pro"|trans }}</button></li>
-       </ul>
-        <h1><span>€</span>19,99<span>/{{"mois"|trans }}</span></h1>
-        <p>{{ "Ce forfait permet de bénéficier de frais de déblocage gratuits et de courses de 30 minutes."|trans }}</p>
-        <form action="{{ BASEURL }}subscriptions/add/" method="POST">
-          <input type="hidden" name="sub" value="2">
-          <button type="submit">{{ "Souscrire"|trans }}</button>
-       </form>
-      </div>
-  
-      <div class="wrapper mensuel" id="mensuel2">
-        <h3>{{ "Forfaits mensuel"|trans }}</h3>
-        <ul class="mensuel-selection">
-          <li><button onclick="changeMensuelSub('mensuel1')">{{ "Basique"|trans }}</button></li>
-          <li class="actif"><button onclick="changeMensuelSub('mensuel2')">{{ "Medium"|trans }}</button></li>
-          <li><button onclick="changeMensuelSub('mensuel3')">{{ "Pro"|trans }}</button></li>
-       </ul>
-        <h1><span>€</span>44,99<span>/{{"mois"|trans }}</span></h1>
-        <p>{{ "Ce forfait permet de bénéficier de frais de déblocage gratuits et de courses de 30 minutes."|trans }}</p>
-        <form action="{{ BASEURL }}subscriptions/add/" method="POST">
-          <input type="hidden" name="sub" value="3">
-          <button type="submit">{{ "Souscrire"|trans }}</button>
-       </form>
-      </div>
-  
-      <div class="wrapper displayNone mensuel" id="mensuel3">
-        <h3>{{ "Forfaits mensuel"|trans }}</h3>
-        <ul class="mensuel-selection">
-          <li><button onclick="changeMensuelSub('mensuel1')">{{ "Basique"|trans }}</button></li>
-          <li><button onclick="changeMensuelSub('mensuel2')">{{ "Medium"|trans }}</button></li>
-          <li class="actif"><button onclick="changeMensuelSub('mensuel3')">{{ "Pro"|trans }}</button></li>
-       </ul>
-        <h1><span>€</span>79,99<span>/{{"mois"|trans }}</span></h1>
-        <p>{{ "Ce forfait permet de bénéficier de frais de déblocage gratuits et de courses de 30 minutes."|trans }}</p>
-        <form action="{{ BASEURL }}subscriptions/add/" method="POST">
-          <input type="hidden" name="sub" value="4">
-          <button type="submit">{{ "Souscrire"|trans }}</button>
-       </form>
-      </div>
-    </section>
+    {% endfor %}
+  </section>
 </main>
     
 {% endblock content %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script defer src="{{ HOST }}javascript/subscription.js"></script>
-{% endblock javascripts %}

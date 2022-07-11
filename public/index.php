@@ -49,6 +49,17 @@ $router
     ->get("/admin/roles/add/", "Admin\\Users@getAddRoles")
     ->post("/admin/roles/add/", "Admin\\Users@postAddRoles")
     ->get("/admin/roles/[i:id]/delete/", "Admin\\Users@postDelRoles")
+    // Subscriptions
+    ->get("/admin/subscriptions/", "Admin\\Subscriptions@getAll")
+    // Products
+    ->get("/admin/products/", "Admin\\Products@getAll")
+    ->get("/admin/products/add/", "Admin\\Products@getAdd")
+    ->post("/admin/products/add/", "Admin\\Products@postAdd")
+    ->get("/admin/products/[i:id]/view/", "Admin\\Products@getView")
+    ->get("/admin/products/[i:id]/edit/", "Admin\\Products@getEdit")
+    ->post("/admin/products/[i:id]/edit/", "Admin\\Products@postEdit")
+    ->get("/admin/products/[i:id]/delete/", "Admin\\Products@getDel")
+    ->post("/admin/products/[i:id]/delete/", "Admin\\Products@postDel")
 
 
     /* AJAX */

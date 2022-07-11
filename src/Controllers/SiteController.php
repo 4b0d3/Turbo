@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Cart;
+use App\Models\Products;
 
 class SiteController extends BaseController 
 {
@@ -10,6 +11,7 @@ class SiteController extends BaseController
     {
         $data = ["title" => "Home | Turbo"];
         $data["cart"]["products"] = Cart::getAllProducts();
+        $data["vitrine"]["products"] = Products::getAll(0, 3);
         $this->display("site/home.html.twig", $data);
     }
 
