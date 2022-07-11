@@ -31,8 +31,11 @@
                 <li><span><i class="fa-solid fa-box-open"></i></span>{{ "Livraison et retour gratuits"|trans }}</li>
                 <li><span><i class="fa-solid fa-rotate-left"></i></span>{{ "Retour gratuit sous 100 jours"|trans }}</li>
             </ul>
+            {% if product.quantity <= 0 %}
+                <p style="color: red">{{ "Le produit n'est plus disponible"|trans }}</p>
+            {% endif %}
             <div class="box-button-submit">
-                <a href="{{ HERE}}add/">{{ "Ajouter au panier"|trans }}</a>
+                <a href="{{ HERE }}{{ product.quantity > 0 ? 'add/' }}">{{ "Ajouter au panier"|trans }}</a>
             </div>
         </div>
     </section>

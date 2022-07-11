@@ -30,16 +30,16 @@
                 </div>
                 {% for product in products %}
                     <div class="product flex">
-                        <div class="image"><img src="{{ UPLOADS }}{{ product.images[0].path }}" alt="{{ product.name|trans }}"></div>
+                        <div class="image"><a href="{{ BASEURL }}product/{{ product.id }}/"><img src="{{ UPLOADS }}{{ product.images[0].path }}" alt="{{ product.name|trans }}"></a></div>
                         <div class="infoProduct">{{ product.name|trans }}</div>
                         <div>{{ product.price }}</div>
                         <div>
-                            <button onclick="delProductOne(this, {{ product.id }})">-</button>
+                            <button class="btn-cart-actions"onclick="delProductOne(this, {{ product.id }})">-</button>
                             <span>{{ product.quantity }}</span>
-                            <button onclick="addProductOne(this, {{ product.id }})">+</button>
+                            <button class="btn-cart-actions" onclick="addProductOne(this, {{ product.id }})">+</button>
                         </div>
                         <div>{{ product.price * product.quantity}}</div>
-                        <div><button onclick="delProductAll(this, {{ product.id }})">x</button></div>
+                        <div><button class="btn-cart-actions" onclick="delProductAll(this, {{ product.id }})">x</button></div>
                     </div>
                 {% endfor %}
             {% endif %}

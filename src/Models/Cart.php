@@ -51,8 +51,7 @@ class Cart {
             $expire = time()+60*60*24*30; // 30 jours
             $products = isset($_COOKIE["cart"]) ? json_decode(stripslashes($_COOKIE['cart']), true) : [];
             $res = null;
-            dump($products);
-            die();
+
             if(array_key_exists($id, $products)) {
                 $products[$id]++; 
                 $res = $products[$id];
@@ -141,7 +140,7 @@ class Cart {
         $res["total"] = 0;
         $res["totalWithProm"] = 0;
         foreach($products as $product) {
-            $res["total"] += intval($product["price"]);
+            $res["total"] += intval($product["quantity"]) * intval($product["price"]);
             $res["totalWithProm"] += intval($product["price"]) * ($product["isPromotion"] != "0" ? (intval($product["promotion"])/100) : 1);
         }
         $res["saved"] = $res["total"] - $res["totalWithProm"];

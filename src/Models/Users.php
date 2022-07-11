@@ -179,21 +179,9 @@ class Users {
 
         $userId = $userId ?: (new User())->get("id");
         
-        $time = NULL;
-        switch ($id) {
-            case 1:
-                $time = 30;
-                break;
-            case 2:
-                $time = 30*8;
-                break;
-            case 3:
-                $time = 30*25;
-                break;    
-            case 4:
-                $time = 30*50;
-                break;
-        }
+        $sub = Subscriptions::get($id);
+        $time = 30 * $sub["openings"];
+
         return $db->query($q, [$id, $time, $userId]);
     }
 

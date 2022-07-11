@@ -1,0 +1,65 @@
+{% set navActive = "products" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Ajouter un nouveau produit</h1>
+        </header>
+
+        <section id="admin-content">
+            <form action="{{ HERE }}" method="POST" id="form-products-add">
+                <div class="box-input-txt">
+                    <label>
+                        <div>Nom<span style="color: red">*</span></div>
+                        <input type="text" name="name" value="{{ checkedFields.name ?? '' }}">
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Description<span style="color: red">*</span></div>
+                        <input type="text" name="description" value="{{ checkedFields.description ?? '' }}">
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Prix<span style="color: red">*</span></div>
+                        <input type="text" name="price" value="{{ checkedFields.price ?? '' }}">
+                    </label>
+                </div>
+
+                <div class="box-input-toggle">
+                    <label>
+                        <div>Activer la promotion</div>
+                        <input type='hidden' value='0' name='isPromotion'>
+                        <input type="checkbox" name="isPromotion" {{ userInfo.isPromotion ? "checked" : "" }} value="1">
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Promotion en %</div>
+                        <input type="text" name="promotion" value="{{ checkedFields.promotion ?? '0' }}">
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Quantité</div>
+                        <input type="text" name="quantity" value="{{ checkedFields.quantity ?? '0' }}">
+                    </label>
+                </div>
+
+                <div class="box-input-submit">
+                    <input type="submit" value="Ajouter">
+                </div>
+            </form>
+        </section>
+    </section>
+{% endblock content %}

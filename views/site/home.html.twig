@@ -29,9 +29,14 @@
     <section id="block-visit-shop">
         <h2>{{ "Visiter la boutique !"|trans }}</h2>
         <div class="container">
-            <div>SHOP 1</div>
-            <div>SHOP 2</div>
-            <div>SHOP 3</div>
+            {% for product in vitrine.products %}
+                <div>
+                    <a href="{{ BASEURL }}product/{{ product.id }}/" style="color: black; text-decoration: none;">
+                        <div>{{ product.name }}</div>
+                        <div><img src="{{ UPLOADS }}{{ product.images[0].path}}" style="max-width: 100%;" alt=""></div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
         <a href="{{ BASEURL }}shop/">{{ "Voir plus"|trans }}...</a>
     </section>
