@@ -51,6 +51,13 @@ $router
     ->get("/admin/roles/[i:id]/delete/", "Admin\\Users@postDelRoles")
     // Subscriptions
     ->get("/admin/subscriptions/", "Admin\\Subscriptions@getAll")
+    ->get("/admin/subscriptions/add/", "Admin\\Subscriptions@getAdd")
+    ->post("/admin/subscriptions/add/", "Admin\\Subscriptions@postAdd")
+    ->get("/admin/subscriptions/[i:id]/view/", "Admin\\Subscriptions@getView")
+    ->get("/admin/subscriptions/[i:id]/delete/", "Admin\\Subscriptions@getDel")
+    ->post("/admin/subscriptions/[i:id]/delete/", "Admin\\Subscriptions@postDel")
+    ->get("/admin/subscriptions/[i:id]/edit/", "Admin\\Subscriptions@getEdit")
+    ->post("/admin/subscriptions/[i:id]/edit/", "Admin\\Subscriptions@postEdit")
     // Products
     ->get("/admin/products/", "Admin\\Products@getAll")
     ->get("/admin/products/add/", "Admin\\Products@getAdd")
