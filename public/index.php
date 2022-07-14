@@ -108,6 +108,8 @@ $router
     ->get("/[a:lang]/product/[i:id]/delete/", "Shop@deleteProduct")
     ->get("/[a:lang]/cart/", "Shop@getCart")
     ->get("/[a:lang]/choose-shippment/", "Shop@getChooseShippment")
+    ->get("/[a:lang]/command/pay/", "Shop@getPay")
+    ->get("/[a:lang]/command/success/", "Shop@getSuccess")
     // SUBSCRIPTION 
     ->get("/[a:lang]/subscriptions/", "Shop@getAllSubcriptions")
     ->post("/[a:lang]/subscriptions/add/", "Shop@addSubscription")
@@ -116,5 +118,6 @@ $router
     ->get("/api/scooter/update/", "API\\Scooter@update")
     ->post("/api/ride/start/", "API\\Scooter@startRide")
     ->post("/api/ride/stop/", "API\\Scooter@stopRide")
+    ->get("/api/scooter/get/all/available/", "API\\Scooter@getAllDisponibles")
 
     ->run($route);

@@ -105,7 +105,7 @@ class ShopController extends BaseController
         $sub = Subscriptions::get($_POST["sub"]);
         
         \Stripe\Stripe::setApiKey($_ENV["STRIPE_API_PRIVATE"]);
-        $price = intval(floatval($sub["price"])*100);
+        $price = floatval($sub["price"])*100;
         $data["session"] = \Stripe\Checkout\Session::create([
         'payment_method_types' => ['card'],
         'line_items' => [[
@@ -139,7 +139,49 @@ class ShopController extends BaseController
         }
 
         $data["addresses"] = Users::getAllAddresses($this->user->get("id"));
+        $data["cart"]["products"] = Cart::getAllProducts();
 
         $this->display("shop/shippment.html.twig", $data);
+    }
+
+    public function getPay(array $data = []) {
+        if($this->user->isAnonymous()) {
+            header("Location:" . $this->urls["BASEURL"] . "login/?r=cart/");
+            return;
+        }
+        $acceptedAddresses = array_column(Users::getAllAddresses($this->user->get("id")), "id");
+        
+        if(!isset($_GET["idAddress"]) || !in_array($_GET["idAddress"], $acceptedAddresses) ) {
+            header("Location: " . $this->urls["BASEURL"] . "cart/");
+            return;
+        }
+
+        $products = Cart::getAllProducts();
+        $lineItems = [];
+
+
+        foreach($products as $product) {
+            $lineItem["price_data"] = ['currency' => 'eur', 'product_data' => ['name' => $product["name"]], 'unit_amount' => floatval($product["price"])*100];
+            $lineItem["quantity"] = $product["quantity"];
+            array_push($lineItems, $lineItem);
+        }
+        
+        \Stripe\Stripe::setApiKey($_ENV["STRIPE_API_PRIVATE"]);
+        $data["session"] = \Stripe\Checkout\Session::create([
+        'payment_method_types' => ['card'],
+        'line_items' => $lineItems,
+        'mode' => 'payment',
+        'success_url' => $this->urls["BASEURL"] . 'command/success/?addressId=' . $_GET["idAddress"],
+        'cancel_url' => $this->urls["BASEURL"] . 'cart/',
+        ]);
+
+        $data["id"] = $data["session"]->id;
+        $data["stripe"]["public"] = $_ENV["STRIPE_API_PUBLIC"];
+        
+        $this->display("shop/pay.html.twig", $data);
+    }
+
+    public function getSuccess(array $data = []) {
+
     }
 }

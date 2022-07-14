@@ -29,6 +29,22 @@ class Scooters {
         return $res;
     }
 
+    public static function getAllDisponibles(int $start = null, int $total = null) :array
+    {
+        $db = new Database();
+        $q = "SELECT * FROM scooters WHERE inUse=0";
+
+        $res = [];
+        if(!($start == null || $start < 0 || $total == null || $total < 0 )) {
+            $q = $q . " LIMIT " . $start . ", " . $total; 
+            $res = $db->queryAll($q);
+        } else {
+            $res = $db->queryAll($q);
+        }
+
+        return $res;
+    }
+
     public static function delete(int $id) :bool
     {
         $db = new Database();

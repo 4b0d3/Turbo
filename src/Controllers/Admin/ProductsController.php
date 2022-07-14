@@ -124,25 +124,24 @@ class ProductsController extends BaseController
     {
         if(!$this->checkAdminAccess()) return;
 
-        $userId = $this->match["params"]["id"] ?? null;
-        $data["userInfo"] = Users::get($userId);
+        $productId = $this->match["params"]["id"] ?? null;
+        $data["product"] = Products::get($productId);
 
-        if(empty($userId) || intval($userId) <= 0 || !$data["userInfo"]) {
-            header("Location:" . HOST . "admin/users/?boxMsgs=Erreur;error;Utilisateur non trouvé.");
+        if(empty($productId) || intval($productId) <= 0 || !$data["product"]) {
+            header("Location:" . HOST . "admin/users/?boxMsgs=Erreur;error;Produit non trouvé.");
             return;
         }
 
-        $res = Users::delete($userId);
+        $res = Products::delete($productId);
 
         if($res) {
-            $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;L'utilisateur a bien été supprimé.";
-            $redirect = HOST . "admin/users/?boxMsgs=" . $val;
+            $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;Le produit a bien été supprimé.";
+            $redirect = HOST . "admin/products/?boxMsgs=" . $val;
             header("Location:" . $redirect);
             return;
         }
 
-        if(isset($res["boxMsgs"])) $data["boxMsgs"] = $res["boxMsgs"];
-        else $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "L'utilisateur n'a pas pu être supprimé."]];
+        $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Le produit n'a pas pu être supprimé."]];
 
         $this->getDel($data);
     }
