@@ -11,6 +11,20 @@ use App\Models\Users;
 class ScooterController extends BaseController 
 {
 
+    public static function getAllDisponibles() 
+    {
+        $scooters = Scooters::getAllDisponibles();
+
+        $data = [
+            "status" => true,
+            "data" => [
+                "scooters" => $scooters
+            ]
+            ];
+
+        return Response::json(200, [], $data);
+    }
+
     // IMPLEM : Gérer le token d'authentification pour l'API
     /**
      * @path /api/ride/start/

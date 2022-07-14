@@ -36,7 +36,7 @@ class Products {
         $db = new Database();
         $q = "SELECT id FROM products";
 
-        if($start != null && $start >= 0 && $total != null && $total >= 0) $q = $q . " LIMIT " . $start . ", " . $total; 
+        if($start !== null && $start >= 0 && $total !== null && $total >= 0) $q = $q . " LIMIT " . $start . ", " . $total; 
 
         $ids = $db->queryAll($q) ?: null;
         if(!$ids) return null;
@@ -89,5 +89,17 @@ class Products {
 
         $set = implode(", ", $set);
         return $db->query("UPDATE products SET $set WHERE id = :id",  $attrs);
+    }
+
+    public static function delete(int $id) :bool
+    {
+        if($id == null && $id <= 0) return false;
+
+        $db = new Database();
+        $q = "DELETE FROM products WHERE id = ?";
+
+        $res = $db->query($q, [$id]);
+
+        return $res;
     }
 }

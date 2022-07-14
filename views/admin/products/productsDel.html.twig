@@ -16,7 +16,7 @@
         <section id="admin-content">
             <form action="{{ HERE }}" method="POST" id="form-products-del">
                 <p>
-                    Etes-vous sûr de vouloir supprimer le produit "{{ pr }}" ?
+                    Etes-vous sûr de vouloir supprimer le produit "{{ product.name }}" avec l'ID {{ product.id }} ?
                 </p>
                 <input type="hidden" name="id" value="{{ product.id }}">
                 <div class="box-input-submit">

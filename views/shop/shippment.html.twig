@@ -1,4 +1,4 @@
-{% set navActive = "cart" %}
+{% set navActive = "delivery" %}
 
 {% extends "templates/site.html.twig" %}
 
@@ -9,26 +9,92 @@
 {% block content %}
 
 <main id="main-shippment">
+    {% include "includes/navCart.html.twig" %}
 
+    <h1>{{ "Sélectionner l'adresse de livraison"|trans }}</h1>
     <section id="section-box-shippment">
         {% if addresses %}
-            <form action="">
+            <form action="{{ BASEURL }}command/pay/" method="GET">
+                <input type="submit">
                 {% for address in addresses %}
-                    <div>
-                        {{ address.country }}
-                        <input type="radio" name="idAddress" value="{{ address.id }}">
+                    <div class="container-address">
+                        <label>
+                            <span><input type="radio" name="idAddress" value="{{ address.id }}" {{ address.isMain ? "checked" }}></span>
+                            <span>{{ address.country }}</span>
+                            <span>{{ address.city }}</span>
+                            <span>{{ address.address }}</span>
+                            <span>{{ address.additional }}</span>
+                        </label>
                     </div>
                 {% endfor %}
             </form>
         {% else %}
 
         {% endif %}
-        <form action="">
-            
-        </form>
+
+        <div id="container-add-address">
+            <button onclick="toggleAddAddressForm(this)"><span>{{ "Ajouter une adresse"|trans }}</span><span class="displayNone">X</span></button>
+            <form action="{{ BASEURL }}my-account/addresses/" method="post" id="form-address-add" class="displayNone">
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Pays"|trans }} :</span>
+                        <div>
+                            <input type="text" name="country">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Ville"|trans }} :</span>
+                        <div>
+                            <input type="text" name="city">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Adresse"|trans }} :</span>
+                        <div>
+                            <input type="text" name="address">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Code postal"|trans }} :</span>
+                        <div>
+                            <input type="text" name="zipcode">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Option"|trans }} :</span>
+                        <div>
+                            <input type="text" name="additional">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-toggle">
+                    <label>
+                        <div>{{ "Principale"|trans }} ?</div>
+                        <input type="hidden" value='0' name="isMain">
+                        <input type="checkbox" value='1' name="isMain">
+                    </label>
+                </div>
+                <div class="box-button-submit" style="margin-top: 16px;">
+                    <button type="submit">{{ "Ajouter"|trans }}</button>
+                </div>
+            </form>
+        </div>
     </section>
 
 </main>
     
 {% endblock content %}
+
+{% block javascripts %}
+    <script src="{{ HOST }}javascript/cart.js"></script>
+    <script src="{{ HOST }}javascript/addresses.js"></script>
+{% endblock javascripts %}
 
