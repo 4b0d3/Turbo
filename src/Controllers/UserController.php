@@ -147,7 +147,7 @@ class UserController extends BaseController
 
         if(!array_key_exists("error", $data)) {
             if(password_verify($_POST["oldPassword"], $this->user->get("password"))) {
-                $res = Users::updateOneById($this->user->get("id"), ["password" => password_hash($_POST["password"], PASSWORD_DEFAULT)]); // TODO CHANGE PASSWORD DEFAULT
+                $res = Users::updateOneById(["id" => $this->user->get("id"), "password" => $_POST["password"]]); 
                 if(!$res) { $data["msgBoxes"][] = ["status" => "error", "description" => "Problèmes lors du changement du mot de passe, le mot de passe n'a pas été changé !"]; }
                 else  {$data["msgBoxes"][] = ["status" => "success", "description" => "Le mot de passe à bien été changé !"]; }
             } else {

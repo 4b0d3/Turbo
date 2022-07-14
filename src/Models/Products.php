@@ -7,7 +7,7 @@ use App\Database\Database;
 class Products {
     public static function get(int $id)
     {
-        if($id == null && $id <= 0) return null;
+        if($id == null || $id <= 0) return null;
 
         $db = new Database();
         $q = "SELECT * FROM products WHERE id = ?";
@@ -23,7 +23,7 @@ class Products {
 
     public static function getProductImages(int $id)
     {
-        if($id == null && $id <= 0) return null;
+        if($id == null || $id <= 0) return null;
         $db = new Database();
         $q = "SELECT * FROM product_medias AS pm INNER JOIN medias AS me ON pm.idMedia = me.id  WHERE pm.idProduct = ? ORDER BY pm.weight";
         $res = $db->queryAll($q, [$id]) ?: null;
@@ -56,7 +56,7 @@ class Products {
 
         try {
             $q = "INSERT INTO products(name, description, price, isPromotion, promotion, quantity) VALUES(:name, :description, :price, :isPromotion, :promotion, :quantity)";
-            $res = $db->query($q, $productInfo);
+            $db->query($q, $productInfo);
             $data["boxMsgs"] = [["status" => "Succès", "class" => "success", "description" => "Le produit a bien été ajouté."]];
             $data["status"] = true;
         } catch (\Exception $e) {

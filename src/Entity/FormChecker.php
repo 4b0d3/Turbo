@@ -78,8 +78,6 @@ class FormChecker {
         $data = [];
         if(!isset($posts[$name]) || empty($posts[$name])) {
             $data["form"]["error"][$name] = !$cp ? "Veuillez renseigner un mot de passe." : "Veuillez confirmer votre mot de passe.";
-        } else if(preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{4,12}$/", $posts[$name]) && !$cp ) {
-            $data["form"]["error"][$name] = "Le mot de passe n'a pas le bon format.";
         } else if(strlen($posts[$name]) > 255 && !$cp) { // Shorter than 255
             $data["form"]["error"][$name] = "Le mot de passse est trop long.";
         } else if($cp && ($posts[$name] != $posts["password"])) {

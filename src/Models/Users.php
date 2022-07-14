@@ -160,7 +160,7 @@ class Users {
             $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Votre compte n'a pas été confirmé."]];
             return $data;
         }
-
+        
         if($getUser != null && password_verify($user["password"], $getUser["password"])) {
             $_SESSION["id"] = $getUser["id"];
             Cart::mergeCartCookies();
