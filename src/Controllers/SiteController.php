@@ -26,9 +26,6 @@ class SiteController extends BaseController
         dump(json_encode($cart));
         dump(json_decode(json_encode($cart), true));
         dump(json_encode(json_decode(json_encode($cart))));
-        // $o = (new \stdClass());
-        // $o->quantity = "ok";
-        // dump($o);
 
 
 

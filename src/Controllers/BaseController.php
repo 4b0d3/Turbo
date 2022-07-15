@@ -108,7 +108,6 @@ class BaseController
     {
         $this->FSLoader = new FilesystemLoader(VIEWS);
         $this->twig = new Environment($this->FSLoader, [
-            // TODO env check debug
             "debug" => $_ENV["DEBUG"] == "true" ? true : false,
         ]);
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());

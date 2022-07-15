@@ -68,7 +68,6 @@ class UserController extends BaseController
         $res = Users::add($_POST);
 
         if($res["status"]) {
-            // TODO REDIRECTION ENVOIE MAIL DE CONFIRMATION
             $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;L'utilisateur a bien été créé.";
             $redirect = $this->urls["BASEURL"] . "?boxMsgs=" . $val;
             header("Location:" . $redirect);

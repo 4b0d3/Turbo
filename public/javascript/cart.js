@@ -105,7 +105,7 @@ function refreshCart() {
         }
     }
     
-    // TODO CHANGE PATH UNTIL IMPLEMENTATION OF DOTENV
+
     request.open("GET", "http://localhost/ESGI/ESGI2/Projet%20Annuelp/Turbo/public/javascript/scripts/getCartElements.php?userId="+userId);
     
     request.send();

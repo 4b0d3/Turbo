@@ -99,7 +99,7 @@ class ShopController extends BaseController
         }
 
         if(!empty($this->user->get("sub"))) {
-            header("Location: " . $this->urls["BASEURL"] . "my-account/subscriptions/"); // TODO MESSAGE DERREUR ABONNEMENT DEJA EN COURS
+            header("Location: " . $this->urls["BASEURL"] . "my-account/subscriptions/");
             return;
         }
 
@@ -125,8 +125,8 @@ class ShopController extends BaseController
         ]);
 
         $data["id"] = $data["session"]->id;
-        // TODO si le paiement passe
-        Users::changeSub($_POST["sub"],  $this->user->get("id")); // TODO si le paiement passe
+        
+        Users::changeSub($_POST["sub"],  $this->user->get("id")); 
         $data["stripe"]["public"] = $_ENV["STRIPE_API_PUBLIC"];
         
         $this->display("shop/pay.html.twig", $data);
