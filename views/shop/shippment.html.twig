@@ -15,7 +15,7 @@
     <section id="section-box-shippment">
         {% if addresses %}
             <form action="{{ BASEURL }}command/pay/" method="GET">
-                <input type="submit">
+                <input type="submit" value="{{ 'Payer'|trans }}" id="btn-pay">
                 {% for address in addresses %}
                     <div class="container-address">
                         <label>

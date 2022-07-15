@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Database\Database;
+use App\Models\Commands;
+use App\Models\Products;
 use App\Models\Users;
 use App\Models\Roles;
 use App\Models\Subscriptions;
@@ -105,10 +107,26 @@ class UserController extends BaseController
         $this->display("user/informations.html.twig");
     }
 
-    public function showOrders() 
+    public function showOrders(array $data = []) 
     {
         if($this->checkAnonymous()) return;
-        $this->display("user/orders.html.twig");
+
+        $data["commands"] = Commands::getAllNotReturned($this->user->get("id"));
+
+        if($data["commands"] != null) {
+            foreach($data["commands"] as &$command) {
+                $products = explode(";", $command["products"]);
+                $newProducts = [];
+                foreach($products as $key => $product) {
+                    $productId = explode(":", $product)[0];
+                    array_push($newProducts, Products::get(intval($productId)));
+                }
+                array_pop($newProducts);
+                $command["products"] = $newProducts;
+            }
+        }
+
+        $this->display("user/orders.html.twig", $data);
     }
     
     public function showReturns() 

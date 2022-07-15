@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Cart;
+use App\Models\Commands;
 use App\Models\Products;
 use App\Models\Scooters;
 use App\Models\Subscriptions;
@@ -158,12 +159,14 @@ class ShopController extends BaseController
 
         $products = Cart::getAllProducts();
         $lineItems = [];
+        $toSendProducts="";
 
 
         foreach($products as $product) {
             $lineItem["price_data"] = ['currency' => 'eur', 'product_data' => ['name' => $product["name"]], 'unit_amount' => floatval($product["price"])*100];
             $lineItem["quantity"] = $product["quantity"];
             array_push($lineItems, $lineItem);
+            $toSendProducts = $toSendProducts . $product['id'] . ":" . $product["quantity"] . ";";
         }
         
         \Stripe\Stripe::setApiKey($_ENV["STRIPE_API_PRIVATE"]);
@@ -171,7 +174,7 @@ class ShopController extends BaseController
         'payment_method_types' => ['card'],
         'line_items' => $lineItems,
         'mode' => 'payment',
-        'success_url' => $this->urls["BASEURL"] . 'command/success/?addressId=' . $_GET["idAddress"],
+        'success_url' => $this->urls["BASEURL"] . 'command/success/?idAddress=' . $_GET["idAddress"] . "&products=" . $toSendProducts,
         'cancel_url' => $this->urls["BASEURL"] . 'cart/',
         ]);
 
@@ -182,6 +185,17 @@ class ShopController extends BaseController
     }
 
     public function getSuccess(array $data = []) {
+        $idAddress = $_GET["idAddress"];
+        $products = $_GET["products"];
+        $cartInfo = Cart::getCartInfo();
+        $commandInfo = [
+            "idUser" => $this->user->get("id"),
+            "idAddress" => $idAddress,
+            "total" => $cartInfo["total"],
+            "products" => $products,
+        ];
 
+        Commands::add($commandInfo);
+        header("Location: " . $this->urls["BASEURL"] . "my-account/orders/");
     }
 }

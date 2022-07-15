@@ -110,6 +110,31 @@ body {
     border: 0px solid #82828200;
 }
 
+#block-subscriptions {
+    margin: 32px 0;
+}
+
+#block-subscriptions h2 {
+    font-size: 3rem;
+    text-align: center;
+}
+
+#block-subscriptions p {
+    text-align: center;
+}
+
+#block-subscriptions a {
+    width: 400px;
+    margin: 16px auto;
+    padding: 8px;
+    font-size: 1.2rem;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    background-color: orange;
+    color: white;
+}
+
 /*********************
         FOOTER
 **********************/
@@ -122,4 +147,27 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#mainFooter ul {
+    list-style-type: none;
+}
+
+#mainFooter li {
+    margin: 16px 0;
+}
+
+#mainFooter li:first-child {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#mainFooter a {
+    color: white;
+    text-decoration: none;
 }

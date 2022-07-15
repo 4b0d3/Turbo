@@ -1,4 +1,6 @@
-const HOST = document.documentElement.dataset.host;
+if (typeof HOST === 'undefined') {
+    const HOST = document.documentElement.dataset.host;
+}
 
 function toggleAddAddressForm(el) {
     const form = document.getElementById("form-address-add");
