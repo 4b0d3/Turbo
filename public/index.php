@@ -97,6 +97,9 @@ $router
     // Register
     ->get("/[a:lang]/register/", "User@getRegister")
     ->post("/[a:lang]/register/", "User@postRegister")
+    // Verfication
+    ->get("/[a:lang]/verfication/", "User@getVerification")
+    
     
     // Pages
     ->get("/[a:lang]/", "Site@getHome")
