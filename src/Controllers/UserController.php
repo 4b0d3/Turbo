@@ -29,8 +29,10 @@ class UserController extends BaseController
         }
 
         $res = Users::login($_POST);
+        $email = $_POST['email'];
 
         if($res["status"]) {
+            $this->verifSubValidity($email);
             $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;Connecté.";
             $redirect = $this->urls["BASEURL"] . (isset($_GET["r"]) ? $_GET["r"] : "?boxMsgs=" . $val);
             header("Location:" . $redirect);
@@ -43,7 +45,7 @@ class UserController extends BaseController
 
         $this->getLogin($data);
     }
-
+    
     /* REGISTER */
     public function getRegister(array $data = []) 
     {
@@ -230,6 +232,16 @@ class UserController extends BaseController
         // Finalement, on détruit la session.
         session_destroy();
         header("Location:". $this->urls["BASEURL"]);
+    }
+
+    public static function verifSubValidity($email){ 
+        $res = Users::getDate($email);
+        $tmp = date('Y-m-d');
+        $tmstp1 = strtotime($res);
+        $tmstp2 = strtotime($tmp);
+        if ($tmstp1 < $tmstp2){
+            Users::removeSub($email);
+        }
     }
 
 }
