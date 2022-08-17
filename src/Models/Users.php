@@ -286,4 +286,9 @@ class Users {
         $q = "DELETE FROM addresses WHERE id = ?";
         return $db->query($q, [$idAddress]);
     }
+
+    public static function addPartner(){
+        
+
+    }
 }

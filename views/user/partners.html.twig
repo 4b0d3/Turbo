@@ -1,0 +1,48 @@
+{% set navActive = "partners" %}
+
+{% extends "templates/user.html.twig" %}
+
+{% block content %}
+    <section id="display">
+    
+        {{ include('includes/boxMessages.html.twig') }}
+
+        <div class="header">
+            <h1><i class="fa-solid fa-handshake fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> {{ "Demande de Partenariat"|trans }}</h1>
+            <p>{{ "Vous avez la possibilité de devenir un partenaire" }}.</p>
+        </div>
+
+        <div class="container-change-password-form">
+            <form action="{{ HERE }}" method="post">
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Nom"|trans }} :</span>
+                        <div>
+                            <input type="text" name="name">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Description"|trans }} :</span>
+                        <div>
+                            <input type="text" name="description">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Prix en courses"|trans }} :</span>
+                        <div>
+                            <input type="text" name="price">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-button-submit">
+                    <button type="submit">{{ "Sauvegarder"|trans }}</button>
+                </div>                
+            </form>
+        </div>
+
+    </section>
+{% endblock content %}

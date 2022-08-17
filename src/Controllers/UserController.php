@@ -232,4 +232,38 @@ class UserController extends BaseController
         header("Location:". $this->urls["BASEURL"]);
     }
 
+    public function getPartner(){
+        if($this->checkAnonymous()) return;
+        $this->display("user/partners.html.twig");
+
+    }
+
+    public function postPartner(){
+        if($this->checkAnonymous()) return;
+
+        $data = [];
+
+        if(!isset($_POST["name"]) || empty($_POST["name"])) {
+            $data["error"]["name"] = "Veuillez renseigner le nom";
+        }
+        if(!isset($_POST["description"]) || empty($_POST["description"])) {
+            $data["error"]["description"] = "Veuillez renseigner une description";
+        }
+        if(!isset($_POST["price"]) || empty($_POST["price"])) {
+            $data["error"]["price"] = "Veuillez renseigner un prix";
+        }
+
+        if(!array_key_exists("error", $data)) {
+                $res = Users:: 
+                if(!$res) { $data["msgBoxes"][] = ["status" => "error", "description" => "Problèmes lors d'envoie"]; }
+                else  {$data["msgBoxes"][] = ["status" => "success", "description" => "La demande de partenariat a été envoyée !"]; }
+            } else {
+                $data["msgBoxes"][] = ["status" => "error", "description" => "L'ancien mot de passe est invalide !"];
+            }
+        }
+
+        $this->display("user/change-password.html.twig", $data);
+
+    }
+
 }
