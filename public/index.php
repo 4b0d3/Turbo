@@ -68,6 +68,10 @@ $router
     ->get("/admin/products/[i:id]/delete/", "Admin\\Products@getDel")
     ->post("/admin/products/[i:id]/delete/", "Admin\\Products@postDel")
 
+    //Invoices
+    ->get("/admin/invoices/", "Admin\\Products@getAll")
+    
+
 
     /* AJAX */
     ->get("/ajax/cart/", "Ajax@cart")
