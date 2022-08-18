@@ -19,7 +19,7 @@ class Partners {
     public static function getAll(int $start = null, int $total = null)
     {
         $db = new Database();
-        $q = "SELECT * FROM partners";
+        $q = "SELECT * FROM partners where confirmed = 1";
 
         $res = null;
         if(!($start == null || $start < 0 || $total == null || $total < 0 )) {

@@ -287,8 +287,9 @@ class Users {
         return $db->query($q, [$idAddress]);
     }
 
-    public static function addPartner(){
-        
-
+    public static function addPartner($PartnerInfos){
+        $db = new Database();
+        $q = "INSERT INTO partners(name, description, price, promoCode ) VALUES(:name, :description, :price, :promoCode)";
+        return $db->query($q, $PartnerInfos);
     }
 }
