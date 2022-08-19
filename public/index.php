@@ -69,7 +69,12 @@ $router
     ->post("/admin/products/[i:id]/delete/", "Admin\\Products@postDel")
 
     //Invoices
-    ->get("/admin/invoices/", "Admin\\Products@getAll")
+    ->get("/admin/invoices/", "Admin\\Invoices@getAll")
+    ->get("/admin/invoices/[i:id]/view/", "Admin\\Invoices@getView")
+    ->get("/admin/invoices/[i:id]/edit/", "Admin\\Invoices@getEdit")
+    ->post("/admin/invoices/[i:id]/edit/", "Admin\\Invoices@postEdit")
+    ->get("/admin/invoices/[i:id]/delete/", "Admin\\Invoices@getDel")
+    ->post("/admin/invoices/[i:id]/delete/", "Admin\\Invoices@postDel")
     
 
 

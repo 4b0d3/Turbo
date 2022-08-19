@@ -123,10 +123,10 @@ class SubscriptionsController extends BaseController
         if(!$this->checkAdminAccess()) return;
 
         $subscriptionId = $this->match["params"]["id"] ?? null;
-        $product = Subscriptions::get($subscriptionId);
+        $subscription = Subscriptions::get($subscriptionId);
 
-        if(empty($subscriptionId) || intval($subscriptionId) <= 0 || !$subscriptionId) {
-            header("Location:" . HOST . "admin/subscriptions/?boxMsgs=Erreur;error;Produit non trouvé.");
+        if(empty($subscriptionId) || intval($subscriptionId) <= 0 || !$subscription) {
+            header("Location:" . HOST . "admin/subscriptions/?boxMsgs=Erreur;error;Abonnement non trouvé.");
             return;
         }
 
