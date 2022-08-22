@@ -17,6 +17,7 @@ class ScooterController extends BaseController
 
         $data = [
             "status" => true,
+            "message" => "",
             "data" => [
                 "scooters" => $scooters
             ]
@@ -31,19 +32,24 @@ class ScooterController extends BaseController
      */
     public function startRide()
     {
-        if(!isset($_REQUEST["idScooter"]) || !isset($_REQUEST["idUser"])) return Response::json(400, [], ["status" => "NO", "message" => "Informations are missing."]);
+        $headers = getallheaders();
+
+        if(!isset($headers["token"])) return Response::json(401, [], ["status" => false, "message" => "Not authenticated."]);
+        $user = Users::getOneByToken($headers["token"]);
+        if($user == null) return Response::json(401, [], ["status" => false, "message" => "Not authenticated."]);
+
+        if(!isset($_REQUEST["idScooter"])) return Response::json(400, [], ["status" => false, "message" => "Informations are missing."]);
 
         $scooter = Scooters::get($_REQUEST["idScooter"]);
-        $user = Users::get($_REQUEST["idUser"]);
-        if($scooter == null || $user == null) return Response::json(404, [], ["status" => "NO", "message" => "Wrong informations."]);
+        if($scooter == null) return Response::json(404, [], ["status" => false, "message" => "Wrong informations."]);
 
-        if($scooter["inUse"] != 0 || $scooter["status"] != "activé") return Response::json(404, [], ["status" => "NO", "message" => "Scooter not available."]);
-        if($user["role"] == "banned" || $user["confirmed"] != "1") return Response::json(404, [], ["status" => "NO", "message" => "User not allowed."]);
+        if($scooter["inUse"] != 0 || $scooter["status"] != "activé") return Response::json(404, [], ["status" => false, "message" => "Scooter not available."]);
+        if($user["role"] == "banned" || $user["confirmed"] != "1") return Response::json(404, [], ["status" => false, "message" => "User not allowed."]);
 
         Rides::start(["idUser" => $user["id"], "idScooter" => $scooter["id"], "startLat" => $scooter["latitude"], "startLong" => $scooter["longitude"]]);
         Scooters::putInUse($scooter["id"]);
-        // Mettre en place le compteur de 30 minutes
-        return Response::json(200, [], ["status:" => "OK", "message" => "Scooter is enabled."]);
+
+        return Response::json(200, [], ["status:" => true, "message" => "Scooter is enabled."]);
     }
 
     /**
@@ -51,12 +57,18 @@ class ScooterController extends BaseController
      */
     public function stopRide()
     {
-        if(!isset($_REQUEST["idScooter"]) || !isset($_REQUEST["idUser"])) return Response::json(400, [], ["status" => "NO", "message" => "Informations are missing."]);
+
+        $headers = getallheaders();
+
+        if(!isset($headers["token"])) return Response::json(401, [], ["status" => false, "message" => "Not authenticated."]);
+        $user = Users::getOneByToken($headers["token"]);
+        if($user == null) return Response::json(401, [], ["status" => false, "message" => "Not authenticated."]);
+
+        if(!isset($_REQUEST["idScooter"])) return Response::json(400, [], ["status" => "NO", "message" => "Informations are missing."]);
 
         $scooter = Scooters::get($_REQUEST["idScooter"]);
-        $user = Users::get($_REQUEST["idUser"]);
         $ride = Rides::get(Rides::getLastIdRideByScooterId($scooter["id"]));
-        if($scooter == null || $user == null || $ride == null || $ride["idUser"] != $user["id"]) return Response::json(404, [], ["status" => "NO", "message" => "Wrong informations."]);
+        if($scooter == null || $ride == null || $ride["idUser"] != $user["id"]) return Response::json(404, [], ["status" => "NO", "message" => "Wrong informations."]);
         Scooters::putInUse($scooter["id"], 0); // passer inUse à 0
 
         $startTime = new \DateTime($ride["startTime"]);

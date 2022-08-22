@@ -268,7 +268,8 @@ class Users {
         return $res; 
     }
 
-    public static function setFavAddresss($idUser, $idAddress) {
+    public static function setFavAddresss($idUser, $idAddress) 
+    {
         $db = new Database();
         $q = "UPDATE addresses SET isMain = 0 WHERE idUser = ?";
         $res = $db->query($q, [$idUser]);
@@ -281,9 +282,30 @@ class Users {
         return $res;
     }
 
-    public static function deleteAddress($idAddress) {
+    public static function deleteAddress($idAddress) 
+    {
         $db = new Database();
         $q = "DELETE FROM addresses WHERE id = ?";
         return $db->query($q, [$idAddress]);
+    }
+
+    public static function newToken($idUser) {
+        $user = Users::get($idUser);
+
+        if($user == null) return null;
+
+        $token = bin2hex(random_bytes(16));
+
+        return Users::updateOneById(["id" => $idUser, "token" => $token]) ? $token : null;
+    }
+
+    public static function getOneByToken($token) 
+    {
+        if(empty($token)) return null;
+
+        $db = new Database();
+        $user = $db->queryOne("SELECT * FROM users WHERE token = :token", ["token" => $token]);
+
+        return $user ? $user : null;
     }
 }
