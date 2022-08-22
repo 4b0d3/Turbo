@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Cart;
+use App\Models\Partners;
 use App\Models\Products;
 use App\Models\Scooters;
 use App\Models\Subscriptions;
@@ -184,4 +185,21 @@ class ShopController extends BaseController
     public function getSuccess(array $data = []) {
 
     }
+
+    public function getAllPartners(array $data = []){
+        $data["cart"]["products"] = Cart::getAllProducts();
+        $data["partners"] = Partners::getAll();
+        $this->display("shop/partners.html.twig", $data);
+    }
+
+    public function addPartner(array $data = []){
+        
+        if($this->user->isAnonymous()) {
+            header("Location:" . $this->urls["BASEURL"] . "login/?r=partners/");
+            return;
+        }
+
+       ;
+    }
+    
 }

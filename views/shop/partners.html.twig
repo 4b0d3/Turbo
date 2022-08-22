@@ -1,0 +1,25 @@
+{% extends "templates/site.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}shop/subscriptions.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+<main>
+  <section id="subs-container">
+    {% for partner in partners %}
+      <div class="wrapper">
+        <h3>{{ partner.name|trans }}</h3>
+        <h1>{{ partner.price }}<span>TurboZ</span></h1>
+        <p>{{ partner.description|trans }}</p>
+        <form action="{{ BASEURL }}partner/add/" method="POST">
+          <input type="hidden" name="part" value="{{ partner.id }}">
+          <button type="submit">{{ "Obtenir"|trans }}</button>
+        </form>
+      </div>
+    {% endfor %}
+  </section>
+</main>
+    
+{% endblock content %}

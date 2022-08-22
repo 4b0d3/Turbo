@@ -1,0 +1,28 @@
+{% set navActive = "partners" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Supprimer un partenariat</h1>
+        </header>
+
+        {% include "admin/partners/navAdminPartners.html.twig" with {active : "delete"} %}
+
+        <section id="admin-content">
+            <form action="{{ HERE }}" method="POST" id="form-products-del">
+                <p>
+                    Etes-vous sûr de vouloir supprimer le partenariat "{{ partner.name }}" avec l'ID {{ partner.id }} ?
+                </p>
+                <input type="hidden" name="id" value="{{ product.id }}">
+                <div class="box-input-submit">
+                    <input type="submit" value="supprimer">
+                </div>
+            </form>
+        </section>
+    </section>
+{% endblock content %}
