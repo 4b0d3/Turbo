@@ -3,7 +3,11 @@
 namespace App\Controllers;
 
 use App\Models\Cart;
+
+use App\Models\Commands;
+
 use App\Models\Partners;
+
 use App\Models\Products;
 use App\Models\Scooters;
 use App\Models\Subscriptions;
@@ -99,7 +103,7 @@ class ShopController extends BaseController
         }
 
         if(!empty($this->user->get("sub"))) {
-            header("Location: " . $this->urls["BASEURL"] . "my-account/subscriptions/"); // TODO MESSAGE DERREUR ABONNEMENT DEJA EN COURS
+            header("Location: " . $this->urls["BASEURL"] . "my-account/subscriptions/");
             return;
         }
 
@@ -125,8 +129,8 @@ class ShopController extends BaseController
         ]);
 
         $data["id"] = $data["session"]->id;
-        // TODO si le paiement passe
-        Users::changeSub($_POST["sub"],  $this->user->get("id")); // TODO si le paiement passe
+        
+        Users::changeSub($_POST["sub"],  $this->user->get("id")); 
         $data["stripe"]["public"] = $_ENV["STRIPE_API_PUBLIC"];
         
         $this->display("shop/pay.html.twig", $data);
@@ -159,12 +163,14 @@ class ShopController extends BaseController
 
         $products = Cart::getAllProducts();
         $lineItems = [];
+        $toSendProducts="";
 
 
         foreach($products as $product) {
             $lineItem["price_data"] = ['currency' => 'eur', 'product_data' => ['name' => $product["name"]], 'unit_amount' => floatval($product["price"])*100];
             $lineItem["quantity"] = $product["quantity"];
             array_push($lineItems, $lineItem);
+            $toSendProducts = $toSendProducts . $product['id'] . ":" . $product["quantity"] . ";";
         }
         
         \Stripe\Stripe::setApiKey($_ENV["STRIPE_API_PRIVATE"]);
@@ -172,7 +178,7 @@ class ShopController extends BaseController
         'payment_method_types' => ['card'],
         'line_items' => $lineItems,
         'mode' => 'payment',
-        'success_url' => $this->urls["BASEURL"] . 'command/success/?addressId=' . $_GET["idAddress"],
+        'success_url' => $this->urls["BASEURL"] . 'command/success/?idAddress=' . $_GET["idAddress"] . "&products=" . $toSendProducts,
         'cancel_url' => $this->urls["BASEURL"] . 'cart/',
         ]);
 
@@ -183,7 +189,18 @@ class ShopController extends BaseController
     }
 
     public function getSuccess(array $data = []) {
+        $idAddress = $_GET["idAddress"];
+        $products = $_GET["products"];
+        $cartInfo = Cart::getCartInfo();
+        $commandInfo = [
+            "idUser" => $this->user->get("id"),
+            "idAddress" => $idAddress,
+            "total" => $cartInfo["total"],
+            "products" => $products,
+        ];
 
+        Commands::add($commandInfo);
+        header("Location: " . $this->urls["BASEURL"] . "my-account/orders/");
     }
 
     public function getAllPartners(array $data = []){

@@ -29,10 +29,6 @@ class User {
             $this->checkAuth();   
         }
 
-        /**
-         * TODO
-         * Identification par token ? maybe
-         */
     }
 
     protected function checkAuth() :self

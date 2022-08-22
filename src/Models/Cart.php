@@ -141,7 +141,7 @@ class Cart {
         $res["totalWithProm"] = 0;
         foreach($products as $product) {
             $res["total"] += intval($product["quantity"]) * intval($product["price"]);
-            $res["totalWithProm"] += intval($product["price"]) * ($product["isPromotion"] != "0" ? (intval($product["promotion"])/100) : 1);
+            $res["totalWithProm"] += intval($product["price"]) * ($product["isPromotion"] != "0" ? (1 - intval($product["promotion"])/100) : 1);
         }
         $res["saved"] = $res["total"] - $res["totalWithProm"];
 

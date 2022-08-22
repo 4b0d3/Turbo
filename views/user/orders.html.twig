@@ -12,5 +12,21 @@
             <p>{{ "Liste de vos commandes"|trans }}.</p>
         </div>
 
+        <div id="container-addresses">
+            {% for command in commands %}
+                <div class="container-address" class="command-flex">
+                    <a>
+                        <p><span>{{ "Numero"|trans }}:</span> <span>{{ command.id}}</span></p>
+                        <p><span>{{ "Total"|trans }}:</span> <span>{{ command.total}}</span></p>
+                    </a>
+                    <div>
+                        {% for product in command.products %}
+                            <img src="{{ UPLOADS}}{{ product.images[0].path }}" alt="" style="max-width: 100px;">
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
     </section>
 {% endblock content %}

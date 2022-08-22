@@ -74,7 +74,7 @@ class Users {
         $db = new Database();
         $q = "INSERT INTO users(email, password, name, firstName, role) VALUES(:email, :password, :name, :firstName, :role)";
 
-        $user["password"] = password_hash($user["password"], PASSWORD_DEFAULT); // TODO CHANGE PASSWORD_DEFAULT
+        $user["password"] = password_hash($user["password"], PASSWORD_DEFAULT);
 
         $res = $db->query($q, $user);
 
@@ -106,7 +106,7 @@ class Users {
 
             if($key == "password") {
                 if(!empty($value)) {
-                    $value = password_hash($value, PASSWORD_DEFAULT); // TODO CHANGE PASSWORD_DEFAULT
+                    $value = password_hash($value, PASSWORD_DEFAULT);
                 } else {
                     continue;
                 }
