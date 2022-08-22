@@ -61,11 +61,14 @@
             <h2 style="color: orange;">{{ "L'Élégance"|trans }}</h2>
             <p>{{ "le Modele de la trottinette"|trans }}</p>
         </div>
-        <div id="webgl">
-            <script type="module" src="../../webgl/webgl.js"></script>
-        </div>
+        <div id="webgl"></div>
     </section>
     
 </main>
 
 {% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="{{ HOST }}javascript/webgl/webgl.js"></script>
+{% endblock javascripts %}
