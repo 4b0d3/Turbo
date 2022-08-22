@@ -175,16 +175,19 @@ class Users {
     public static function changeSub(int $id, int $userId = null)
     {
         $db = new Database();
-        $q = "UPDATE users SET sub = ?, subExpire = ? WHERE id = ?";
+        $q = "UPDATE users SET sub = ?, timeRemaining = ?, subExpire = ? WHERE id = ?";
 
         $userId = $userId ?: (new User())->get("id");
+
+        $sub = Subscriptions::get($id);
+        $time = 30 * $sub["openings"];
         
         // $sub = Subscriptions::get($id);
         // $time = 30 * $sub["openings"];
         $nextMonth = time() + (30 * 24 * 60 * 60);
         $dateExp = date('Y-m-d', $nextMonth);
 
-        return $db->query($q, [$id,$dateExp, $userId]);
+        return $db->query($q, [$id, $time, $dateExp, $userId]);
     }
 
     public static function getSub(int $id, int $userId = null) 
@@ -215,9 +218,9 @@ class Users {
 
     public static function deleteSub($idUser) {
         $db = new Database();
-        $q = "UPDATE users SET sub = ?, timeRemaining = ? WHERE id = ?";
+        $q = "UPDATE users SET sub = ?, subExpire = ?, timeRemaining = ? WHERE id = ?";
 
-        return $db->query($q, [0, 0, $idUser]);
+        return $db->query($q, [0, NULL, 0, $idUser]);
     }
 
     public static function getAllAddresses(int $idUser, int $start = null, int $total = null)
@@ -289,19 +292,4 @@ class Users {
         return $db->query($q, [$idAddress]);
     }
 
-    public static function removeSub($email){
-        $db = new Database();
-        $q = "UPDATE users SET sub = ?, subExpire = ? WHERE email = ?";
-
-        return $db->query($q, [0, NULL, $email]);
-    }
-
-    public static function getDate($email){
-        $db = new Database();
-        $q = "SELECT subExpire FROM users WHERE email = ?";
-
-        $res = $db->queryone($q, [$email]);
-        return $res;
-        
-    }
 }

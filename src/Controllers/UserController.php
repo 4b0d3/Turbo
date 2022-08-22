@@ -235,12 +235,12 @@ class UserController extends BaseController
     }
 
     public static function verifSubValidity($email){ 
-        $res = Users::getDate($email);
+        $user = Users::getByMail($email);
         $tmp = date('Y-m-d');
-        $tmstp1 = strtotime($res);
+        $tmstp1 = strtotime($user["subExpire"]);
         $tmstp2 = strtotime($tmp);
         if ($tmstp1 < $tmstp2){
-            Users::removeSub($email);
+            Users::deleteSub($user["id"]);
         }
     }
 
