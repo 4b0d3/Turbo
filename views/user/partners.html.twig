@@ -1,0 +1,56 @@
+{% set navActive = "partners" %}
+
+{% extends "templates/user.html.twig" %}
+
+{% block content %}
+    <section id="display">
+    
+        {{ include('includes/boxMessages.html.twig') }}
+
+        <div class="header">
+            <h1><i class="fa-solid fa-handshake fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> {{ "Demande de Partenariat"|trans }}</h1>
+            <p>{{ "Vous avez la possibilité de devenir un partenaire" }}.</p>
+        </div>
+
+        <div class="container-change-password-form">
+            <form action="{{ HERE }}" method="post">
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Nom"|trans }} :</span>
+                        <div>
+                            <input type="text" name="name">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Description"|trans }} :</span>
+                        <div>
+                            <input type="text" name="description" required>
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Code de promotion"|trans }} :</span>
+                        <div>
+                            <input type="text" name="promo" required>
+                        </div>
+                    </label>
+                </div>
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Prix en Turboz (entre 5 et 40)"|trans }} :</span>
+                        <div>
+                            <input type="number" name="price" min="5" max="40" step="5" required placeholder="5,10,15,..,40">
+                        </div>
+                    </label>
+                </div>
+                <div class="box-button-submit">
+                    <button type="submit">{{ "Envoyer"|trans }}</button>
+                </div>                
+            </form>
+        </div>
+
+    </section>
+{% endblock content %}

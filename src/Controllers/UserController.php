@@ -284,4 +284,48 @@ class UserController extends BaseController
         header("Location:". $this->urls["BASEURL"]);
     }
 
+    public function getPartner(){
+        if($this->checkAnonymous()) return;
+        $this->display("user/partners.html.twig");
+
+    }
+
+    public function postPartner(){
+        if($this->checkAnonymous()) return;
+
+        $data = [];
+
+        if(!isset($_POST["name"]) || empty($_POST["name"])) {
+            $data["error"]["name"] = "Veuillez renseigner le nom";
+        }
+        if(!isset($_POST["description"]) || empty($_POST["description"])) {
+            $data["error"]["description"] = "Veuillez renseigner une description";
+        }
+        if(!isset($_POST["price"]) || empty($_POST["price"])) {
+            $data["error"]["price"] = "Veuillez renseigner un prix";
+        }
+        if(!isset($_POST["promo"]) || empty($_POST["promo"])) {
+            $data["error"]["promo"] = "Veuillez renseigner un code de promotion";
+        }
+
+        $PartnerInfos = [
+            "name" => $_POST["name"],
+            "description" => $_POST["description"],
+            "price" => $_POST["price"],
+            "promoCode" => $_POST["promo"],
+        ];
+
+        if(!array_key_exists("error", $data)) {
+                $res = Users:: addPartner($PartnerInfos);
+                if(!$res) { $data["msgBoxes"][] = ["status" => "error", "description" => "Problèmes lors d'envoie"]; }
+                else  {$data["msgBoxes"][] = ["status" => "success", "description" => "La demande de partenariat a été envoyée !"]; }
+            } else {
+                $data["msgBoxes"][] = ["status" => "error", "description" => "Le formulaire est invalide !"];
+            }
+        
+
+        $this->display("user/partners.html.twig", $data);
+    }
+    
+
 }

@@ -287,6 +287,12 @@ class Users {
         return $db->query($q, [$idAddress]);
     }
 
+
+    public static function addPartner($PartnerInfos){
+        $db = new Database();
+        $q = "INSERT INTO partners(name, description, price, promoCode ) VALUES(:name, :description, :price, :promoCode)";
+        return $db->query($q, $PartnerInfos);
+    }
     public static function addVerifKey($cle, $email){
         $db = new Database();
         $q = "UPDATE users SET cle= ? WHERE email= ?";
@@ -303,5 +309,6 @@ class Users {
         $db = new Database();
         $q = "UPDATE users SET confirmed = 1 WHERE email= ?";
         return $db->query($q, [$email]);
+
     }
 }
