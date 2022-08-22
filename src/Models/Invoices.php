@@ -58,6 +58,7 @@ class Invoices
 
         $set = [];
         $attrs["id"] = $infos["id"];
+
         foreach($infos as $key => $value) {
             if(!in_array($key, $acceptedFields) || $value == $invoice[$key]) {
                 continue;
@@ -66,7 +67,8 @@ class Invoices
             $attrs[$key] = $value;
             $set[] = "$key = :$key";
         }
-
+        
+        
         $set = implode(", ", $set);
         return $db->query("UPDATE invoices SET $set WHERE id = :id",  $attrs);
     }

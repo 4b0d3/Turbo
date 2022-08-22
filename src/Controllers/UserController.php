@@ -235,26 +235,10 @@ class UserController extends BaseController
     public function getinvoices(array $data = []) 
     {
         if($this->checkAnonymous()) return;
-        if(!empty($this->user->get("sub"))) {
-            $data["invoices"] = Users::getAllInvoices($this->user->get("id"));
-        }
+        $data["invoices"] = Users::getAllInvoices($this->user->get("id"));
         
         $this->display("user/invoices.html.twig", $data);
     }
 
-    public function postInvoices() 
-    {
-        if($this->checkAnonymous()) return;
-        if(!isset($_POST["country"]) || empty($_POST["country"]) ||
-        !isset($_POST["city"]) || empty($_POST["city"]) ||
-        !isset($_POST["address"]) || empty($_POST["address"]) ||
-        !isset($_POST["zipcode"]) || empty($_POST["zipcode"]) ||
-        !isset($_POST["isMain"])) { $this->getAddresses(); return; }
-
-        if(!isset($_POST["additional"]) || empty($_POST["additional"])) { $_REQUEST["additional"] = "" ; }
-
-        Users::addAddress($this->user->get("id"), $_REQUEST);
-        $this->getAddresses(); return;
-    }
 
 }
