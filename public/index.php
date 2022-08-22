@@ -99,6 +99,8 @@ $router
     ->get("/[a:lang]/my-account/subscriptions/", "User@getSubscriptions")
     ->post("/[a:lang]/my-account/subscriptions/", "User@postSubscriptions")
     ->get("/[a:lang]/my-account/notifications/", "User@showNotifications")
+    ->get("/[a:lang]/my-account/invoices/", "User@getInvoices")
+    ->post("/[a:lang]/my-account/invoices/", "User@postInvoices")
 
     // Login
     ->get("/[a:lang]/login/", "User@getLogin", "login")

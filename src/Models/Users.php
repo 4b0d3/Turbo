@@ -286,4 +286,20 @@ class Users {
         $q = "DELETE FROM addresses WHERE id = ?";
         return $db->query($q, [$idAddress]);
     }
+
+    public static function getAllInvoices(int $idUser, int $start = null, int $total = null)
+    {
+        $db = new Database();
+        $q = "SELECT * FROM invoices WHERE idUser = ?";
+
+        $res = null;
+        if(!($start == null || $start < 0 || $total == null || $total < 0 )) {
+            $q = $q . " LIMIT " . $start . ", " . $total; 
+            $res = $db->queryAll($q, [$idUser]);
+        }
+
+        $res = $db->queryAll($q, [$idUser]) ?: null;
+
+        return $res;
+    }
 }

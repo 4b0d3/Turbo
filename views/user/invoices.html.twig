@@ -1,0 +1,43 @@
+{% set navActive = "invoices" %}
+
+{% extends "templates/user.html.twig" %}
+
+{% block content %}
+    <section id="display">
+        
+        {{ include('includes/boxMessages.html.twig') }}
+
+        <div class="header">
+            <h1><i class="fa-solid fa-file-invoice fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> {{ "MES FACTEURS"|trans }}</h1>
+            <p>{{ "Liste de vos facteurs"|trans }}.</p>
+        </div>
+
+        {% if page.sub.id is defined %}
+            <div id="container-sub">
+                <h1>{{ "Forfait actuel"|trans }}</h1>
+                <p>{{ page.sub.title|trans }}</p>
+                <p>{{ page.sub.price }} {{ "euros"|trans }}</p>
+                <p>{{ page.sub.description|trans }}</p>
+            </div>
+
+            {% for invoice in invoices %}
+                <div class="container-address">
+                    <div>
+                        <p><span>{{ "Pays"|trans }}:</span> <span>{{ address.country}}</span></p>
+                        <p><span>{{ "Ville"|trans }}:</span> <span>{{ address.city}}</span></p>
+                        <p><span>{{ "Adresse"|trans }}:</span> <span>{{ address.address}}</span></p>
+                        <p><span>{{ "Code postal"|trans }}:</span> <span>{{ address.zipcode}}</span></p>
+                        <p><span>{{ "Option"|trans }}:</span> <span>{{ address.additional}}</span></p>
+                    </div>
+        {% else %}
+            <div id="container-sub">
+                <p>{{ "Actuellement vous ne posseder aucune facture"|trans }}</p>
+            </div>
+        {% endif %}
+    </section>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ HOST }}javascript/addresses.js"></script>
+{% endblock javascripts %}
