@@ -286,4 +286,22 @@ class Users {
         $q = "DELETE FROM addresses WHERE id = ?";
         return $db->query($q, [$idAddress]);
     }
+
+    public static function addVerifKey($cle, $email){
+        $db = new Database();
+        $q = "UPDATE users SET cle= ? WHERE email= ?";
+        return $db->query($q, [$cle, $email]);
+    }
+
+    public static function checkAccount($email){
+        $db = new Database();
+        $q = "SELECT cle,confirmed FROM users WHERE email= ?";
+        return $db->queryOne($q, [$email]);
+    }
+
+    public static function verifAccount($email){
+        $db = new Database();
+        $q = "UPDATE users SET confirmed = 1 WHERE email= ?";
+        return $db->query($q, [$email]);
+    }
 }
