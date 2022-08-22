@@ -76,6 +76,15 @@ $router
     ->post("/admin/partners/[i:id]/delete/", "Admin\\Partners@postDel")
 
 
+    //Invoices
+    ->get("/admin/invoices/", "Admin\\Invoices@getAll")
+    ->get("/admin/invoices/[i:id]/view/", "Admin\\Invoices@getView")
+    ->get("/admin/invoices/[i:id]/edit/", "Admin\\Invoices@getEdit")
+    ->post("/admin/invoices/[i:id]/edit/", "Admin\\Invoices@postEdit")
+    ->get("/admin/invoices/[i:id]/delete/", "Admin\\Invoices@getDel")
+    ->post("/admin/invoices/[i:id]/delete/", "Admin\\Invoices@postDel")
+    
+
 
     /* AJAX */
     ->get("/ajax/cart/", "Ajax@cart")
@@ -98,8 +107,13 @@ $router
     ->get("/[a:lang]/my-account/subscriptions/", "User@getSubscriptions")
     ->post("/[a:lang]/my-account/subscriptions/", "User@postSubscriptions")
     ->get("/[a:lang]/my-account/notifications/", "User@showNotifications")
+
+    ->get("/[a:lang]/my-account/invoices/", "User@getInvoices")
+    ->post("/[a:lang]/my-account/invoices/", "User@postInvoices")
+
     ->get("/[a:lang]/my-account/partners/", "User@getPartner")
     ->post("/[a:lang]/my-account/partners/", "User@postPartner")
+
 
     // Login
     ->get("/[a:lang]/login/", "User@getLogin", "login")

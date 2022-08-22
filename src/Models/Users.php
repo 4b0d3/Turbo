@@ -292,6 +292,22 @@ class Users {
         return $db->query($q, [$idAddress]);
     }
 
+
+    public static function getAllInvoices(int $idUser, int $start = null, int $total = null){
+        $db = new Database();
+        $q = "SELECT * FROM invoices WHERE idUser = ?";
+
+        $res = null;
+        if(!($start == null || $start < 0 || $total == null || $total < 0 )) {
+            $q = $q . " LIMIT " . $start . ", " . $total; 
+            $res = $db->queryAll($q, [$idUser]);
+        }
+
+        $res = $db->queryAll($q, [$idUser]) ?: null;
+
+        return $res;
+    }
+    
     public static function addPartner($PartnerInfos){
         $db = new Database();
         $q = "INSERT INTO partners(name, description, price, promoCode ) VALUES(:name, :description, :price, :promoCode)";
@@ -315,5 +331,4 @@ class Users {
         return $db->query($q, [$email]);
 
     }
-
 }

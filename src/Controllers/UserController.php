@@ -286,6 +286,15 @@ class UserController extends BaseController
         header("Location:". $this->urls["BASEURL"]);
     }
 
+
+    public function getinvoices(array $data = []) 
+    {
+        if($this->checkAnonymous()) return;
+        $data["invoices"] = Users::getAllInvoices($this->user->get("id"));
+        
+        $this->display("user/invoices.html.twig", $data);
+    }
+
     public static function verifSubValidity($email){ 
         $user = Users::getByMail($email);
         $tmp = date('Y-m-d');
@@ -338,6 +347,5 @@ class UserController extends BaseController
 
         $this->display("user/partners.html.twig", $data);
     }
-    
 
 }

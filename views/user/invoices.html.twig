@@ -1,0 +1,36 @@
+{% set navActive = "invoices" %}
+
+{% extends "templates/user.html.twig" %}
+
+{% block content %}
+    <section id="display">
+        
+        {{ include('includes/boxMessages.html.twig') }}
+
+        <div class="header">
+            <h1><i class="fa-solid fa-file-invoice fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> {{ "MES FACTEURS"|trans }}</h1>
+            <p>{{ "Liste de vos facteurs"|trans }}.</p>
+        </div>
+
+        {% if invoices is defined %}
+        <div id="container-addresses">
+            {% for invoice in invoices %}
+                <div class="container-address">
+                    <div>
+                        <p><span>{{ "Numero de facteur"|trans }}:</span> <span>{{ invoice.id}}</span></p>
+                        <p><span>{{ "Nom"|trans }}:</span> <span>{{ invoice.invoiceN}}</span></p>
+                        <p><span>{{ "Date"|trans }}:</span> <span>{{ invoice.invoiceDate}}</span></p>
+                        <p><span>{{ "Lien de téléchargement"|trans }}:</span> <span>{{ invoice.Link}}</span></p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+            <div id="container-sub">
+                <p>{{ "Actuellement vous ne posseder aucune facture"|trans }}</p>
+            </div>
+        {% endif %}
+    </section>
+{% endblock content %}
+

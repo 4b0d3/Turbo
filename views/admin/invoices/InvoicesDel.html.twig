@@ -1,0 +1,28 @@
+{% set navActive = "invoices" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Supprimer une facture</h1>
+        </header>
+
+        {% include "admin/invoices/navAdminInvoices.html.twig" with {active : "delete"} %}
+
+        <section id="admin-content">
+            <form action="{{ HERE }}" method="POST" id="form-invoices-del">
+                <p>
+                    Etes-vous sûr de vouloir supprimer la facture "{{ invoice.invoiceN }}" avec l'ID {{ invoice.id }} ?
+                </p>
+                <input type="hidden" name="id" value="{{ invoice.id }}">
+                <div class="box-input-submit">
+                    <input type="submit" value="supprimer">
+                </div>
+            </form>
+        </section>
+    </section>
+{% endblock content %}
