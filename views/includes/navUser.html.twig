@@ -49,6 +49,16 @@
                     </div>
                 </a>
             </li>
+            <li>
+                <a href="{{ BASEURL }}my-account/invoices/" class="{{ navActive == "invoices" ? "active"}}">
+                    <div>
+                        <i class="fa-solid fa-file-invoice"></i>
+                    </div>
+                    <div>
+                        <span>{{ "Mes Factures"|trans }}</span>
+                    </div>
+                </a>
+            </li>
         </ul>
 
         <ul>
@@ -102,6 +112,16 @@
                     </div>
                     <div>
                         <span>{{ "Carte cadeaux et chèques cadeaux"|trans }}</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ BASEURL }}my-account/partners/" class="{{ navActive == "partners" ? "active"}}">
+                    <div>
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <div>
+                        <span>{{ "Demande de Partenariat"|trans }}</span>
                     </div>
                 </a>
             </li>

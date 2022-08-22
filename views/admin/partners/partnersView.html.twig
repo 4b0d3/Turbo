@@ -1,4 +1,4 @@
-{% set navActive = "subscriptions" %}
+{% set navActive = "partners" %}
 
 {% extends "templates/admin.html.twig" %}
 
@@ -8,53 +8,47 @@
        {{ include('includes/boxMessages.html.twig') }}
 
         <header id="admin-header">
-            <h1>Editer un Abonnement</h1>
+            <h1>Voir les informations d'un partenariat</h1>     
         </header>
 
-        {% include "admin/subscriptions/navAdminSubscriptions.html.twig" with {active : "edit"} %}
-
+        {% include "admin/partners/navAdminPartners.html.twig" with {active : "view"} %}
 
         <section id="admin-content">
-            <form action="{{ HERE }}" method="POST" id="form-subscription-edit">
                 <div class="box-input-txt">
                     <label>
                         <div>Id</div>
-                        <input value="{{ subscription.id ?? '' }}" readonly>
+                        <input value="{{ partner.id ?? '' }}" readonly>
                     </label>
                 </div>
 
                 <div class="box-input-txt">
                     <label>
                         <div>Nom</div>
-                        <input type="text" name="name" value="{{ subscription.name ?? '' }}">
+                        <input type="text" name="name" value="{{ partner.name ?? '' }}" readonly>
                     </label>
                 </div>
 
                 <div class="box-input-txt">
                     <label>
                         <div>Description</div>
-                        <textarea name="description" id="" cols="92" rows="5">{{ subscription.description ?? '' }}</textarea>
+                        <input type="text" value="{{ partner.description ?? '' }}" readonly>
                     </label>
                 </div>
 
                 <div class="box-input-txt">
                     <label>
                         <div>Prix</div>
-                        <input type="text" name="price" value="{{ subscription.price ?? '' }}">
+                        <input type="text" value="{{ partner.price ?? '' }}" readonly>
                     </label>
                 </div>
 
-                <div class="box-input-txt">
+                <div class="box-input-toggle">
                     <label>
-                        <div>Titre</div>
-                        <input type="text" name="title" value="{{ subscription.title ?? '' }}">
+                        <div>Valider</div>
+                        <input type="checkbox" name="confirmed" {{ partner.confirmed ? "checked" : "" }} disabled="disabled">
                     </label>
                 </div>
-
-                <div class="box-input-submit">
-                    <input type="submit" value="Editer">
-                </div>
-            </form>
+                
         </section>
     </section>
 {% endblock content %}
