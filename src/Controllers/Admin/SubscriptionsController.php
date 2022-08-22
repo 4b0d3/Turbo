@@ -84,7 +84,7 @@ class SubscriptionsController extends BaseController
         $data["subscription"] = Subscriptions::get($subscriptionId);
 
         if(empty($subscriptionId) || intval($subscriptionId) <= 0 || !$data["subscription"]) {
-            header("Location:" . HOST . "admin/users/?boxMsgs=Erreur;error;Abonnement non trouvé.");
+            header("Location:" . HOST . "admin/subscriptions/?boxMsgs=Erreur;error;Abonnement non trouvé.");
             return;
         }
 
@@ -126,7 +126,9 @@ class SubscriptionsController extends BaseController
         $subscription = Subscriptions::get($subscriptionId);
 
         if(empty($subscriptionId) || intval($subscriptionId) <= 0 || !$subscription) {
+
             header("Location:" . HOST . "admin/subscriptions/?boxMsgs=Erreur;error;Abonnement non trouvé.");
+
             return;
         }
 

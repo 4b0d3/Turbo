@@ -1,0 +1,54 @@
+{% set navActive = "partners" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Voir les informations d'un partenariat</h1>     
+        </header>
+
+        {% include "admin/partners/navAdminPartners.html.twig" with {active : "view"} %}
+
+        <section id="admin-content">
+                <div class="box-input-txt">
+                    <label>
+                        <div>Id</div>
+                        <input value="{{ partner.id ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Nom</div>
+                        <input type="text" name="name" value="{{ partner.name ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Description</div>
+                        <input type="text" value="{{ partner.description ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Prix</div>
+                        <input type="text" value="{{ partner.price ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-toggle">
+                    <label>
+                        <div>Valider</div>
+                        <input type="checkbox" name="confirmed" {{ partner.confirmed ? "checked" : "" }} disabled="disabled">
+                    </label>
+                </div>
+                
+        </section>
+    </section>
+{% endblock content %}

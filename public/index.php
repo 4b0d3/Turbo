@@ -67,6 +67,14 @@ $router
     ->post("/admin/products/[i:id]/edit/", "Admin\\Products@postEdit")
     ->get("/admin/products/[i:id]/delete/", "Admin\\Products@getDel")
     ->post("/admin/products/[i:id]/delete/", "Admin\\Products@postDel")
+    // Partners
+    ->get("/admin/partners/", "Admin\\Partners@getAll")
+    ->get("/admin/partners/[i:id]/view/", "Admin\\Partners@getView")
+    ->get("/admin/partners/[i:id]/edit/", "Admin\\Partners@getEdit")
+    ->post("/admin/partners/[i:id]/edit/", "Admin\\Partners@postEdit")
+    ->get("/admin/partners/[i:id]/delete/", "Admin\\Partners@getDel")
+    ->post("/admin/partners/[i:id]/delete/", "Admin\\Partners@postDel")
+
 
     //Invoices
     ->get("/admin/invoices/", "Admin\\Invoices@getAll")
@@ -99,8 +107,13 @@ $router
     ->get("/[a:lang]/my-account/subscriptions/", "User@getSubscriptions")
     ->post("/[a:lang]/my-account/subscriptions/", "User@postSubscriptions")
     ->get("/[a:lang]/my-account/notifications/", "User@showNotifications")
+
     ->get("/[a:lang]/my-account/invoices/", "User@getInvoices")
     ->post("/[a:lang]/my-account/invoices/", "User@postInvoices")
+
+    ->get("/[a:lang]/my-account/partners/", "User@getPartner")
+    ->post("/[a:lang]/my-account/partners/", "User@postPartner")
+
 
     // Login
     ->get("/[a:lang]/login/", "User@getLogin", "login")
@@ -108,6 +121,11 @@ $router
     // Register
     ->get("/[a:lang]/register/", "User@getRegister")
     ->post("/[a:lang]/register/", "User@postRegister")
+
+    // Verfication
+    ->get("/[a:lang]/verfication/", "User@getVerification")
+
+    
     
     // Pages
     ->get("/[a:lang]/", "Site@getHome")
@@ -124,6 +142,11 @@ $router
     // SUBSCRIPTION 
     ->get("/[a:lang]/subscriptions/", "Shop@getAllSubcriptions")
     ->post("/[a:lang]/subscriptions/add/", "Shop@addSubscription")
+
+    // Partners
+    ->get("/[a:lang]/partners/", "Shop@getAllPartners")
+    ->post("/[a:lang]/partners/add/","Shop@addPartner")
+
 
     // API
     ->get("/api/scooter/update/", "API\\Scooter@update")
