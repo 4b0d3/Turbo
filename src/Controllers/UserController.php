@@ -67,6 +67,15 @@ class UserController extends BaseController
 
         if($res["status"]) {
             // TODO REDIRECTION ENVOIE MAIL DE CONFIRMATION
+            $email = $_POST['email'];
+
+            $cle = rand(100000, 900000);
+            
+            $new = Users::addVerifKey($cle, $email);
+
+            $this->emailVerif($email, $cle);
+
+            //
             $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;L'utilisateur a bien été créé.";
             $redirect = $this->urls["BASEURL"] . "?boxMsgs=" . $val;
             header("Location:" . $redirect);
@@ -77,7 +86,10 @@ class UserController extends BaseController
         if(isset($res["boxMsgs"])) $data["boxMsgs"] = $res["boxMsgs"];
         if(isset($res["form"]["error"])) $data["form"]["error"] = $res["form"]["error"];
 
+        
         $this->getRegister($data);
+
+        
     }
 
 
@@ -88,6 +100,46 @@ class UserController extends BaseController
             return true;
         }
         return false;
+    }
+
+    public function emailVerif($email, $cle){
+        $sujet = "Activer votre compte" ;
+        $entete = "From: inscription@turbo.com" ;
+
+        $message = 'Bienvenue sur Turbo.com,
+        Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
+        ou copier/coller dans votre navigateur Internet.
+        http://turbo.com/verfication?email='.urlencode($email).'&cle='.urlencode($cle).'
+        ---------------
+        Ceci est un mail automatique, Merci de ne pas y répondre.';
+ 
+        mail($email, $sujet, $message, $entete) ; // Envoi du mail
+    }
+
+    public function getVerification(){
+        $email = $_GET['email'];
+        $cle = $_GET['cle'];
+
+        $new = Users::checkAccount($email);
+
+        if($new != null){
+            $clebdd = $new['cle'];
+            $confirmed =  $new['confirmed'];
+        }
+
+        if($confirmed == '1'){
+            $data = [];
+            //"Votre compte est déjà actif !"
+            $this->display("user/verification.html.twig", $data);
+        }else {
+            if($cle == $clebdd){
+                //"Votre compte a bien été activé !"
+                $req = Users::verifAccount($email);
+            }else{
+                //"Erreur ! Votre compte ne peut être activé..."
+            }
+        }
+
     }
 
     public function showInformations() 
