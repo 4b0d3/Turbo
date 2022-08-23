@@ -15,6 +15,7 @@ function init() {
     camera = new THREE.PerspectiveCamera( 70, window.innerWidth/2.1 / window.innerHeight, 1, 1000 );
     camera.position.z = 400;
     
+    
     renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
     renderer.setSize( window.innerWidth/2.1, window.innerHeight );
     renderer.setPixelRatio( window.devicePixelRatio );
@@ -23,6 +24,7 @@ function init() {
     controls.target = new THREE.Vector3(0,8,0);
     controls.enablePan = false;
     controls.autoRotate = true;
+    controls.enableZoom = false;
     
     let container = document.getElementById( 'webgl' );
     container.appendChild( renderer.domElement );
