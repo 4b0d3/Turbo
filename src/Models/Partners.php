@@ -16,16 +16,16 @@ class Partners {
         return $res;
     }
 
-    public static function getAll(int $start = null, int $total = null)
+    public static function getAll(int $confirmed = null)
     {
         $db = new Database();
-        $q = "SELECT * FROM partners where confirmed = 1";
-
+        if($confirmed == 1){
+        $q = "SELECT * FROM partners where confirmed = $confirmed";
+        }else $q = "SELECT * FROM partners";
         $res = null;
-        if(!($start == null || $start < 0 || $total == null || $total < 0 )) {
-            $q = $q . " LIMIT " . $start . ", " . $total; 
-            $res = $db->queryAll($q);
-        }
+        
+        $res = $db->queryAll($q);
+
 
         $res = $db->queryAll($q) ?: null;
 

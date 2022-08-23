@@ -205,7 +205,7 @@ class ShopController extends BaseController
 
     public function getAllPartners(array $data = []){
         $data["cart"]["products"] = Cart::getAllProducts();
-        $data["partners"] = Partners::getAll();
+        $data["partners"] = Partners::getAll(1);
         $this->display("shop/partners.html.twig", $data);
     }
 

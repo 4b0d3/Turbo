@@ -24,6 +24,7 @@
                         <th>Id</th>
                         <th>Nom</th>
                         <th>Prix</th>
+                        <th>Validé</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -33,6 +34,7 @@
                             <td>{{ partner.id }}</td>
                             <td>{{ partner.name }}</td>
                             <td>{{ partner.price }}</td>
+                            <td>{{ partner.confirmed }}</td>
                             <td>
                                 <a href="{{ HERE }}{{ partner.id }}/view/">Voir</a>
                             </td>

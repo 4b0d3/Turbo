@@ -12,7 +12,6 @@ class PartnersController extends BaseController
     public function getAll(array $data = [])
     {
         if(!$this->checkAdminAccess()) return;
-
         $data["partners"] = Partners::getAll();
         $this->display("admin/partners/partners.html.twig", $data);
     }
