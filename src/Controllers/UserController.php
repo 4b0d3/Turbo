@@ -8,6 +8,7 @@ use App\Models\Products;
 use App\Models\Users;
 use App\Models\Roles;
 use App\Models\Subscriptions;
+use App\Models\Juicers;
 
 class UserController extends BaseController 
 {
@@ -367,6 +368,47 @@ class UserController extends BaseController
         
 
         $this->display("user/partners.html.twig", $data);
+    }
+
+    public function getAllJuicer(){
+        if($this->checkAnonymous()) return;
+        $data["scooters"] = Juicers::getAll(15);
+        $this->display("user/juicers.html.twig", $data);
+    }
+
+    public function getCharged(){
+        if(!$this->checkjuicerAccess()) return;
+        $scooterId = $this->match["params"]["id"] ?? null;
+        $data["scooter"] = Juicers::get($scooterId);
+
+        if(empty($scooterId) || intval($scooterId) <= 0 || !$data["scooter"]) {
+            header("Location:" . HOST . "juicers/scooters/?boxMsgs=Erreur;error;Trottinette non trouvé.");
+            return;
+        }
+        $this->display("user/confirmCharging.html.twig", $data);
+    }
+
+    public function postCharged(){
+        if(!$this->checkjuicerAccess()) return;
+
+        $scooterId = $this->match["params"]["id"] ?? null;
+        $data["scooter"] = Juicers::get($scooterId);
+
+        if(empty($scooterId) || intval($scooterId) <= 0 || !$data["scooter"]) {
+            header("Location:" . HOST . "juicers/scooters/?boxMsgs=Erreur;error; Trottinette non trouvé.");
+            return;
+        }
+
+        $res = Juicers::chargeScooter($scooterId);
+
+        if($res) {
+            $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;La Trottinette a bien été Chargée.";
+            $redirect = HOST . "juicers/scooters/?boxMsgs=" . $val;
+            header("Location:" . $redirect);
+            return;
+        }
+
+        $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Le produit n'a pas pu être supprimé."]];
     }
 
 }

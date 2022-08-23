@@ -6,6 +6,9 @@
                 {% if user.role == "admin" %}
                     <li><a href="{{ HOST }}admin/scooters/"><i class="fa-solid fa-toolbox"></i></a></li>
                 {% endif %} 
+                {% if user.role == "juicer" %}
+                    <li><a href="{{ HOST }}juicers/scooters/"><i class="fa-solid fa-charging-station"></i></a></li>
+                {% endif %} 
 
                 <li><a href="{{ BASEURL }}partners/"><i class="fa-solid fa-handshake"></i></a></li>   
                 <li><a href="{{ BASEURL }}shop/"><i class="fa-solid fa-cart-plus"></i></a></li>

@@ -147,6 +147,11 @@ $router
     ->get("/[a:lang]/partners/", "Shop@getAllPartners")
     ->post("/[a:lang]/partners/add/","Shop@addPartner")
 
+    //Juicers
+    ->get("/juicers/scooters/", "User@getAllJuicer")
+    ->get("/juicers/scooters/[i:id]/charged/", "User@getCharged")
+    ->post("/juicers/scooters/[i:id]/charged/", "User@postCharged")
+
 
     // API
     ->get("/api/scooter/update/", "API\\Scooter@update")
