@@ -1,0 +1,26 @@
+{% set navActive = "scooters" %}
+
+{% extends "templates/juicer.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Charger une trottinette</h1>
+        </header>
+
+        <section id="admin-content">
+            <form action="{{ HERE }}" method="POST" id="form-products-del">
+                <p>
+                    Etes-vous sûr d'avoir remplacer la batterie ? de la trottinette avec l'ID "{{ scooter.id }}" ?
+                </p>
+                <input type="hidden" name="id" value="{{ scooter.id }}">
+                <div class="box-input-submit">
+                    <input type="submit" value="Confirmer">
+                </div>
+            </form>
+        </section>
+    </section>
+{% endblock content %}
