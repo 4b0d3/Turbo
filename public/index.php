@@ -90,6 +90,16 @@ $router
     ->get("/ajax/cart/", "Ajax@cart")
     ->get("/ajax/address/", "Ajax@address")
 
+
+
+    // API
+    ->get("/api/scooter/update/", "API\\Scooter@update")
+    ->post("/api/ride/start/", "API\\Scooter@startRide")
+    ->post("/api/ride/stop/", "API\\Scooter@stopRide")
+    ->get("/api/scooter/get/all/available/", "API\\Scooter@getAllDisponibles")
+    ->post("/api/login/", "API\\Auth@login")
+    ->post("/api/user/token/verif/", "API\\Auth@isConnectedByToken")
+
     /* WEBSITE */
     ->get("/[a:lang]/test/", "Site@test")
     ->get("/[a:lang]/disconnect/", "User@disconnect")
@@ -151,12 +161,5 @@ $router
     ->get("/juicers/scooters/", "User@getAllJuicer")
     ->get("/juicers/scooters/[i:id]/charged/", "User@getCharged")
     ->post("/juicers/scooters/[i:id]/charged/", "User@postCharged")
-
-
-    // API
-    ->get("/api/scooter/update/", "API\\Scooter@update")
-    ->post("/api/ride/start/", "API\\Scooter@startRide")
-    ->post("/api/ride/stop/", "API\\Scooter@stopRide")
-    ->get("/api/scooter/get/all/available/", "API\\Scooter@getAllDisponibles")
 
     ->run($route);

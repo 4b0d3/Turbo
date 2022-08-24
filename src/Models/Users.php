@@ -216,7 +216,8 @@ class Users {
         return !intval($res["sub"]);
     }
 
-    public static function deleteSub($idUser) {
+    public static function deleteSub($idUser) 
+    {
         $db = new Database();
         $q = "UPDATE users SET sub = ?, subExpire = ?, timeRemaining = ? WHERE id = ?";
 
@@ -273,7 +274,8 @@ class Users {
         return $res; 
     }
 
-    public static function setFavAddresss($idUser, $idAddress) {
+    public static function setFavAddresss($idUser, $idAddress) 
+    {
         $db = new Database();
         $q = "UPDATE addresses SET isMain = 0 WHERE idUser = ?";
         $res = $db->query($q, [$idUser]);
@@ -286,14 +288,36 @@ class Users {
         return $res;
     }
 
-    public static function deleteAddress($idAddress) {
+    public static function deleteAddress($idAddress) 
+    {
         $db = new Database();
         $q = "DELETE FROM addresses WHERE id = ?";
         return $db->query($q, [$idAddress]);
     }
 
+    public static function newToken($idUser) 
+    {
+        $user = Users::get($idUser);
 
-    public static function getAllInvoices(int $idUser, int $start = null, int $total = null){
+        if($user == null) return null;
+
+        $token = bin2hex(random_bytes(16));
+
+        return Users::updateOneById(["id" => $idUser, "token" => $token]) ? $token : null;
+    }
+
+    public static function getOneByToken($token) 
+    {
+        if(empty($token)) return null;
+
+        $db = new Database();
+        $user = $db->queryOne("SELECT * FROM users WHERE token = :token", ["token" => $token]);
+
+        return $user ? $user : null;
+    }
+
+    public static function getAllInvoices(int $idUser, int $start = null, int $total = null)
+    {
         $db = new Database();
         $q = "SELECT * FROM invoices WHERE idUser = ?";
 
@@ -308,27 +332,31 @@ class Users {
         return $res;
     }
     
-    public static function addPartner($PartnerInfos){
+    public static function addPartner($PartnerInfos)
+    {
         $db = new Database();
         $q = "INSERT INTO partners(name, description, price, promoCode ) VALUES(:name, :description, :price, :promoCode)";
         return $db->query($q, $PartnerInfos);
     }
-    public static function addVerifKey($cle, $email){
+    
+    public static function addVerifKey($cle, $email)
+    {
         $db = new Database();
         $q = "UPDATE users SET cle= ? WHERE email= ?";
         return $db->query($q, [$cle, $email]);
     }
 
-    public static function checkAccount($email){
+    public static function checkAccount($email)
+    {
         $db = new Database();
         $q = "SELECT cle,confirmed FROM users WHERE email= ?";
         return $db->queryOne($q, [$email]);
     }
 
-    public static function verifAccount($email){
+    public static function verifAccount($email)
+    {
         $db = new Database();
         $q = "UPDATE users SET confirmed = 1 WHERE email= ?";
         return $db->query($q, [$email]);
-
     }
 }
