@@ -132,8 +132,8 @@ $router
     ->get("/[a:lang]/register/", "User@getRegister")
     ->post("/[a:lang]/register/", "User@postRegister")
 
-    // Verfication
-    ->get("/[a:lang]/verfication/", "User@getVerification")
+    // Verification
+    ->get("/verify/[*:email]/[a:token]/", "User@getVerification")
 
     
     

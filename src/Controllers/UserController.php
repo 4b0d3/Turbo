@@ -76,18 +76,23 @@ class UserController extends BaseController
             // TODO REDIRECTION ENVOIE MAIL DE CONFIRMATION
             $email = $_POST['email'];
 
-            $cle = rand(100000, 900000);
+            $user = Users::getByMail($email);
+            $token = Users::newToken($user["id"]);
             
-            $new = Users::addVerifKey($cle, $email);
+            // $new = Users::addVerifToken($token, $email);
 
-            $this->emailVerif($email, $cle);
+            $this->emailVerif($email, $token);
 
             //
 
-            $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;L'utilisateur a bien été créé.";
-            $redirect = $this->urls["BASEURL"] . "?boxMsgs=" . $val;
-            header("Location:" . $redirect);
+
+            $data["verif"]= $email;
+            $this->display("user/verification.html.twig", $data);
             return;
+            // $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;L'utilisateur a bien été créé.";
+            // $redirect = $this->urls["BASEURL"] . "?boxMsgs=" . $val;
+            // header("Location:" . $redirect);
+            // return;
         }
 
         if(isset($res["form"]["checkedFields"])) $data["form"]["checkedFields"] = $res["form"]["checkedFields"];
@@ -110,41 +115,46 @@ class UserController extends BaseController
         return false;
     }
 
-    public function emailVerif($email, $cle){
+    public function emailVerif($email, $token){
         $sujet = "Activer votre compte" ;
         $entete = "From: inscription@turbo.com" ;
 
         $message = 'Bienvenue sur Turbo.com,
         Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
         ou copier/coller dans votre navigateur Internet.
-        http://turbo.com/verfication?email='.urlencode($email).'&cle='.urlencode($cle).'
+        https://turbo.com/verify?email='.urlencode($email).'/token='.urlencode($token).'/'.'
         ---------------
         Ceci est un mail automatique, Merci de ne pas y répondre.';
  
         mail($email, $sujet, $message, $entete) ; // Envoi du mail
     }
 
-    public function getVerification(){
-        $email = $_GET['email'];
-        $cle = $_GET['cle'];
-
+    public function getVerification(array $data = []){
+        
+        $email = $this->match["params"]["email"] ?? null;
+        $token = $this->match["params"]["token"] ?? null;
+        
         $new = Users::checkAccount($email);
-
+        
         if($new != null){
-            $clebdd = $new['cle'];
+            $tokenbdd = $new['token'];
             $confirmed =  $new['confirmed'];
         }
 
         if($confirmed == '1'){
-            $data = [];
             //"Votre compte est déjà actif !"
+            $data["deja"]= $email;
             $this->display("user/verification.html.twig", $data);
         }else {
-            if($cle == $clebdd){
+            if($token == $tokenbdd){
                 //"Votre compte a bien été activé !"
-                $req = Users::verifAccount($email);
+                $data["bien"]= $email;
+                Users::verifAccount($email);
+                $this->display("user/verification.html.twig", $data);
             }else{
                 //"Erreur ! Votre compte ne peut être activé..."
+                $data["error"]= $email;
+                $this->display("user/verification.html.twig", $data);
             }
         }
 

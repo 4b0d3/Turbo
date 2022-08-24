@@ -339,17 +339,17 @@ class Users {
         return $db->query($q, $PartnerInfos);
     }
     
-    public static function addVerifKey($cle, $email)
+    public static function addVerifToken($token, $email)
     {
         $db = new Database();
-        $q = "UPDATE users SET cle= ? WHERE email= ?";
-        return $db->query($q, [$cle, $email]);
+        $q = "UPDATE users SET token= ? WHERE email= ?";
+        return $db->query($q, [$token, $email]);
     }
 
     public static function checkAccount($email)
     {
         $db = new Database();
-        $q = "SELECT cle,confirmed FROM users WHERE email= ?";
+        $q = "SELECT token,confirmed FROM users WHERE email= ?";
         return $db->queryOne($q, [$email]);
     }
 

@@ -1,9 +1,21 @@
-{% set navActive = "returns" %}
+{% set navActive = "" %}
 
-{% extends "templates/user.html.twig" %}
+{% extends "templates/site.html.twig" %}
 
 {% block content %}
     <section id="display">
-            <h1>un lien d'activation vient d'etre envoyé sur votre boite mail</h1>
+        {% if deja is defined %}
+            <h1>Votre compte est déjà actif !</h1>
+        {% endif %}
+        {% if bien is defined %}
+        <h1>Votre compte a bien été activé !</h1>
+        {% endif %}
+        {% if error is defined %}
+        <h1>Erreur ! Votre compte ne peut être activé...</h1>
+        {% endif %}
+        {% if verif is defined %}
+        <h1>Un mail de confirmation vient d'etre envoyer sur votre mail !</h1>
+        {% endif %}
+
     </section>
 {% endblock content %}
