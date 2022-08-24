@@ -1,0 +1,46 @@
+{% set navActive = "invoices" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Editer une facture</h1>
+        </header>
+
+        {% include "admin/invoices/navAdminInvoices.html.twig" with {active : "edit"} %}
+
+
+        <section id="admin-content">
+            <form action="{{ HERE }}" method="POST" id="form-invoices-edit">
+                <div class="box-input-txt">
+                    <label>
+                        <div>Id</div>
+                        <input value="{{ invoice.id ?? '' }}" readonly>
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>N° Facture</div>
+                        <input type="text" name="invoiceN" value="{{ invoice.invoiceN ?? '' }}">
+                    </label>
+                </div>
+
+                <div class="box-input-txt">
+                    <label>
+                        <div>Date de la Facture</div>
+                        <textarea name="invoiceDate" id="" cols="92" rows="5">{{ invoice.invoiceDate ?? '' }}</textarea>
+                    </label>
+                </div>
+
+                <div class="box-input-submit">
+                    <input type="submit" value="Editer">
+                </div>
+            </form>
+        </section>
+    </section>
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% set navActive = "invoices" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Voir les informations d'une facture</h1>
+        </header>
+
+        {% include "admin/invoices/navAdminInvoices.html.twig" with {active : "view"} %}
+
+        <section id="admin-content">
+            <div class="box-input-txt">
+                <label>
+                    <div>Id</div>
+                    <input value="{{ invoice.id ?? '' }}" readonly>
+                </label>
+            </div>
+
+            <div class="box-input-txt">
+                <label>
+                    <div>N° Facture</div>
+                    <input type="text" name="name" value="{{ invoice.invoiceN ?? '' }}">
+                </label>
+            </div>
+
+            <div class="box-input-txt">
+                <label>
+                    <div>Date de la Facture</div>
+                    <textarea name="date" id="" cols="92" rows="5">{{ invoice.invoiceDate ?? '' }}</textarea>
+                </label>
+            </div>
+        </section>
+    </section>
+{% endblock content %}

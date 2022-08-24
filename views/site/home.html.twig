@@ -54,6 +54,21 @@
         <p>Découvrez les meilleures offres. Grâce à nos abonnements vous pourrez à présent économiser sur vos trajets en trottinette.</p>
         <a href="{{ BASEURL }}subscriptions/">Voir les abonnements</a>
     </section>
+
+
+    <section id="block-description">
+        <div>
+            <h2 style="color: orange;">{{ "L'Élégance"|trans }}</h2>
+            <p>{{ "le Modele de la trottinette"|trans }}</p>
+        </div>
+        <div id="webgl"></div>
+    </section>
+    
 </main>
 
 {% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="{{ HOST }}javascript/webgl/webgl.js"></script>
+{% endblock javascripts %}

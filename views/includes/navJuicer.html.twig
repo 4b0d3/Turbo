@@ -1,0 +1,8 @@
+{% block navAdmin %}
+    <nav id="nav-admin">
+        <h2><a href="{{ HOST }}">Turbo</a></h2>
+        <ul>
+            <li><a href="{{ HOST }}juicers/scooters/" class="{{ navActive == "scooters" ? "active"}}"><i class="fa-solid fa-bicycle"></i><span>Trottinettes</span></a></li>
+        </ul>
+    </nav>
+{% endblock navAdmin %}

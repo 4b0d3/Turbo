@@ -1,0 +1,23 @@
+{% extends "templates/base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}admin.css">
+{% endblock stylesheets %}
+
+
+{% block body %}
+
+    <main>
+        {% block nav %}{% include "includes/navJuicer.html.twig" %}{% endblock nav %}
+
+        {% block content %}
+            
+        {% endblock content %}
+    </main>
+
+{% endblock body %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ HOST }}javascript/boxMessages.js"></script>
+{% endblock javascripts %}

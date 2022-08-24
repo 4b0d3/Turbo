@@ -93,6 +93,15 @@ class BaseController
         return true;
     }
 
+    public function checkjuicerAccess() 
+    {
+        if(!$this->user->hasRole("juicer"))  {
+            (new \App\Controllers\ErrorsController(["error" => 403]))->get();
+            return false;
+        }
+        return true;
+    }
+
     public function configureLang()
     {
         $acceptedLang = ["fr", "en", "de", "pl"];

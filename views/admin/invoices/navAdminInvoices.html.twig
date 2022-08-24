@@ -1,0 +1,7 @@
+<nav id="admin-nav">
+    <ul>
+        <li><a href="{{ HOST }}admin/invoices/{{ invoice.id }}/view/" class="{{ active == "view" ? "active" : "" }}">Voir</a></li>
+        <li><a href="{{ HOST }}admin/invoices/{{ invoice.id }}/edit/" class="{{ active == "edit" ? "active" : "" }}">Editer</a></li>
+        <li><a href="{{ HOST }}admin/invoices/{{ invoice.id }}/delete/" class="{{ active == "delete" ? "active" : "" }}">Supprimer</a></li>
+    </ul>
+</nav>

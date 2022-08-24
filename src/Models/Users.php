@@ -175,14 +175,19 @@ class Users {
     public static function changeSub(int $id, int $userId = null)
     {
         $db = new Database();
-        $q = "UPDATE users SET sub = ?, timeRemaining = ? WHERE id = ?";
+        $q = "UPDATE users SET sub = ?, timeRemaining = ?, subExpire = ? WHERE id = ?";
 
         $userId = $userId ?: (new User())->get("id");
-        
+
         $sub = Subscriptions::get($id);
         $time = 30 * $sub["openings"];
+        
+        // $sub = Subscriptions::get($id);
+        // $time = 30 * $sub["openings"];
+        $nextMonth = time() + (30 * 24 * 60 * 60);
+        $dateExp = date('Y-m-d', $nextMonth);
 
-        return $db->query($q, [$id, $time, $userId]);
+        return $db->query($q, [$id, $time, $dateExp, $userId]);
     }
 
     public static function getSub(int $id, int $userId = null) 
@@ -211,11 +216,12 @@ class Users {
         return !intval($res["sub"]);
     }
 
-    public static function deleteSub($idUser) {
+    public static function deleteSub($idUser) 
+    {
         $db = new Database();
-        $q = "UPDATE users SET sub = ?, timeRemaining = ? WHERE id = ?";
+        $q = "UPDATE users SET sub = ?, subExpire = ?, timeRemaining = ? WHERE id = ?";
 
-        return $db->query($q, [0, 0, $idUser]);
+        return $db->query($q, [0, NULL, 0, $idUser]);
     }
 
     public static function getAllAddresses(int $idUser, int $start = null, int $total = null)
@@ -289,7 +295,8 @@ class Users {
         return $db->query($q, [$idAddress]);
     }
 
-    public static function newToken($idUser) {
+    public static function newToken($idUser) 
+    {
         $user = Users::get($idUser);
 
         if($user == null) return null;
@@ -307,5 +314,49 @@ class Users {
         $user = $db->queryOne("SELECT * FROM users WHERE token = :token", ["token" => $token]);
 
         return $user ? $user : null;
+    }
+
+    public static function getAllInvoices(int $idUser, int $start = null, int $total = null)
+    {
+        $db = new Database();
+        $q = "SELECT * FROM invoices WHERE idUser = ?";
+
+        $res = null;
+        if(!($start == null || $start < 0 || $total == null || $total < 0 )) {
+            $q = $q . " LIMIT " . $start . ", " . $total; 
+            $res = $db->queryAll($q, [$idUser]);
+        }
+
+        $res = $db->queryAll($q, [$idUser]) ?: null;
+
+        return $res;
+    }
+    
+    public static function addPartner($PartnerInfos)
+    {
+        $db = new Database();
+        $q = "INSERT INTO partners(name, description, price, promoCode ) VALUES(:name, :description, :price, :promoCode)";
+        return $db->query($q, $PartnerInfos);
+    }
+    
+    public static function addVerifKey($cle, $email)
+    {
+        $db = new Database();
+        $q = "UPDATE users SET cle= ? WHERE email= ?";
+        return $db->query($q, [$cle, $email]);
+    }
+
+    public static function checkAccount($email)
+    {
+        $db = new Database();
+        $q = "SELECT cle,confirmed FROM users WHERE email= ?";
+        return $db->queryOne($q, [$email]);
+    }
+
+    public static function verifAccount($email)
+    {
+        $db = new Database();
+        $q = "UPDATE users SET confirmed = 1 WHERE email= ?";
+        return $db->query($q, [$email]);
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Products;
 use App\Models\Users;
 use App\Models\Roles;
 use App\Models\Subscriptions;
+use App\Models\Juicers;
 
 class UserController extends BaseController 
 {
@@ -31,8 +32,10 @@ class UserController extends BaseController
         }
 
         $res = Users::login($_POST);
+        $email = $_POST['email'];
 
         if($res["status"]) {
+            $this->verifSubValidity($email);
             $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;Connecté.";
             $redirect = $this->urls["BASEURL"] . (isset($_GET["r"]) ? $_GET["r"] : "?boxMsgs=" . $val);
             header("Location:" . $redirect);
@@ -45,7 +48,7 @@ class UserController extends BaseController
 
         $this->getLogin($data);
     }
-
+    
     /* REGISTER */
     public function getRegister(array $data = []) 
     {
@@ -68,6 +71,19 @@ class UserController extends BaseController
         $res = Users::add($_POST);
 
         if($res["status"]) {
+
+
+            // TODO REDIRECTION ENVOIE MAIL DE CONFIRMATION
+            $email = $_POST['email'];
+
+            $cle = rand(100000, 900000);
+            
+            $new = Users::addVerifKey($cle, $email);
+
+            $this->emailVerif($email, $cle);
+
+            //
+
             $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;L'utilisateur a bien été créé.";
             $redirect = $this->urls["BASEURL"] . "?boxMsgs=" . $val;
             header("Location:" . $redirect);
@@ -78,7 +94,10 @@ class UserController extends BaseController
         if(isset($res["boxMsgs"])) $data["boxMsgs"] = $res["boxMsgs"];
         if(isset($res["form"]["error"])) $data["form"]["error"] = $res["form"]["error"];
 
+        
         $this->getRegister($data);
+
+        
     }
 
 
@@ -89,6 +108,46 @@ class UserController extends BaseController
             return true;
         }
         return false;
+    }
+
+    public function emailVerif($email, $cle){
+        $sujet = "Activer votre compte" ;
+        $entete = "From: inscription@turbo.com" ;
+
+        $message = 'Bienvenue sur Turbo.com,
+        Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
+        ou copier/coller dans votre navigateur Internet.
+        http://turbo.com/verfication?email='.urlencode($email).'&cle='.urlencode($cle).'
+        ---------------
+        Ceci est un mail automatique, Merci de ne pas y répondre.';
+ 
+        mail($email, $sujet, $message, $entete) ; // Envoi du mail
+    }
+
+    public function getVerification(){
+        $email = $_GET['email'];
+        $cle = $_GET['cle'];
+
+        $new = Users::checkAccount($email);
+
+        if($new != null){
+            $clebdd = $new['cle'];
+            $confirmed =  $new['confirmed'];
+        }
+
+        if($confirmed == '1'){
+            $data = [];
+            //"Votre compte est déjà actif !"
+            $this->display("user/verification.html.twig", $data);
+        }else {
+            if($cle == $clebdd){
+                //"Votre compte a bien été activé !"
+                $req = Users::verifAccount($email);
+            }else{
+                //"Erreur ! Votre compte ne peut être activé..."
+            }
+        }
+
     }
 
     public function showInformations() 
@@ -247,6 +306,109 @@ class UserController extends BaseController
         // Finalement, on détruit la session.
         session_destroy();
         header("Location:". $this->urls["BASEURL"]);
+    }
+
+
+    public function getinvoices(array $data = []) 
+    {
+        if($this->checkAnonymous()) return;
+        $data["invoices"] = Users::getAllInvoices($this->user->get("id"));
+        
+        $this->display("user/invoices.html.twig", $data);
+    }
+
+    public static function verifSubValidity($email){ 
+        $user = Users::getByMail($email);
+        $tmp = date('Y-m-d');
+        $tmstp1 = strtotime($user["subExpire"]);
+        $tmstp2 = strtotime($tmp);
+        if ($tmstp1 < $tmstp2){
+            Users::deleteSub($user["id"]);
+        }
+    }
+
+    public function getPartner(){
+        if($this->checkAnonymous()) return;
+        $this->display("user/partners.html.twig");
+
+    }
+
+    public function postPartner(){
+        if($this->checkAnonymous()) return;
+
+        $data = [];
+
+        if(!isset($_POST["name"]) || empty($_POST["name"])) {
+            $data["error"]["name"] = "Veuillez renseigner le nom";
+        }
+        if(!isset($_POST["description"]) || empty($_POST["description"])) {
+            $data["error"]["description"] = "Veuillez renseigner une description";
+        }
+        if(!isset($_POST["price"]) || empty($_POST["price"])) {
+            $data["error"]["price"] = "Veuillez renseigner un prix";
+        }
+        if(!isset($_POST["promo"]) || empty($_POST["promo"])) {
+            $data["error"]["promo"] = "Veuillez renseigner un code de promotion";
+        }
+
+        $PartnerInfos = [
+            "name" => $_POST["name"],
+            "description" => $_POST["description"],
+            "price" => $_POST["price"],
+            "promoCode" => $_POST["promo"],
+        ];
+
+        if(!array_key_exists("error", $data)) {
+                $res = Users:: addPartner($PartnerInfos);
+                if(!$res) { $data["msgBoxes"][] = ["status" => "error", "description" => "Problèmes lors d'envoie"]; }
+                else  {$data["msgBoxes"][] = ["status" => "success", "description" => "La demande de partenariat a été envoyée !"]; }
+            } else {
+                $data["msgBoxes"][] = ["status" => "error", "description" => "Le formulaire est invalide !"];
+            }
+        
+
+        $this->display("user/partners.html.twig", $data);
+    }
+
+    public function getAllJuicer(){
+        if($this->checkAnonymous()) return;
+        $data["scooters"] = Juicers::getAll(15);
+        $this->display("user/juicers.html.twig", $data);
+    }
+
+    public function getCharged(){
+        if(!$this->checkjuicerAccess()) return;
+        $scooterId = $this->match["params"]["id"] ?? null;
+        $data["scooter"] = Juicers::get($scooterId);
+
+        if(empty($scooterId) || intval($scooterId) <= 0 || !$data["scooter"]) {
+            header("Location:" . HOST . "juicers/scooters/?boxMsgs=Erreur;error;Trottinette non trouvé.");
+            return;
+        }
+        $this->display("user/confirmCharging.html.twig", $data);
+    }
+
+    public function postCharged(){
+        if(!$this->checkjuicerAccess()) return;
+
+        $scooterId = $this->match["params"]["id"] ?? null;
+        $data["scooter"] = Juicers::get($scooterId);
+
+        if(empty($scooterId) || intval($scooterId) <= 0 || !$data["scooter"]) {
+            header("Location:" . HOST . "juicers/scooters/?boxMsgs=Erreur;error; Trottinette non trouvé.");
+            return;
+        }
+
+        $res = Juicers::chargeScooter($scooterId);
+
+        if($res) {
+            $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;La Trottinette a bien été Chargée.";
+            $redirect = HOST . "juicers/scooters/?boxMsgs=" . $val;
+            header("Location:" . $redirect);
+            return;
+        }
+
+        $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Le produit n'a pas pu être supprimé."]];
     }
 
 }
