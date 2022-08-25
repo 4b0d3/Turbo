@@ -10,7 +10,8 @@ class Scooters {
         $db = new Database();
         $q = "SELECT * FROM scooters WHERE id = ?";
 
-        return $db->queryOne($q, [$id]) ?: null;;
+        $res = $db->queryOne($q, [$id]) ?: null;;
+        return $res;
     }
 
     public static function getAll(int $start = null, int $total = null) :array
@@ -59,5 +60,36 @@ class Scooters {
         $q = "UPDATE scooters SET inUse = ? WHERE id = ?";
 
         return $db->query($q, [$state, $id]);
+    }
+
+    public static function add(array $scooter){
+        $db = new Database();
+        $q = "INSERT INTO scooters(battery, status) VALUES(:battery, :status)";
+
+        return $db->query($q, $scooter);
+    }
+
+    public static function updateOneById(array $infos)
+    {
+        $db = new Database();
+        $q = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'scooters' AND TABLE_SCHEMA = ?";
+        $acceptedFields = array_column($db->queryAll($q, [$_ENV["DB_NAME"]]), "COLUMN_NAME");
+
+        $scooter = isset($infos["id"]) ? Scooters::get($infos["id"]) : null;
+        if($scooter == null) return false;
+
+        $set = [];
+        $attrs["id"] = $infos["id"];
+        foreach($infos as $key => $value) {
+            if(!in_array($key, $acceptedFields) || $value == $scooter[$key]) {
+                continue;
+            }
+
+            $attrs[$key] = $value;
+            $set[] = "$key = :$key";
+        }
+
+        $set = implode(", ", $set);
+        return $db->query("UPDATE scooters SET $set WHERE id = :id",  $attrs);
     }
 }

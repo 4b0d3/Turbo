@@ -1,0 +1,55 @@
+{% set navActive = "scooters" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+        {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Voir les trajet par trottinette</h1>
+        </header>
+
+        {% include "admin/scooters/navAdminScooters.html.twig" with {active : "rides"} %}
+
+        <section id="admin-content">
+            <table id="table-content">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Id Scooter</th>
+                        <th>Start Lat</th>
+                        <th>Start Long</th>
+                        <th>End Lat</th>
+                        <th>End Long</th>
+                        <th>Prix</th>
+                        <th>Payé</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ride in rides %}
+                        <tr>
+                            <td>{{ ride.id }}</td>
+                            <td>{{ ride.idScooter }}</td>
+                            <td>{{ ride.startLat }}</td>
+                            <td>{{ ride.startLong }}</td>
+                            <td>{{ ride.endLat }}</td>
+                            <td>{{ ride.endLong }}</td>
+                            <td>{{ ride.price }}</td>
+                            <td>{{ ride.isPayed }}</td>
+                            <td>{{ ride.startTime|date("d/m/Y H:i:s") }}</td>
+                            <td>{{ ride.endTime|date("d/m/Y H:i:s") }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <nav id="pagination">
+
+            </nav>
+        </section>
+    </section>
+{% endblock content %}

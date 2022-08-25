@@ -359,4 +359,20 @@ class Users {
         $q = "UPDATE users SET confirmed = 1 WHERE email= ?";
         return $db->query($q, [$email]);
     }
+
+    public static function getAllRides(int $idUser, int $start = null, int $total = null)
+    {
+        $db = new Database();
+        $q = "SELECT * FROM rides WHERE idUser = ?";
+
+        $res = null;
+        if(!($start == null || $start < 0 || $total == null || $total < 0 )) {
+            $q = $q . " LIMIT " . $start . ", " . $total; 
+            $res = $db->queryAll($q, [$idUser]);
+        }
+
+        $res = $db->queryAll($q, [$idUser]) ?: null;
+
+        return $res;
+    }
 }

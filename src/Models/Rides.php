@@ -13,10 +13,34 @@ class Rides {
         return $db->queryOne($q, [$id]) ?: null;;
     }
 
+    public static function getAll(int $start = null, int $total = null)
+    {
+        $db = new Database();
+        $q = "SELECT * FROM rides";
+
+        $res = null;
+        if(!($start == null || $start < 0 || $total == null || $total < 0 )) {
+            $q = $q . " LIMIT " . $start . ", " . $total; 
+            $res = $db->queryAll($q);
+        }
+
+        $res = $db->queryAll($q) ?: null;
+
+        return $res;
+    }
+
     public static function getAllByUserId(int $id)
     {
         $db = new Database();
         $q = "SELECT * FROM rides WHERE idUser = ?";
+
+        return $db->queryAll($q, [$id]) ?: null;;
+    }
+
+    public static function getAllByScooterId(int $id)
+    {
+        $db = new Database();
+        $q = "SELECT * FROM rides WHERE idScooter = ?";
 
         return $db->queryAll($q, [$id]) ?: null;;
     }
@@ -50,6 +74,14 @@ class Rides {
     {
         $db = new Database();
         $q = "UPDATE rides SET endLat = :endLat, endLong = :endLong, price = :price, isPayed = :isPayed, endTime = :endTime WHERE id = :id";
+
+        return $db->query($q, $infos);
+    }
+
+    public static function time(array $infos){
+
+        $db = new Database();
+        $q = "UPDATE rides SET Time = :time WHERE id = :id";
 
         return $db->query($q, $infos);
     }

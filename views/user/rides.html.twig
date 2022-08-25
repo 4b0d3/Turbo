@@ -12,5 +12,25 @@
             <p>{{ "Liste de vos trajets"|trans }}.</p>
         </div>
 
+        {% if rides is defined %}
+        <div id="container-addresses">
+            {% for ride in rides %}
+                <div class="container-address">
+                    <div>
+                        <p><span>{{ "l'ID de trajet"|trans }}:</span> <span>#{{ ride.id}}</span></p>
+                        <p><span>{{ "Prix"|trans }}:</span> <span>{{ ride.price}}</span></p>
+                        <p><span>{{ "Date"|trans }}:</span> <span>{{ ride.startTime}}</span></p>
+                        <p><span>{{ "Temps"|trans }}:</span> <span>{{ ride.time}}</span></p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+            <div id="container-sub">
+                <p>{{ "Actuellement vous ne possedez aucun trajet"|trans }}</p>
+            </div>
+        {% endif %}
+
     </section>
 {% endblock content %}

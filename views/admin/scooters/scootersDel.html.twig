@@ -1,0 +1,28 @@
+{% set navActive = "scooters" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Supprimer une Trottinette</h1>
+        </header>
+
+        {% include "admin/scooters/navAdminScooters.html.twig" with {active : "delete"} %}
+
+        <section id="admin-content">
+            <form action="{{ HERE }}" method="POST" id="form-users-add">
+                <p>
+                    Supprimer une Trottinette est fortement déconseillé êtes vous sûr de vouloir réaliser cette action ?
+                </p>
+                <input type="hidden" name="id" value="{{ scooter.id }}">
+                <div class="box-input-submit">
+                    <input type="submit" value="supprimer">
+                </div>
+            </form>
+        </section>
+    </section>
+{% endblock content %}

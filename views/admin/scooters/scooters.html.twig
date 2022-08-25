@@ -9,7 +9,7 @@
             <h1>Liste des trottinettes</h1>
             <nav>
                 <ul>
-                    <li><a href="add" class="btn-header-filled"><span>Ajouter</span></a></li>
+                    <li><a href="{{ HERE }}add/" class="btn-header-filled"><span>Ajouter</span></a></li>
                 </ul>
             </nav>
         </header>
@@ -41,11 +41,7 @@
                             <td>{{ scooter.battery }}%</td>
                             <td>{{ scooter.qrcode ?: "none" }}</td>
                             <td>
-                                <select name="" id="">
-                                    <option value=""><a href="{{ HERE }}/{{ scooter.id}}/delete">delete</a></option>
-                                    <option><a href="{{ HERE }}/{{ scooter.id}}/edit">edit</a></option>
-
-                                </select>
+                                <a href="{{ HERE }}{{ scooter.id}}/delete/">Voir</a>
                             </td>
                         </tr>
                     {% endfor %}
