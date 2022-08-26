@@ -206,7 +206,8 @@ class UserController extends BaseController
     public function showRides() 
     {
         if($this->checkAnonymous()) return;
-        $this->display("user/rides.html.twig");
+        $data["rides"] = Users::getAllRides($this->user->get("id"));
+        $this->display("user/rides.html.twig", $data);
     }
 
     public function showChangePassword() 
@@ -420,5 +421,7 @@ class UserController extends BaseController
 
         $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Le produit n'a pas pu être supprimé."]];
     }
+
+    
 
 }

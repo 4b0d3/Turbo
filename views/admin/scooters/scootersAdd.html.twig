@@ -18,45 +18,6 @@
                     </label>
                 </div>
 
-                <div class="box-input-txt">
-                    <label>
-                        <div>Nom<span style="color: red">*</span></div>
-                        <input type="name">
-                    </label>
-                </div>
-
-                <div class="box-input-txt">
-                    <label>
-                        <div>Prénom<span style="color: red">*</span></div>
-                        <input type="firstName">
-                    </label>
-                </div>
-
-                <div class="box-input-txt">
-                    <label>
-                        <div>Mot de passe<span style="color: red">*</span></div>
-                        <input type="password">
-                    </label>
-                </div>
-
-                <div class="box-input-txt">
-                    <label>
-                        <div>Confirmer le mot de passe<span style="color: red">*</span></div>
-                        <input type="confirmPassword">
-                    </label>
-                </div>
-
-                <div class="box-select">
-                    <label>
-                        <div>Role<span style="color: red">*</span></div>
-                        <select name="role">
-                            {% for role in roles %}
-                                <option value="{{ role.id }}">{{ role.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                </div>
-
                 <div class="box-input-submit">
                     <input type="submit" value="Ajouter">
                 </div>

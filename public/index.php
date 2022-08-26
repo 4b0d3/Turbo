@@ -31,9 +31,15 @@ $router
     /* ADMIN */
     // scooters                                                                                     
     ->get("/admin/scooters/", "Admin\\Scooters@getAll")
-    ->get("/admin/scooters/[i:id]/delete/", "Admin\\Scooter@delete")
-    ->get("/admin/scooters/[i:id]/edit/", "Admin\\Scooter@get")
-    ->post("/admin/scooters/[i:id]/edit/", "Admin\\Scooter@post")
+    ->get("/admin/scooters/[i:id]/view/", "Admin\\Scooters@getView")
+    ->get("/admin/scooters/add/", "Admin\\Scooters@getAdd")
+    ->post("/admin/scooters/add/", "Admin\\Scooters@postAdd")
+    ->get("/admin/scooters/[i:id]/edit/", "Admin\\Scooters@getEdit")
+    ->post("/admin/scooters/[i:id]/edit/", "Admin\\Scooters@postEdit")
+    ->get("/admin/scooters/[i:id]/delete/", "Admin\\Scooters@getDel")
+    ->post("/admin/scooters/[i:id]/delete/", "Admin\\Scooters@postDel")
+    ->get("/admin/scooters/[i:id]/rides/", "Admin\\Scooters@getRides")
+    
     // Users
     ->get("/admin/users/", "Admin\\Users@getAll")
     ->get("/admin/users/[i:id]/view/", "Admin\\Users@getView")
@@ -74,6 +80,8 @@ $router
     ->post("/admin/partners/[i:id]/edit/", "Admin\\Partners@postEdit")
     ->get("/admin/partners/[i:id]/delete/", "Admin\\Partners@getDel")
     ->post("/admin/partners/[i:id]/delete/", "Admin\\Partners@postDel")
+    // Rides
+    ->get("/admin/rides/", "Admin\\Rides@getAll")
 
 
     //Invoices

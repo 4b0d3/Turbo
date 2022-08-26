@@ -17,10 +17,10 @@
             {% for invoice in invoices %}
                 <div class="container-address">
                     <div>
-                        <p><span>{{ "Numero de facteur"|trans }}:</span> <span>{{ invoice.id}}</span></p>
+                        <p><span>{{ "Numero de facteur"|trans }}:</span> <span>#{{ invoice.id}}</span></p>
                         <p><span>{{ "Nom"|trans }}:</span> <span>{{ invoice.invoiceN}}</span></p>
                         <p><span>{{ "Date"|trans }}:</span> <span>{{ invoice.invoiceDate}}</span></p>
-                        <p><span>{{ "Lien de téléchargement"|trans }}:</span> <span>{{ invoice.Link}}</span></p>
+                        <p><span>{{ "Lien de téléchargement"|trans }}:</span> <span>{{ invoice.invoiceLink}}</span></p>
                     </div>
                 </div>
             {% endfor %}

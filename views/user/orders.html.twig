@@ -12,6 +12,7 @@
             <p>{{ "Liste de vos commandes"|trans }}.</p>
         </div>
 
+        {% if commands is defined %}
         <div id="container-addresses">
             {% for command in commands %}
                 <div class="container-address" class="command-flex">
@@ -27,6 +28,12 @@
                 </div>
             {% endfor %}
         </div>
+
+        {% else %}
+            <div id="container-sub">
+                <p>{{ "Actuellement vous ne possedez aucune commande"|trans }}</p>
+            </div>
+        {% endif %}
 
     </section>
 {% endblock content %}
