@@ -1,0 +1,16 @@
+{% extends "templates/site.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}shop/subscriptions.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+<main>
+  <section id="subs-container">
+    {{ include('includes/boxMessages.html.twig') }}
+    <h1>{{ code.promoCode }}</h1>
+  </section>
+</main>
+    
+{% endblock content %}

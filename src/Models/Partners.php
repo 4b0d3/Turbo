@@ -67,4 +67,46 @@ class Partners {
 
         return $res;
     }
+
+    public static function getPrice(int $id){
+        if($id == null || $id <= 0) return false;
+
+        $db = new Database();
+        $q = "SELECT price FROM partners WHERE id = ?";
+
+        $res = $db->queryOne($q, [$id]);
+
+        return $res;
+    }
+
+    public static function getTurboz(int $id){
+        if($id == null || $id <= 0) return false;
+
+        $db = new Database();
+        $q = "SELECT turboz FROM users WHERE id = ?";
+
+        $res = $db->queryOne($q, [$id]);
+
+        return $res;
+    }
+
+    public static function buy(int $userID, int $result){
+
+        $db = new Database();
+        $q = "UPDATE users SET turboz= ? WHERE id = ?";
+
+        $res = $db->query($q, [$result, $userID]);
+
+        return $res;  
+    }
+
+    public static function getCode(int $id){
+
+        $db = new Database();
+        $q = "SELECT promoCode FROM partners WHERE id = ?";
+
+        $res = $db->queryOne($q, [$id]);
+
+        return $res;  
+    }
 }
