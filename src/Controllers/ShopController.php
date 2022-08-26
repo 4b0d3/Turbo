@@ -209,14 +209,32 @@ class ShopController extends BaseController
         $this->display("shop/partners.html.twig", $data);
     }
 
-    public function addPartner(array $data = []){
+    public function addOffer(){
+        $partnerId = $this->match["params"]["id"] ?? null;
+        $exists = Partners::get($partnerId);
+        $userId = $this->user->get("id");
         
-        if($this->user->isAnonymous()) {
-            header("Location:" . $this->urls["BASEURL"] . "login/?r=partners/");
-            return;
+        if(!$exists) return header("Location:" . $this->urls["BASEURL"] . "partners/?boxMsgs=Erreur;error;Partenariat non trouvé.");
+        $prix = Partners::getPrice($partnerId);
+        $userTurboz = Partners::getTurboz($userId);
+        // dump($prix);
+        // dump($userTurboz);
+        // die;
+
+
+        if ($userTurboz["turboz"] > $prix["price"] ){
+            $result = $userTurboz["turboz"] - $prix["price"];
+            $req = Partners::buy($userId, $result);
+            if($req){
+                $data["code"] = Partners::getCode($partnerId);
+                $this->display("shop/partnersCode.html.twig", $data);
+            }
+        } else{
+            header("Location:" . $this->urls["BASEURL"] . "partners/?boxMsgs=Erreur;error;Solde non suffisant.");
         }
 
-       ;
+        
+    
     }
     
 }

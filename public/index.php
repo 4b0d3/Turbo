@@ -163,7 +163,7 @@ $router
 
     // Partners
     ->get("/[a:lang]/partners/", "Shop@getAllPartners")
-    ->post("/[a:lang]/partners/add/","Shop@addPartner")
+    ->post("/[a:lang]/partners/[i:id]/add/", "Shop@addOffer")
 
     //Juicers
     ->get("/juicers/scooters/", "User@getAllJuicer")

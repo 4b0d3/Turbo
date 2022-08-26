@@ -13,7 +13,7 @@
         <h3>{{ partner.name|trans }}</h3>
         <h1>{{ partner.price }}<span>TurboZ</span></h1>
         <p>{{ partner.description|trans }}</p>
-        <form action="{{ BASEURL }}partner/add/" method="POST">
+        <form action="{{ BASEURL }}partners/{{ partner.id }}/add/" method="POST">
           <input type="hidden" name="part" value="{{ partner.id }}">
           <button type="submit">{{ "Obtenir"|trans }}</button>
         </form>
