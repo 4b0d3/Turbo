@@ -1,7 +1,3 @@
-if (typeof HOST === 'undefined') {
-    const HOST = document.documentElement.dataset.host;
-}
-
 function delProductOne(element, id) {    
     const request = new XMLHttpRequest();
     

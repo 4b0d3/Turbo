@@ -217,10 +217,6 @@ class ShopController extends BaseController
         if(!$exists) return header("Location:" . $this->urls["BASEURL"] . "partners/?boxMsgs=Erreur;error;Partenariat non trouvé.");
         $prix = Partners::getPrice($partnerId);
         $userTurboz = Partners::getTurboz($userId);
-        // dump($prix);
-        // dump($userTurboz);
-        // die;
-
 
         if ($userTurboz["turboz"] > $prix["price"] ){
             $result = $userTurboz["turboz"] - $prix["price"];
@@ -232,9 +228,6 @@ class ShopController extends BaseController
         } else{
             header("Location:" . $this->urls["BASEURL"] . "partners/?boxMsgs=Erreur;error;Solde non suffisant.");
         }
-
-        
-    
     }
     
 }
