@@ -147,6 +147,7 @@ $router
     
     // Pages
     ->get("/[a:lang]/", "Site@getHome")
+    ->get("/[a:lang]/game/", "Site@getGame")
 
     // SHOP
     ->get("/[a:lang]/shop/", "Shop@getAll")

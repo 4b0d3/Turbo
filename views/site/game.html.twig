@@ -1,0 +1,12 @@
+{% extends "templates/base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ STYLESHEETS }}game.css">
+{% endblock stylesheets %}
+{% block content %}
+<div id="loading" class="hide"></div>
+{% endblock content %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="{{ HOST }}javascript/game/examples/webgl.js"></script>
+{% endblock javascripts %}
