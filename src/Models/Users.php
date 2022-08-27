@@ -261,6 +261,22 @@ class Users {
         return $res;
     }
 
+    public static function getOneAddress(int $idAddress)
+    {
+        $db = new Database();
+        $q = "SELECT * FROM addresses WHERE id = ? ";
+
+        return $db->queryOne($q, [$idAddress]) ?: null;
+    }
+
+    public static function getMainUserAddress(int $idUser)
+    {
+        $db = new Database();
+        $q = "SELECT * FROM addresses WHERE idUser = ? AND isMain = 1";
+
+        return $db->queryOne($q, [$idUser]) ?: null;
+    }
+
     public static function addAddress($idUser, $address) 
     {
         $db = new Database();
@@ -331,7 +347,7 @@ class Users {
     public static function getAllInvoices(int $idUser, int $start = null, int $total = null)
     {
         $db = new Database();
-        $q = "SELECT * FROM invoices WHERE idUser = ?";
+        $q = "SELECT * FROM invoices WHERE idUser = ? ORDER BY invoiceDate DESC";
 
         $res = null;
         if(!($start == null || $start < 0 || $total == null || $total < 0 )) {

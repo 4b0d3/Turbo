@@ -38,16 +38,15 @@ class Subscriptions
         $db = new Database();
 
         try {
-        $q = "INSERT INTO subscriptions(name, price, title, description) VALUES(:name, :price, :title, :description)";
-        $db->query($q, $subscription);
-        $data["boxMsgs"] = [["status" => "Succès", "class" => "success", "description" => "L'abonnement a bien été ajouté."]];
-        $data["status"] = true;
-    } catch (\Exception $e) {
-        $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => $e->getMessage()]];
-        $data["status"] = false;
-    }
+            $q = "INSERT INTO subscriptions(name, price, title, description) VALUES(:name, :price, :title, :description)";
+            $db->query($q, $subscription);
+            $data["boxMsgs"] = [["status" => "Succès", "class" => "success", "description" => "L'abonnement a bien été ajouté."]];
+            $data["status"] = true;
+        } catch (\Exception $e) {
+            $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => $e->getMessage()]];
+            $data["status"] = false;
+        }
 
-        $data["boxMsgs"] = [["status" => "Succès", "class" => "success", "description" => "L'utilisateur a bien été créé."]];
         return $data;
     }
 
