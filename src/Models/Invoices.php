@@ -34,6 +34,22 @@ class Invoices
         return $res;
     }
 
+    public static function add($invoice){
+        $db = new Database();
+
+        try {
+            $q = "INSERT INTO invoices(invoiceN, invoiceDate, invoiceLink, idUser) VALUES(:invoiceN, :invoiceDate, :invoiceLink, :idUser)";
+            $db->query($q, $invoice);
+            $data["boxMsgs"] = [["status" => "Succès", "class" => "success", "description" => "Facture bien ajouté."]];
+            $data["status"] = true;
+        } catch (\Exception $e) {
+            $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => $e->getMessage()]];
+            $data["status"] = false;
+        }
+
+        return $data;
+    }
+
 
     public static function delete(int $id) :bool
     {
@@ -71,6 +87,18 @@ class Invoices
         
         $set = implode(", ", $set);
         return $db->query("UPDATE invoices SET $set WHERE id = :id",  $attrs);
+    }
+
+    public static function getNewInvoiceNumber() 
+    {
+        $db = new Database();
+        $q = "SELECT * FROM invoices WHERE invoiceN = ?";
+
+        do {
+            $invoiceN = strtoupper(bin2hex(random_bytes(4)));
+        } while ($db->queryOne($q, [$invoiceN]));
+
+        return $invoiceN;
     }
     
 }
