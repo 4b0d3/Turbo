@@ -190,6 +190,18 @@ class Users {
         return $db->query($q, [$id, $time, $dateExp, $userId]);
     }
 
+    public static function changeTurboz(int $sum, int $userId = null){
+        $db = new Database();
+        $q = "UPDATE users SET turboz = turboz + ? WHERE id = ?";
+
+        $turboz = $sum / 10;
+        $turboz = floor($turboz);
+        $turboz= $turboz * 5;
+
+        return $db->query($q, [$turboz, $userId]);
+
+    }
+
     public static function getSub(int $id, int $userId = null) 
     {
         $db = new Database();

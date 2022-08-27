@@ -131,6 +131,7 @@ class ShopController extends BaseController
         $data["id"] = $data["session"]->id;
         
         Users::changeSub($_POST["sub"],  $this->user->get("id")); 
+        Users::changeTurboz($sub["price"], $this->user->get("id"));
         $data["stripe"]["public"] = $_ENV["STRIPE_API_PUBLIC"];
         
         $this->display("shop/pay.html.twig", $data);
@@ -198,6 +199,10 @@ class ShopController extends BaseController
             "total" => $cartInfo["total"],
             "products" => $products,
         ];
+
+        $cart = Cart::getCartInfo();
+        $total = $cart["total"];
+        Users::changeTurboz($total, $this->user->get("id"));
 
         Commands::add($commandInfo);
         header("Location: " . $this->urls["BASEURL"] . "my-account/orders/");
