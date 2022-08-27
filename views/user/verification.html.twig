@@ -3,7 +3,7 @@
 {% extends "templates/site.html.twig" %}
 
 {% block content %}
-    <section id="display">
+    <section id="verify">
         {% if deja is defined %}
             <h1>Votre compte est déjà actif !</h1>
         {% endif %}
@@ -11,7 +11,7 @@
         <h1>Votre compte a bien été activé !</h1>
         {% endif %}
         {% if error is defined %}
-        <h1>Erreur ! Votre compte ne peut être activé...</h1>
+        <h1>Erreur ! Votre compte ne peut pas être activé...</h1>
         {% endif %}
         {% if verif is defined %}
         <h1>Un mail de confirmation vient d'etre envoyer sur votre mail !</h1>

@@ -135,7 +135,8 @@ class UserController extends BaseController
         $token = $this->match["params"]["token"] ?? null;
         
         $new = Users::checkAccount($email);
-        
+        $confirmed = null;
+        $tokenbdd = null;
         if($new != null){
             $tokenbdd = $new['token'];
             $confirmed =  $new['confirmed'];
@@ -152,7 +153,7 @@ class UserController extends BaseController
                 Users::verifAccount($email);
                 $this->display("user/verification.html.twig", $data);
             }else{
-                //"Erreur ! Votre compte ne peut être activé..."
+                //"Erreur ! Votre compte ne peut pas être activé..."
                 $data["error"]= $email;
                 $this->display("user/verification.html.twig", $data);
             }

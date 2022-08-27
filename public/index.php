@@ -82,6 +82,8 @@ $router
     ->post("/admin/partners/[i:id]/delete/", "Admin\\Partners@postDel")
     // Rides
     ->get("/admin/rides/", "Admin\\Rides@getAll")
+    // Weather
+    ->get("/admin/weather/","Admin\\Weather@getAll")
 
 
     //Invoices
