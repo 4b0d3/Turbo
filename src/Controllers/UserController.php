@@ -117,12 +117,12 @@ class UserController extends BaseController
 
     public function emailVerif($email, $token){
         $sujet = "Activer votre compte" ;
-        $entete = "From: inscription@turbo.com" ;
+        $entete = "From: inscription@arkturbo.com" ;
 
-        $message = 'Bienvenue sur Turbo.com,
+        $message = 'Bienvenue sur ArkTurbo.fr,
         Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
         ou copier/coller dans votre navigateur Internet.
-        https://turbo.com/verify?email='.urlencode($email).'/token='.urlencode($token).'/'.'
+        https://arkturbo.fr/verify/'.urlencode($email).'/'.urlencode($token).'/'.'
         ---------------
         Ceci est un mail automatique, Merci de ne pas y répondre.';
  
