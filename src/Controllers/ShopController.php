@@ -2,10 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Entity\InvoiceProductCommand;
 use App\Models\Cart;
 
 use App\Models\Commands;
-
+use App\Models\Invoices;
 use App\Models\Partners;
 
 use App\Models\Products;
@@ -129,6 +130,25 @@ class ShopController extends BaseController
         ]);
 
         $data["id"] = $data["session"]->id;
+
+        $address = Users::getMainUserAddress($this->user->get("id")) ?: ["address" => "63 rue du marchand", "city" => "Lyon"];
+        // DL la facture
+        $invoiceN = Invoices::getNewInvoiceNumber();
+        $invoiceUserInfo = [
+            "customer"=> $this->user->get("name") . " " . $this->user->get("firstName"),
+            "address"=> $address["address"],
+            "city"=> $address["city"],
+            "invoice_no"=> $invoiceN,
+            "invoice_date"=> date("d/m/Y"),
+            "total_amt"=> $sub["price"],
+        ];
+
+        Invoices::add(["invoiceN" => $invoiceN, "invoiceDate" => date("Y-m-d h:i:s"), "invoiceLink" => "uploads/invoices/" . $invoiceN . ".pdf", "idUser" => $this->user->get("id")]);
+
+        $pdf = new InvoiceProductCommand(HOST);
+        $pdf->AddPage();
+        $pdf->body($invoiceUserInfo, [[ "name" => $sub["title"] . " | " . $sub["description"], "price" => $sub["price"], "quantity" => 1 ]]);
+        $pdf->Output("F", "./uploads/invoices/" . $invoiceUserInfo["invoice_no"] . ".pdf", true);
         
         Users::changeSub($_POST["sub"],  $this->user->get("id")); 
         Users::changeTurboz($sub["price"], $this->user->get("id"));
@@ -191,20 +211,40 @@ class ShopController extends BaseController
 
     public function getSuccess(array $data = []) {
         $idAddress = $_GET["idAddress"];
-        $products = $_GET["products"];
-        $cartInfo = Cart::getCartInfo();
+        $address = Users::getOneAddress($idAddress);
+        $cart = Cart::getCartInfo();
+        $products = Cart::getAllProducts();
+
+        // Ajouter les TurboZ
+        Users::changeTurboz($cart["total"], $this->user->get("id"));
+
+        // DL la facture
+        $invoiceN = Invoices::getNewInvoiceNumber();
+        $invoiceUserInfo = [
+            "customer"=> $this->user->get("name") . " " . $this->user->get("firstName"),
+            "address"=> $address["address"],
+            "city"=> $address["city"],
+            "invoice_no"=> $invoiceN,
+            "invoice_date"=> date("d/m/Y"),
+            "total_amt"=> $cart["total"],
+        ];
+
+        Invoices::add(["invoiceN" => $invoiceN, "invoiceDate" => date("Y-m-d h:i:s"), "invoiceLink" => "uploads/invoices/" . $invoiceN . ".pdf", "idUser" => $this->user->get("id")]);
+
+        $pdf = new InvoiceProductCommand(HOST);
+        $pdf->AddPage();
+        $pdf->body($invoiceUserInfo, $products);
+        $pdf->Output("F", "./uploads/invoices/" . $invoiceUserInfo["invoice_no"] . ".pdf", true);
+
+        // Ajouter la commande
         $commandInfo = [
             "idUser" => $this->user->get("id"),
             "idAddress" => $idAddress,
-            "total" => $cartInfo["total"],
-            "products" => $products,
+            "total" => $cart["total"],
+            "products" => $_GET["products"],
         ];
-
-        $cart = Cart::getCartInfo();
-        $total = $cart["total"];
-        Users::changeTurboz($total, $this->user->get("id"));
-
         Commands::add($commandInfo);
+
         header("Location: " . $this->urls["BASEURL"] . "my-account/orders/");
     }
 

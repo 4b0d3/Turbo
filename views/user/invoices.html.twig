@@ -13,15 +13,12 @@
         </div>
 
         {% if invoices is defined %}
-        <div id="container-addresses">
+        <div id="container-invoices">
             {% for invoice in invoices %}
-                <div class="container-address">
-                    <div>
-                        <p><span>{{ "Numero de facteur"|trans }}:</span> <span>#{{ invoice.id}}</span></p>
-                        <p><span>{{ "Nom"|trans }}:</span> <span>{{ invoice.invoiceN}}</span></p>
+                <div class="container-invoices">
+                        <p><span>{{ "Commande n°"|trans }} : </span><span>{{ invoice.invoiceN}}</span></p>
                         <p><span>{{ "Date"|trans }}:</span> <span>{{ invoice.invoiceDate}}</span></p>
-                        <p><span>{{ "Lien de téléchargement"|trans }}:</span> <span>{{ invoice.invoiceLink}}</span></p>
-                    </div>
+                        <p><span><a href="{{ HOST }}{{ invoice.invoiceLink }}">{{ "Voir la facture"|trans }}</a></p>
                 </div>
             {% endfor %}
         </div>
