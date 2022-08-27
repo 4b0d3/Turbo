@@ -45,6 +45,7 @@ class BaseController
         $data["BASEURL"] = $this->urls["BASEURL"];
         $data["HERE"] = $this->urls["HERE"];
         $data["STYLESHEETS"] = defined("STYLESHEETS") ? STYLESHEETS : "../public/css";
+        $data["JAVASCRIPTS"] = HOST . "javascript/";
         $data["UPLOADS"] = defined("UPLOADS") ? UPLOADS : "../public/uploads";
         $data["user"] = $this->getUserInfos();
         !empty($this->getBoxMsgs()) ? $data["boxMsgs"] = $this->getBoxMsgs() : "" ;

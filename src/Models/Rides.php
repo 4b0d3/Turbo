@@ -73,7 +73,7 @@ class Rides {
     public static function end(array $infos) 
     {
         $db = new Database();
-        $q = "UPDATE rides SET endLat = :endLat, endLong = :endLong, price = :price, isPayed = :isPayed, endTime = :endTime WHERE id = :id";
+        $q = "UPDATE rides SET endLat = :endLat, endLong = :endLong, price = :price, isPayed = :isPayed, endTime = :endTime, time = :time WHERE id = :id";
 
         return $db->query($q, $infos);
     }

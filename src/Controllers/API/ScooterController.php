@@ -76,6 +76,8 @@ class ScooterController extends BaseController
         // $now->add(new \DateInterval("PT500M"));
         isset($_REQUEST["time"]) ? $now->add(new \DateInterval("PT" . $_REQUEST["time"] . "M")) : "";
         $rideTime = $startTime->diff($now);
+
+        $officialRideTime = strval(($rideTime->d * 24 * 60) + ($rideTime->h)) . ":" . strval(($rideTime->i)) . ":" . strval(($rideTime->s));
         $rideTime = ($rideTime->days * 24 * 60) + ($rideTime->h * 60) + ($rideTime->i);
 
         $price = 0;
@@ -98,7 +100,7 @@ class ScooterController extends BaseController
 
         // Arrêter la fonction update()
         $price = number_format((float)round($price, 2), 2, '.', '') ;
-        $scooterUpdate = ["id" => $ride["id"], "endLat" => $scooter["latitude"], "endLong" => $scooter["longitude"], "price" => $price, "endTime" => $now->format("Y-m-d H:i:s")];
+        $scooterUpdate = ["id" => $ride["id"], "endLat" => $scooter["latitude"], "endLong" => $scooter["longitude"], "price" => $price, "endTime" => $now->format("Y-m-d H:i:s"), "time" => $officialRideTime];
         Users::updateOneById($userUpdate);
         if($price > 0) {
             $scooterUpdate["isPayed"] = 0;

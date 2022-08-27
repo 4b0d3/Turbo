@@ -2,11 +2,6 @@ import * as THREE from './build/three.module.js';
 import { GLTFLoader } from "./jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from './jsm/controls/OrbitControls.js';
 
-let HOST = undefined;
-if (typeof HOST === 'undefined') {
-    HOST = document.documentElement.dataset.host;
-}
-
 let scene, camera, renderer, controls;
 
 
