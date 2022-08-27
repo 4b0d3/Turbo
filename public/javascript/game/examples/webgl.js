@@ -4,7 +4,7 @@ import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
 import { CharacterControls } from './characterControls.js';
 import Stats from './jsm/libs/stats.module.js';
 import * as creation from './Fonctions.js';       // Appel de notre fichier fonctions.js
-import { GUI }  from './jsm/libs/dat.gui.module.js';        // Appel du fichier pour intégrer un GUI
+
 
 /****** PARAMETRES ******/
 let RESOURCES_LOADED = true; // Permet de savoir si toutes les ressources ont été chargée, pour enlever la page de chargement
