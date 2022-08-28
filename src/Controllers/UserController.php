@@ -414,13 +414,13 @@ class UserController extends BaseController
         $res = Juicers::chargeScooter($scooterId);
 
         if($res) {
-            $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;La Trottinette a bien été Chargée.";
+            $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;La Trottinette a bien été chargée.";
             $redirect = HOST . "juicers/scooters/?boxMsgs=" . $val;
             header("Location:" . $redirect);
             return;
         }
 
-        $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Le produit n'a pas pu être supprimé."]];
+        $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "La Trottinette n'a pas pu être chargée."]];
     }
 
     public function getPoints(){

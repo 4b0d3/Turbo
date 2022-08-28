@@ -1,0 +1,26 @@
+{% set navActive = "returns" %}
+
+{% extends "templates/admin.html.twig" %}
+
+{% block content %}
+    <section id="container-admin">
+
+       {{ include('includes/boxMessages.html.twig') }}
+
+        <header id="admin-header">
+            <h1>Valdier un retour</h1>
+        </header>
+
+        <section id="admin-content">
+            <form action="{{ HERE }}" method="POST" id="form-products-del">
+                <p>
+                    Etes-vous sûr de valider le retour ? de la commande avec l'ID "{{ return.id }}" ?
+                </p>
+                <input type="hidden" name="id" value="{{ return.id }}">
+                <div class="box-input-submit">
+                    <input type="submit" value="Confirmer">
+                </div>
+            </form>
+        </section>
+    </section>
+{% endblock content %}

@@ -85,6 +85,11 @@ $router
     // Weather
     ->get("/admin/weather/","Admin\\Weather@getAll")
     ->post("/admin/weather/", "Admin\\Weather@postReload")
+    //Returns
+    ->get("/admin/returns/","Admin\\Products@getAllReturns")
+    ->get("/admin/returns/[i:id]/valide/", "Admin\\Products@getValide")
+    ->post("/admin/returns/[i:id]/valide/", "Admin\\Products@postValide")
+
 
 
     //Invoices

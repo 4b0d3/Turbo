@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\Products;
+use App\Models\Returns;
 
 class ProductsController extends BaseController 
 {
@@ -144,6 +145,47 @@ class ProductsController extends BaseController
         $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Le produit n'a pas pu être supprimé."]];
 
         $this->getDel($data);
+    }
+
+    public function getAllReturns(){
+        if(!$this->checkAdminAccess()) return;
+        $data["returns"] = Returns::allReturns();
+        $this->display("admin/products/returns.html.twig", $data);
+    }
+
+    public function getValide(){
+        if(!$this->checkAdminAccess()) return;
+        $returnId = $this->match["params"]["id"] ?? null;
+        $data["return"] = Returns::getOrder($returnId);
+        if(empty($returnId) || intval($returnId) <= 0 || !$data["return"]) {
+            header("Location:" . HOST . "admin/returns/?boxMsgs=Erreur;error;Commande non trouvé.");
+            return;
+        }
+        $this->display("admin/products/valideReturn.html.twig", $data);
+    }
+
+    public function postValide(){
+        
+        if(!$this->checkAdminAccess()) return;
+        $returnId = $this->match["params"]["id"] ?? null;
+        $data["return"] = Returns::get($returnId);
+
+        if(empty($returnId) || intval($returnId) <= 0 || !$data["return"]) {
+            header("Location:" . HOST . "admin/returns/?boxMsgs=Erreur;error; Commande non trouvé.");
+            return;
+        }
+
+        $res = Returns::valideReturn($returnId);
+
+        if($res) {
+            $val = isset($res["boxMsgs"][0]) ? implode(";", $res["boxMsgs"][0]) : "Succès;success;Le retour a bien été programé.";
+            $redirect = HOST . "admin/returns/?boxMsgs=" . $val;
+            header("Location:" . $redirect);
+            return;
+        }
+
+        $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Le retour n'a pas pu être effictué."]];
+
     }
    
 }
