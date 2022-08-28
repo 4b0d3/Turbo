@@ -35,4 +35,8 @@ class SiteController extends BaseController
     public function getGame(){
         $this->display("site/game.html.twig");
     }
+
+    public function getWeather(){
+        $this->display("site/weather.html.twig");
+    }
 }

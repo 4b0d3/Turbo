@@ -84,6 +84,7 @@ $router
     ->get("/admin/rides/", "Admin\\Rides@getAll")
     // Weather
     ->get("/admin/weather/","Admin\\Weather@getAll")
+    ->post("/admin/weather/", "Admin\\Weather@postReload")
 
 
     //Invoices
@@ -150,6 +151,7 @@ $router
     // Pages
     ->get("/[a:lang]/", "Site@getHome")
     ->get("/[a:lang]/game/", "Site@getGame")
+    ->get("/[a:lang]/weather/", "Site@getWeather")
 
     // SHOP
     ->get("/[a:lang]/shop/", "Shop@getAll")

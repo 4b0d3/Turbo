@@ -10,14 +10,12 @@ class WeatherController extends BaseController
     {
         if(!$this->checkAdminAccess()) return;
 
-        $data["Weathers"] = Weather::getAll();
+        $data["weathers"] = Weather::getAll();
         $this->display("admin/weather/weather.html.twig", $data);
     }
 
-    public function getAdd(array $data = []){
+    public function postReload(array $data = []){
         if(!$this->checkAdminAccess()) return;
-
-        $this->display("admin/weather/weatherAdd.html.twig", $data);
 
     }
 
