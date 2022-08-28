@@ -34,22 +34,22 @@ class ScooterController extends BaseController
     {
         $headers = getallheaders();
 
-        if(!isset($headers["token"])) return Response::json(401, [], ["status" => false, "message" => "Not authenticated."]);
+        if(!isset($headers["token"])) return Response::json(200, [], ["status" => false, "message" => "Not authenticatede."]);
         $user = Users::getOneByToken($headers["token"]);
-        if($user == null) return Response::json(401, [], ["status" => false, "message" => "Not authenticated."]);
+        if($user == null) return Response::json(200, [], ["status" => false, "message" => "Not authenticatedeeeedd."]);
 
-        if(!isset($_REQUEST["idScooter"])) return Response::json(400, [], ["status" => false, "message" => "Informations are missing."]);
+        if(!isset($_REQUEST["idScooter"])) return Response::json(200, [], ["status" => false, "message" => "Informations are missing."]);
 
         $scooter = Scooters::get($_REQUEST["idScooter"]);
-        if($scooter == null) return Response::json(404, [], ["status" => false, "message" => "Wrong informations."]);
+        if($scooter == null) return Response::json(200, [], ["status" => false, "message" => "Wrong informations."]);
 
-        if($scooter["inUse"] != 0 || $scooter["status"] != "activé") return Response::json(404, [], ["status" => false, "message" => "Scooter not available."]);
-        if($user["role"] == "banned" || $user["confirmed"] != "1") return Response::json(404, [], ["status" => false, "message" => "User not allowed."]);
+        if($scooter["inUse"] != 0 || $scooter["status"] != "activé") return Response::json(200, [], ["status" => false, "message" => "Scooter not available."]);
+        if($user["role"] == "banned" || $user["confirmed"] != "1") return Response::json(200, [], ["status" => false, "message" => "User not allowed."]);
 
         Rides::start(["idUser" => $user["id"], "idScooter" => $scooter["id"], "startLat" => $scooter["latitude"], "startLong" => $scooter["longitude"]]);
         Scooters::putInUse($scooter["id"]);
 
-        return Response::json(200, [], ["status:" => true, "message" => "Scooter is enabled."]);
+        return Response::json(200, [], ["status" => true, "message" => "Scooter is enabled."]);
     }
 
     /**
@@ -60,16 +60,17 @@ class ScooterController extends BaseController
 
         $headers = getallheaders();
 
-        if(!isset($headers["token"])) return Response::json(401, [], ["status" => false, "message" => "Not authenticated."]);
+        if(!isset($headers["token"])) return Response::json(200, [], ["status" => false, "message" => "Not authenticated."]);
         $user = Users::getOneByToken($headers["token"]);
-        if($user == null) return Response::json(401, [], ["status" => false, "message" => "Not authenticated."]);
+        if($user == null) return Response::json(200, [], ["status" => false, "message" => "Not authenticated."]);
 
-        if(!isset($_REQUEST["idScooter"])) return Response::json(400, [], ["status" => "NO", "message" => "Informations are missing."]);
+        if(!isset($_REQUEST["idScooter"])) return Response::json(200, [], ["status" => "NO", "message" => "Informations are missing."]);
 
         $scooter = Scooters::get($_REQUEST["idScooter"]);
         $ride = Rides::get(Rides::getLastIdRideByScooterId($scooter["id"]));
-        if($scooter == null || $ride == null || $ride["idUser"] != $user["id"]) return Response::json(404, [], ["status" => "NO", "message" => "Wrong informations."]);
+        if($scooter == null || $ride == null || $ride["idUser"] != $user["id"]) return Response::json(200, [], ["status" => "NO", "message" => "Wrong informations."]);
         Scooters::putInUse($scooter["id"], 0); // passer inUse à 0
+        Scooters::updateOneById(["id" => $scooter["id"], "battery" => $scooter["battery"]-5, "latitude" => $_REQUEST["latitude"], "longitude" => $_REQUEST["longitude"]]);
 
         $startTime = new \DateTime($ride["startTime"]);
         $now = new \DateTime("now");
@@ -100,16 +101,16 @@ class ScooterController extends BaseController
 
         // Arrêter la fonction update()
         $price = number_format((float)round($price, 2), 2, '.', '') ;
-        $scooterUpdate = ["id" => $ride["id"], "endLat" => $scooter["latitude"], "endLong" => $scooter["longitude"], "price" => $price, "endTime" => $now->format("Y-m-d H:i:s"), "time" => $officialRideTime];
+        $scooterUpdate = ["id" => $ride["id"], "endLat" => $_REQUEST["latitude"], "endLong" => $_REQUEST["longitude"], "price" => $price, "endTime" => $now->format("Y-m-d H:i:s"), "time" => $officialRideTime];
         Users::updateOneById($userUpdate);
         if($price > 0) {
             $scooterUpdate["isPayed"] = 0;
             Rides::end($scooterUpdate);
-            return Response::json(200, [], ["status:" => "PAY", "price" => $price]);
+            return Response::json(200, [], ["status" => "PAY", "price" => $price]);
         } else {
             $scooterUpdate["isPayed"] = 1;
             Rides::end($scooterUpdate);
-            return Response::json(200, [], ["status:" => "OK", "message" => "Trajet bien terminé."]);
+            return Response::json(200, [], ["status" => true, "message" => "Trajet bien terminé."]);
         }
     }
 

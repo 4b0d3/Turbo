@@ -278,3 +278,29 @@ main {
     height: 2px;
     background-color: rgb(235, 235, 235);
 }
+
+
+#container-rides {
+    margin: 16px 0;
+    padding: 32px 32px 32px 32px;
+    background-color: #FFFFFF; 
+}
+
+.container-rides {
+    padding: 32px 0;
+    position: relative;
+}
+
+.container-rides > p > span:first-child {
+    font-weight: bold;
+}
+
+.container-rides:not(:last-child)::after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: rgb(235, 235, 235);
+}
