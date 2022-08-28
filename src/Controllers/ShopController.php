@@ -255,6 +255,10 @@ class ShopController extends BaseController
     }
 
     public function addOffer(){
+        if($this->user->isAnonymous()) {
+            header("Location:" . $this->urls["BASEURL"] . "login/?r=partners/");
+            return;
+        }
         $partnerId = $this->match["params"]["id"] ?? null;
         $exists = Partners::get($partnerId);
         $userId = $this->user->get("id");
