@@ -423,6 +423,15 @@ class UserController extends BaseController
         $data["boxMsgs"] = [["status" => "Erreur", "class" => "error", "description" => "Le produit n'a pas pu être supprimé."]];
     }
 
+    public function getPoints(){
+        if($this->checkAnonymous()) return;
+
+        $data["points"]= Users::getTurboz($this->user->get("id"));
+        
+        $this->display("user/turboz.html.twig", $data);
+
+    }
+
     
 
 }

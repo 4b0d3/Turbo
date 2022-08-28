@@ -1,0 +1,26 @@
+{% set navActive = "informations" %}
+
+{% extends "templates/user.html.twig" %}
+
+{% block content %}
+    <section id="display">
+    
+        {{ include('includes/boxMessages.html.twig') }}
+
+        <div class="header">
+            <h1><i class="fa-solid fa-gift fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> {{ "Mes TurboZ"|trans }}</h1>
+            <p>{{ "Vous pouvez voir vos points de fidélité ci-dessous"|trans }}.</p>
+        </div>
+
+        <div class="container-user-form">
+                <div class="box-input-txt">
+                    <label>
+                        <span>{{ "Points"|trans }} :</span>
+                        <div>
+                            <input type="text" readonly name="firstName" value="{{ points.turboz }}">
+                        </div>
+                    </label>
+                </div>
+        </div>
+    </section>
+{% endblock content %}

@@ -23,7 +23,6 @@
                         <th>Latitude</th>
                         <th>Longitude</th>
                         <th>Charge</th>
-                        <th>Qr Code</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -34,7 +33,6 @@
                             <td>{{ scooter.latitude }}</td>
                             <td>{{ scooter.longitude }}</td>
                             <td>{{ scooter.battery }}%</td>
-                            <td>{{ scooter.qrcode ?: "none" }}</td>
                             <td><a href="{{ HERE }}{{ scooter.id }}/charged/">Valider</a></td>
                         </tr>
                     {% endfor %}

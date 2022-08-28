@@ -403,4 +403,15 @@ class Users {
 
         return $res;
     }
+
+    public static function getTurboz(int $idUser)
+    {
+        $db = new Database();
+        $q = "SELECT turboz FROM users WHERE id = ?";
+
+        $res = $db->queryOne($q, [$idUser]) ?: null;
+
+        return $res;
+    }
+
 }
