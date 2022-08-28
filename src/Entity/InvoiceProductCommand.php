@@ -17,7 +17,7 @@ class InvoiceProductCommand extends FPDF {
 
     function Header() 
     {
-        $this->Image($this->host . "uploads/images/logowritewhiteorange.PNG",10,10,50);
+        $this->Image("./uploads/images/logowritewhiteorange.PNG",10,10,50);
         $this->SetY(10);
         $this->SetX(-32);
         $this->SetFont('Arial','B',18);
