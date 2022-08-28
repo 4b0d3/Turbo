@@ -9,8 +9,34 @@
 
         <div class="header">
             <h1><i class="fa-solid fa-arrow-rotate-left fa-lg fa-fade" style="--fa-fade-opacity: 0.8;"></i> {{ "Mes retours"|trans }}</h1>
-            <p>{{ "Liste de vos retours"|trans }}.</p>
+            <p>{{ "Liste de vos potentials retours"|trans }}.</p>
         </div>
+        {% if commands is defined %}
+        <div id="container-addresses">
+            {% for command in commands %}
+                <div class="container-address" class="command-flex">
+                    <a>
+                        <p><span>{{ "Numero"|trans }}:</span> <span>{{ command.id}}</span></p>
+                        <p><span>{{ "Total"|trans }}:</span> <span>{{ command.total}}€</span></p>
+                    </a>
+                    <div>
+                        {% for product in command.products %}
+                            <img src="{{ UPLOADS}}{{ product.images[0].path }}" alt="" style="max-width: 100px;">
+                        {% endfor %}
+                    </div>
+                    <form action="{{ HERE }}" method="POST">
+                        <input name="idCommand" type="hidden" class="btn-header-filled" value="{{ command.id}}">
+                        <button type="submit">{{ "Retourner la commande"|trans }}</button>
+                        </form>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+            <div id="container-sub">
+                <p>{{ "Actuellement vous ne possedez aucune commande"|trans }}</p>
+            </div>
+        {% endif %}
 
     </section>
 {% endblock content %}

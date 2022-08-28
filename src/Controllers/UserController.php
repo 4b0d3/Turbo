@@ -201,7 +201,28 @@ class UserController extends BaseController
     public function showReturns() 
     {
         if($this->checkAnonymous()) return;
-        $this->display("user/returns.html.twig");
+        $data["commands"] = Commands::getAll($this->user->get("id"));
+
+        if($data["commands"] != null) {
+            foreach($data["commands"] as &$command) {
+                $products = explode(";", $command["products"]);
+                $newProducts = [];
+                foreach($products as $key => $product) {
+                    $productId = explode(":", $product)[0];
+                    array_push($newProducts, Products::get(intval($productId)));
+                }
+                array_pop($newProducts);
+                $command["products"] = $newProducts;
+            }
+        }
+        $this->display("user/returns.html.twig", $data);
+    }
+
+    public function submitReturns()
+    {
+        if($this->checkAnonymous()) return;
+        Commands::submitReturn($_POST["idCommand"]);
+        $this->display("user/informations.html.twig");
     }
 
     public function showRides() 

@@ -18,7 +18,7 @@
                 <div class="container-address" class="command-flex">
                     <a>
                         <p><span>{{ "Numero"|trans }}:</span> <span>{{ command.id}}</span></p>
-                        <p><span>{{ "Total"|trans }}:</span> <span>{{ command.total}}</span></p>
+                        <p><span>{{ "Total"|trans }}:</span> <span>{{ command.total}}€</span></p>
                     </a>
                     <div>
                         {% for product in command.products %}
@@ -28,11 +28,16 @@
                 </div>
             {% endfor %}
         </div>
-
+        
         {% else %}
             <div id="container-sub">
                 <p>{{ "Actuellement vous ne possedez aucune commande"|trans }}</p>
             </div>
+        {% endif %}
+        {% if commands is null %}
+        <div id="container-sub">
+            <p>{{ "Actuellement vous ne possedez aucune commande"|trans }}</p>
+        </div>
         {% endif %}
 
     </section>

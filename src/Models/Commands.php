@@ -81,5 +81,11 @@ class Commands {
 
         return $data;  
     }
+    public static function submitReturn($idCommand)
+    {
+        $db = new Database();
+        $q = "UPDATE commands SET isReturn = ? WHERE id = ?";
+        return $db->query($q, [1, $idCommand]);
+    }
 
 }

@@ -124,6 +124,7 @@ $router
     ->post("/[a:lang]/my-account/", "User@editInformations")
     ->get("/[a:lang]/my-account/orders/", "User@showOrders")
     ->get("/[a:lang]/my-account/returns/", "User@showReturns")
+    ->post("/[a:lang]/my-account/returns/", "User@submitReturns")
     ->get("/[a:lang]/my-account/rides/", "User@showRides")
     ->get("/[a:lang]/my-account/change-password/", "User@showChangePassword")
     ->post("/[a:lang]/my-account/change-password/", "User@editChangePassword")
