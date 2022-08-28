@@ -13,15 +13,12 @@
         </div>
 
         {% if rides is defined %}
-        <div id="container-addresses">
+        <div id="container-rides">
             {% for ride in rides %}
-                <div class="container-address">
-                    <div>
-                        <p><span>{{ "l'ID de trajet"|trans }}:</span> <span>#{{ ride.id}}</span></p>
-                        <p><span>{{ "Prix"|trans }}:</span> <span>{{ ride.price}}</span></p>
-                        <p><span>{{ "Date"|trans }}:</span> <span>{{ ride.startTime}}</span></p>
-                        <p><span>{{ "Temps"|trans }}:</span> <span>{{ ride.time}}</span></p>
-                    </div>
+                <div class="container-rides">
+                    <p><span>{{ "Prix"|trans }} : </span> <span>{{ ride.price}} euros</span></p>
+                    <p><span>{{ "Date"|trans }} : </span> <span>{{ ride.startTime}}</span></p>
+                    <p><span>{{ "Temps"|trans }} : </span> <span>{{ ride.time}}</span></p>
                 </div>
             {% endfor %}
         </div>
